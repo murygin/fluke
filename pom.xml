@@ -23,6 +23,7 @@
 		<module>fluke-goal-rest</module>
 		<module>fluke-goal-rest-client</module>
 		<module>fluke-goal-service</module>
+                <module>fluke-goal-vaadin-gui</module>
 	</modules>
         
 	<properties>
