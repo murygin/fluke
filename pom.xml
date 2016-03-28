@@ -8,7 +8,7 @@
 	<groupId>de.sernet</groupId>
 	<artifactId>fluke-goal</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-
+        
 	<organization>
 		<name>SerNet</name>
 		<url>http://sernet.de</url>
@@ -23,12 +23,13 @@
 		<module>fluke-goal-rest</module>
 		<module>fluke-goal-rest-client</module>
 		<module>fluke-goal-service</module>
-        </modules>
+	</modules>
         
 	<properties>
 		<maven.compile.source>1.8</maven.compile.source>
 		<maven.compile.target>1.8</maven.compile.target>
-	</properties>
+                <spring.boot.version>1.3.3.RELEASE</spring.boot.version>
+        </properties>
 
 	<url>https://github.com/murygin/fluke-goal</url>
 </project>
