@@ -39,6 +39,16 @@
           <artifactId>fluke-goal-rest</artifactId>
           <version>${project.version}</version>
         </dependency>
+        <dependency>
+          <groupId>de.sernet</groupId>
+          <artifactId>fluke-goal-rest-client</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.vaadin</groupId>
+          <artifactId>vaadin-spring-boot-starter</artifactId>
+          <version>1.0.0</version>
+        </dependency>
       </dependencies>
     </dependencyManagement>
 
@@ -47,6 +57,7 @@
       <module>fluke-goal-service</module>
       <module>fluke-goal-rest</module>
       <module>fluke-goal-rest-client</module>
+      <module>fluke-goal-vaadin-gui</module>
     </modules>
 
     <build>
