@@ -25,7 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.sernet.fluke.persistence.Application;
+import de.sernet.fluke.persistence.PersistenceApplication;
 import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
 
@@ -40,7 +40,7 @@ import org.junit.Before;
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(Application.class)
+@SpringApplicationConfiguration(PersistenceApplication.class)
 public class PlayerRepositoryTest {
 
     @Autowired

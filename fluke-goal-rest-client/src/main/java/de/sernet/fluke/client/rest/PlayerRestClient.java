@@ -28,8 +28,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.mysql.fabric.Response;
-
 import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
 
