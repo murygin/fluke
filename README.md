@@ -41,3 +41,15 @@ Get a player:
 ```bash
 curl http://localhost:8080/service/player/1
 ```
+
+*Start Vaadin GUI:*
+
+Since the REST service is running on port 8080 by default you have to set
+another port for the Vaadin GUI:
+```bash
+java -Dserver.port=8090 -jar fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-0.1.0-SNAPSHOT.jar
+```
+
+*Test the Vaadin GUI:*
+
+Open a browser and got to: http://localhost:8090/
