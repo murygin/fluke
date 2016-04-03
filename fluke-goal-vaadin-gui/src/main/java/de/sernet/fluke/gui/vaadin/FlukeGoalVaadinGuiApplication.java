@@ -1,4 +1,4 @@
-package de.sernet;
+package de.sernet.fluke.gui.vaadin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
