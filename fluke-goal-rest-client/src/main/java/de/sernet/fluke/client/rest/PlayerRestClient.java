@@ -19,8 +19,6 @@
  ******************************************************************************/
 package de.sernet.fluke.client.rest;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -28,8 +26,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import de.sernet.fluke.persistence.Player;
-import de.sernet.fluke.persistence.PlayerRepository;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.interfaces.IPlayerService;
 
 /**
  *
@@ -37,19 +37,18 @@ import de.sernet.fluke.persistence.PlayerRepository;
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
 @Service
-public class PlayerRestClient implements PlayerRepository {
+public class PlayerRestClient implements IPlayerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerRestClient.class);
     
-    public static String SERVER_URL_DEFAULT = "http://localhost:8080/";
-    public static String PATH_DEFAULT = "element";
+    public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
+    public static final String PATH_DEFAULT = "element";
     
     private String serverUrl = SERVER_URL_DEFAULT;
     private String path = PATH_DEFAULT;
     
     RestTemplate restTemplate = new RestTemplate();
 
-    
     
     public PlayerRestClient() {
         super();
@@ -65,30 +64,21 @@ public class PlayerRestClient implements PlayerRepository {
      * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
      */
     @Override
-    public Player save(Player entity) {
-        HttpEntity<Player> request = new HttpEntity<>(entity);
+    public IPlayer save(IPlayer entity) {
+        HttpEntity<IPlayer> request = new HttpEntity<>(entity);
         String url = getBaseUrl();
         if (LOG.isInfoEnabled()) {
             LOG.info("Save, URL: " + url);
         }
-        ResponseEntity<? extends Player> responseEntity = restTemplate.postForEntity(url, request, entity.getClass());
+        ResponseEntity<? extends IPlayer> responseEntity = restTemplate.postForEntity(url, request, entity.getClass());
         return responseEntity.getBody();
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#save(java.lang.Iterable)
-     */
-    @Override
-    public <S extends Player> Iterable<S> save(Iterable<S> entities) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     /* (non-Javadoc)
      * @see org.springframework.data.repository.CrudRepository#findOne(java.io.Serializable)
      */
     @Override
-    public Player findOne(Long id) {
+    public IPlayer findOne(Long id) {
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append(id);
         String url = sb.toString();
@@ -96,87 +86,6 @@ public class PlayerRestClient implements PlayerRepository {
             LOG.info("findOne, URL: " + url);
         }
         return restTemplate.getForObject(url, Player.class);
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#exists(java.io.Serializable)
-     */
-    @Override
-    public boolean exists(Long id) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#findAll()
-     */
-    @Override
-    public Iterable<Player> findAll() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#findAll(java.lang.Iterable)
-     */
-    @Override
-    public Iterable<Player> findAll(Iterable<Long> ids) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#count()
-     */
-    @Override
-    public long count() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#delete(java.io.Serializable)
-     */
-    @Override
-    public void delete(Long id) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#delete(java.lang.Object)
-     */
-    @Override
-    public void delete(Player entity) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#delete(java.lang.Iterable)
-     */
-    @Override
-    public void delete(Iterable<? extends Player> entities) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#deleteAll()
-     */
-    @Override
-    public void deleteAll() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.PlayerRepository#findByLastName(java.lang.String)
-     */
-    @Override
-    public List<Player> findByLastName(String name) {
-        // TODO Auto-generated method stub
-        return null;
     }
     
     private String getBaseUrl() {

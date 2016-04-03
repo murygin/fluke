@@ -1,20 +1,13 @@
-package de.sernet.fluke.persistence;
+package de.sernet.fluke.client.rest;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import de.sernet.fluke.interfaces.IPlayer;
 
-@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Player implements IPlayer  {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
     
     private String firstName;

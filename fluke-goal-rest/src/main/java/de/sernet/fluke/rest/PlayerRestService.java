@@ -28,8 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.persistence.Player;
-import de.sernet.fluke.persistence.PlayerRepository;
 
 /**
  *
@@ -38,23 +41,29 @@ import de.sernet.fluke.persistence.PlayerRepository;
  */
 @RestController
 @RequestMapping("/service/player")
-public class PlayerRestService {
+public class PlayerRestService  {
 
     @Autowired
-    PlayerRepository playerRepository;
+    IPlayerService playerService;
     
+    /* (non-Javadoc)
+     * @see de.sernet.fluke.rest.IPlayerService#save(de.sernet.fluke.persistence.Player)
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Player> save(@RequestBody Player player) {
-        Player savedPlayer = playerRepository.save(player);
-        ResponseEntity<Player> response = new ResponseEntity<Player>(savedPlayer, HttpStatus.CREATED);
+    public ResponseEntity<IPlayer> save(@RequestBody Player player) {
+        IPlayer savedPlayer = playerService.save(player);
+        ResponseEntity<IPlayer> response = new ResponseEntity<IPlayer>(savedPlayer, HttpStatus.CREATED);
         return response;
     }
     
+    /* (non-Javadoc)
+     * @see de.sernet.fluke.rest.IPlayerService#findOne(java.lang.Long)
+     */
     @RequestMapping( path="/{playerId}", method = RequestMethod.GET)
-    public ResponseEntity<Player> findOne(@PathVariable Long playerId) {
-        Player player = playerRepository.findOne(playerId);
+    public ResponseEntity<IPlayer> findOne(@PathVariable Long playerId) {
+        IPlayer player = playerService.findOne(playerId);
         HttpStatus status = (player!=null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity<Player> response = new ResponseEntity<Player>(player, status);
+        ResponseEntity<IPlayer> response = new ResponseEntity<IPlayer>(player, status);
         return response;
     }
 }

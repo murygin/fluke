@@ -13,7 +13,7 @@ Build and run
 
 *Clone project:*
 ```bash
-git clone https://github.com/murygin/fluke-goal.git
+git clone ssh://git@git.verinice.org:7999/rd/fluke-goal.git
 cd fluke-goal
 ```
 Set your MySQL / MariaDB connection properties in class _fluke-goal-persistence/src/main/resources/application.properties_

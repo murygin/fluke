@@ -3,7 +3,7 @@
   <name>fluke-goal-rest-client</name>
   <comment>Spring Boot Starter Parent. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
   <projects>
-    <project>fluke-goal-persistence</project>
+    <project>fluke-goal-interface</project>
   </projects>
   <buildSpec>
     <buildCommand>

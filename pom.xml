@@ -26,6 +26,11 @@
       <dependencies>
         <dependency>
           <groupId>de.sernet</groupId>
+          <artifactId>fluke-goal-interface</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>de.sernet</groupId>
           <artifactId>fluke-goal-persistence</artifactId>
           <version>${project.version}</version>
         </dependency>
@@ -53,6 +58,7 @@
     </dependencyManagement>
 
     <modules>
+      <module>fluke-goal-interface</module>
       <module>fluke-goal-persistence</module>
       <module>fluke-goal-service</module>
       <module>fluke-goal-rest</module>

@@ -17,53 +17,41 @@
  * Contributors:
  *     Daniel Murygin <dm{a}sernet{dot}de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.persistence.test;
+package de.sernet.fluke.service;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.persistence.PersistenceApplication;
+import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
-
-
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 
 /**
  *
  *
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(PersistenceApplication.class)
-public class PlayerRepositoryTest {
+@Service
+public class PlayerService implements IPlayerService {
 
     @Autowired
     PlayerRepository playerRepository;
     
-    @Before
-    public void init() {
-       
+    /* (non-Javadoc)
+     * @see de.sernet.fluke.interfaces.IPlayerService#save(de.sernet.fluke.interfaces.IPlayer)
+     */
+    @Override
+    public IPlayer save(IPlayer player) {
+        return playerRepository.save((Player)player);
     }
-    
-    @Test
-    public void test() {
-        Player player = new Player();
-        player.setFirstName("Daniel");
-        player.setLastName("Murygin");
-        player = playerRepository.save(player);
-        
-        IPlayer playerResult = playerRepository.findOne(player.getId());
-        assertNotNull(player);
-        assertEquals(player.getId(),playerResult.getId());
-        assertEquals(player.getFirstName(),playerResult.getFirstName());
-        assertEquals(player.getLastName(),playerResult.getLastName());
+
+    /* (non-Javadoc)
+     * @see de.sernet.fluke.interfaces.IPlayerService#findOne(java.lang.Long)
+     */
+    @Override
+    public IPlayer findOne(Long playerId) {
+        return playerRepository.findOne(playerId);
     }
 
 }
