@@ -28,9 +28,9 @@ import org.springframework.data.repository.query.Param;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface GameRepository  extends CrudRepository<Game, Long>{
+public interface GameRepository extends CrudRepository<Game, Long>{
     
     List<Game> findById(@Param("id") long id);
     
-    List<Game> findByDate(@Param("gameDate") LocalDateTime gameDate);
+    List<Game> findByGameDate(@Param("gameDate") LocalDateTime gameDate);
 }
