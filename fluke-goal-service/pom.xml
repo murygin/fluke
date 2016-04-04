@@ -17,6 +17,10 @@
           <groupId>de.sernet</groupId>
           <artifactId>fluke-goal-persistence</artifactId>
       </dependency>
+      <dependency>
+          <groupId>de.sernet</groupId>
+          <artifactId>fluke-goal-interface</artifactId>
+      </dependency>
     </dependencies>
 
 
