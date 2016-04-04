@@ -19,17 +19,18 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-
-	List<Player> findByLastName(@Param("name") String name);
-	
+public interface GameRepository  extends CrudRepository<Game, Long>{
+    
+    List<Game> findById(@Param("id") long id);
+    
+    List<Game> findByDate(@Param("gameDate") LocalDateTime gameDate);
 }

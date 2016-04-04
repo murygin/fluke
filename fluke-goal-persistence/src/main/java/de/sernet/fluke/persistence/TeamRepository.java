@@ -21,15 +21,16 @@ package de.sernet.fluke.persistence;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-
-	List<Player> findByLastName(@Param("name") String name);
-	
+public interface TeamRepository extends CrudRepository<Team, Long> {
+    
+    @Query("select t from Team t where t.defensivePlayer = :defensivePlayer AND t.offensivePlayer = :offensivePlayer ")
+    List<Team> findByPlayers(@Param("defensivePlayer") Player defensivePlayer, @Param("offensivePlayer") Player offensivePlayer);
+    
 }

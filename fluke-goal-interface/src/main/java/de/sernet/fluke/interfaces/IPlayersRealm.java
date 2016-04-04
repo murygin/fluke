@@ -17,19 +17,26 @@
  * Contributors:
  *     Sebastian Hagedorn <sh[at]sernet[dot]de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.persistence;
 
-import java.util.List;
+package de.sernet.fluke.interfaces;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-
-import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface PlayerRepository extends CrudRepository<Player, Long> {
+import java.util.List;
 
-	List<Player> findByLastName(@Param("name") String name);
-	
+public interface IPlayersRealm {
+    
+    long getId();
+    
+    void setId(long id);
+    
+    List<IPlayer> getRegisteredPlayers();
+    
+    void registerPlayer(IPlayer newPlayer);
+    
+    String getRealmName();
+    
+    void setRealmName(String realmName);
+
 }

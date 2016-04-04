@@ -17,19 +17,33 @@
  * Contributors:
  *     Sebastian Hagedorn <sh[at]sernet[dot]de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.persistence;
+package de.sernet.fluke.interfaces;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-
-import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface PlayerRepository extends CrudRepository<Player, Long> {
+public interface IGame {
+    
+    void setId(long id);
+    
+    long getId();
+    
+    ITeam getBlueTeam();
+    
+    ITeam getRedTeam();
+    
+    void setBlueTeam(ITeam blueTeam);
+    
+    void setRedTeam(ITeam redTeam);
+    
+    LocalDateTime getGameDate();
+    
+    void setGameDate(LocalDateTime gameDate);
+    
+    void setResult(IGameResult gameResult);
+    
+    IGameResult getResult();
 
-	List<Player> findByLastName(@Param("name") String name);
-	
 }

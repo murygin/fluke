@@ -24,12 +24,11 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface PlayerRepository extends CrudRepository<Player, Long> {
+public interface PlayersRealmRepository extends CrudRepository<PlayersRealm, Long> {
 
-	List<Player> findByLastName(@Param("name") String name);
-	
+    List<Player> findByName(@Param("name") String name);
+    
 }
