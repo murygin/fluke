@@ -20,5 +20,8 @@ package de.sernet.fluke.interfaces;
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface IAccountService {
+   
+    IAccount saveAccount(IAccount account);
     
+    IAccount findOne(long accountId);
 }

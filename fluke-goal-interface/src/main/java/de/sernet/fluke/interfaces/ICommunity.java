@@ -16,23 +16,25 @@
 package de.sernet.fluke.interfaces;
 
 import java.util.List;
+import java.util.Set;
 
 /**
- * 
+ *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface ICommunity {
-    
+
     long getId();
-    
+
     void setId(long id);
-    
+
     String getName();
-    
+
     void setName(String name);
-    
+
     List<IPlayer> getRegisteredPlayers();
-    
+
     void registerPlayer(IPlayer player);
-    
+
+    Set<IPlayer> getPlayer();
 }

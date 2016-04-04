@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.interfaces;
+
+package de.sernet.fluke.rest;
+
+import de.sernet.fluke.interfaces.ICommunityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Represents an user account for fluke.
- * 
+ *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
-public interface IAccount {
+@RestController
+@RequestMapping("/service/community")
+public class CommunityRestService {
+
+    @Autowired
+    ICommunityService iCommunityService;
     
-    long getId();
     
-    String getUserName();
-    
-    String getUserEmail();
-    
-    String getFirstName();
-    
-    String getLastName();    
 }
