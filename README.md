@@ -9,14 +9,15 @@ Build and run
 *Prerequisite:*
 * Maven
 * Java 8
-* A running MySQL / MariaDB server with an empty database _fluke_.
+* A running MySQL / MariaDB server
+* An empty database _fluke_
 
 *Clone project:*
 ```bash
 git clone ssh://git@git.verinice.org:7999/rd/fluke-goal.git
 cd fluke-goal
 ```
-Set your MySQL / MariaDB connection properties in class _fluke-goal-persistence/src/main/resources/application.properties_
+Set your MySQL / MariaDB connection properties in class _fluke-goal-rest/src/main/resources/application.properties_
 
 *Build project:*
 ```bash
