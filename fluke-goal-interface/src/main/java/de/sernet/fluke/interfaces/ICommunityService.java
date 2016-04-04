@@ -21,4 +21,8 @@ package de.sernet.fluke.interfaces;
  */
 public interface ICommunityService {
     
+    ICommunity save(ICommunity community);
+    
+    ICommunity findByName(String name);
+    
 }

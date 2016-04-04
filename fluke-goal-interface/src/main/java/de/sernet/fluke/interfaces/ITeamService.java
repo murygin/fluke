@@ -21,4 +21,8 @@ package de.sernet.fluke.interfaces;
  */
 public interface ITeamService {
     
+    ITeam save(ITeam team);
+
+    ITeam findOne(Long teamId);
+    
 }

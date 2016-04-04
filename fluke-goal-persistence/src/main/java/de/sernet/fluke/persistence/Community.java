@@ -44,20 +44,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.IPlayersRealm;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public class PlayersRealm implements IPlayersRealm {
+public class Community implements ICommunity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private List<IPlayer> registeredPlayers;
-    private String realmName;
+    private String communityName;
     
     @Override
     public long getId() {
@@ -79,16 +79,6 @@ public class PlayersRealm implements IPlayersRealm {
         registeredPlayers.add(newPlayer);
     }
 
-    @Override
-    public String getRealmName() {
-        return this.realmName;
-    }
-
-    @Override
-    public void setRealmName(String realmName) {
-        this.realmName = realmName;
-    }
-
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -97,7 +87,7 @@ public class PlayersRealm implements IPlayersRealm {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((realmName == null) ? 0 : realmName.hashCode());
+        result = prime * result + ((communityName == null) ? 0 : communityName.hashCode());
         result = prime * result + ((registeredPlayers == null) ? 0 : registeredPlayers.hashCode());
         return result;
     }
@@ -116,15 +106,15 @@ public class PlayersRealm implements IPlayersRealm {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        PlayersRealm other = (PlayersRealm) obj;
+        Community other = (Community) obj;
         if (id != other.id) {
             return false;
         }
-        if (realmName == null) {
-            if (other.realmName != null) {
+        if (communityName == null) {
+            if (other.communityName != null) {
                 return false;
             }
-        } else if (!realmName.equals(other.realmName)) {
+        } else if (!communityName.equals(other.communityName)) {
             return false;
         }
         if (registeredPlayers == null) {
@@ -135,5 +125,15 @@ public class PlayersRealm implements IPlayersRealm {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return communityName; 
+    }
+    
+    @Override
+    public void setName(String name) {
+        this.communityName = name;
     }
 }
