@@ -7,4 +7,6 @@ public interface IGameResultService {
     void trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals,
             short blueOffensiveGoals, short blueDefensiveGoals);
     
+    IGameResult save(IGameResult gameResult);
+    
 }
