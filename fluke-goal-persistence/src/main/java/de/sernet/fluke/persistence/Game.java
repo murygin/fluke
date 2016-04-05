@@ -65,6 +65,14 @@ public class Game implements IGame {
     @JoinColumn(name="gameResultId")
     private GameResult result;
     
+    public Game(){}
+    
+    public Game(ITeam redTeam, ITeam blueTeam){
+        this.redTeam = (Team)redTeam;
+        this.blueTeam = (Team)blueTeam;
+        this.gameDate = LocalDateTime.now();
+    }
+    
     @Override
     public void setId(long id) {
         this.id = id;

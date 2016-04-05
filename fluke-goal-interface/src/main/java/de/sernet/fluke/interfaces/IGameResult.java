@@ -35,4 +35,14 @@ public interface IGameResult {
     void setBlueTeamGoals(short blueTeamGoals);
     
     void setRedTeamGoals(short redTeamGoals);
+    
+    public short getRedScoredOffensiveGoals();
+    public void setRedScoredOffensiveGoals(short redScoredOffensiveGoals);
+    public short getRedScoredDefensiveGoals();
+    public void setRedScoredDefensiveGoals(short redScoredDefensiveGoals);
+    public short getBlueScoredOffensiveGoals();
+    public void setBlueScoredOffensiveGoals(short blueScoredOffensiveGoals);
+    public short getBlueScoredDefensiveGoals();
+    public void setBlueScoredDefensiveGoals(short blueScoredDefensiveGoals);
+
 }
