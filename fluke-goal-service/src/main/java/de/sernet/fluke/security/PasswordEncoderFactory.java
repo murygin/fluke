@@ -13,35 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.interfaces;
+package de.sernet.fluke.security;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
- * @author Benjamin Weißenfels <bw@sernet.de>
+ * @author Daniel Murygin
  */
-public interface IAccount {
+public abstract class PasswordEncoderFactory {
     
-    String getEmail();
+    private static PasswordEncoder encoderInstance = new BCryptPasswordEncoder(11);
 
-    String getFirstName();
-
-    long getId();
-
-    String getLastName();
-
-    String getLogin();
-
-    String getPassword();
-
-    void setEmail(String email);
-
-    void setFirstName(String firstName);
-
-    void setId(long id);
-
-    void setLastName(String lastName);
-
-    void setLogin(String login);
-
-    void setPassword(String password);
+    private PasswordEncoderFactory() throws InstantiationException {
+        throw new InstantiationException("Do not instanciate this class. Use method getInstance");
+    }
+    
+    public static PasswordEncoder getInstance() {
+        return encoderInstance; 
+    }
 }

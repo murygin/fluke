@@ -13,35 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.interfaces;
+package de.sernet.fluke.persistence;
+
+import java.util.List;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
- * @author Benjamin Weißenfels <bw@sernet.de>
+ * @author Daniel Murygin
  */
-public interface IAccount {
+public interface AccountRepository extends CrudRepository<Account, Long> {
     
-    String getEmail();
-
-    String getFirstName();
-
-    long getId();
-
-    String getLastName();
-
-    String getLogin();
-
-    String getPassword();
-
-    void setEmail(String email);
-
-    void setFirstName(String firstName);
-
-    void setId(long id);
-
-    void setLastName(String lastName);
-
-    void setLogin(String login);
-
-    void setPassword(String password);
+    Account findByLogin(@Param("login") String login);
 }
