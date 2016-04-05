@@ -48,12 +48,12 @@ public class Game implements IGame {
     private long id;
     
     @Access(AccessType.PROPERTY)
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name="blueTeamId", nullable=false)
     private Team blueTeam;
     
     @Access(AccessType.PROPERTY)
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name="redTeamId", nullable=false)
     private Team redTeam;
     
@@ -64,6 +64,14 @@ public class Game implements IGame {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="gameResultId")
     private GameResult result;
+    
+    public Game(){}
+    
+    public Game(ITeam redTeam, ITeam blueTeam){
+        this.redTeam = (Team)redTeam;
+        this.blueTeam = (Team)blueTeam;
+        this.gameDate = LocalDateTime.now();
+    }
     
     @Override
     public void setId(long id) {

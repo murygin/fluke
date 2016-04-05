@@ -33,11 +33,14 @@ import javax.persistence.OneToOne;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"offensivePlayerId" , "defensicePlayerId"})})
 public class Team implements ITeam {
     
     @Id
@@ -45,12 +48,12 @@ public class Team implements ITeam {
     private long id;
     
     @Access(AccessType.PROPERTY)
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name="offensivePlayerId", nullable=false)
     private Player offensivePlayer;
     
     @Access(AccessType.PROPERTY)
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JoinColumn(name="defensicePlayerId", nullable=false)
     private Player defensivePlayer;
     
@@ -79,6 +82,15 @@ public class Team implements ITeam {
      * in his role as the goalkeeper */
     @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
     private long concededGoals;
+
+    public Team() {
+    }
+    
+    public Team(Player defensivePlayer, Player offensivePlayer) {
+        setDefensivePlayer(defensivePlayer);
+        setOffensivePlayer(offensivePlayer);
+    }
+    
     @Override
     public long getId() {
         return id;
@@ -109,7 +121,6 @@ public class Team implements ITeam {
     public void setDefensivePlayer(IPlayer defensivePlayer) {
         this.defensivePlayer = (Player)defensivePlayer;
     }
-
 
     /**
      * @return the wonGames

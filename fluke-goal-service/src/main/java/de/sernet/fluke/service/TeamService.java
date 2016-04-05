@@ -30,18 +30,23 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public List<ITeam> findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer) {
-        Iterable<Team> internalResult = teamRepository.findByPlayers((Player)defensivePlayer, (Player)offensivePlayer);
-        List<ITeam> result = new ArrayList<>(0);
-        for(Team c : internalResult){
-            result.add(c);
-        }
-        return result;
+    public ITeam findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer) {
+        return teamRepository.findByPlayers((Player)defensivePlayer, (Player)offensivePlayer);
     }
 
     @Override
     public ITeam findById(long teamId) {
         return teamRepository.findOne(teamId);
+    }
+
+    @Override
+    public ITeam findOrCreate(IPlayer defensivePlayer, IPlayer offensivePlayer) {
+        ITeam team = findByPlayers(defensivePlayer, offensivePlayer);
+        if(team==null) {
+            team = new Team((Player)defensivePlayer,(Player)offensivePlayer);
+            team = save(team);
+        }
+        return team;
     }
 
 }

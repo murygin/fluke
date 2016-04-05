@@ -51,6 +51,13 @@ public class Community implements ICommunity {
     @Column( name = "name", unique=true, nullable=false)
     private String name;
     
+    public Community() {}
+    
+    public Community(String name){
+        this.name = name;
+        registeredPlayers = new ArrayList<>();
+    }
+    
     @Override
     public long getId() {
         return this.id;
