@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.interfaces;
-
-import java.util.List;
+package de.sernet.fluke.service;
 
 /**
  *
- * @author Benjamin Weißenfels <bw@sernet.de>
+ * @author Daniel Murygin
  */
-public interface ITeamService {
-    
-    ITeam save(ITeam team);
+public class FlukeServiceException extends RuntimeException {
 
-    List<ITeam> findOne(long teamId);
+    public FlukeServiceException(String message) {
+        super(message);
+    }
+
+    public FlukeServiceException(String message, Throwable cause) {
+        super(message, cause);
+    }
     
-    ITeam findById(long id);
-    
-    ITeam findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer);
-    
-    ITeam findOrCreate(IPlayer defensivePlayer, IPlayer offensivePlayer);
     
 }

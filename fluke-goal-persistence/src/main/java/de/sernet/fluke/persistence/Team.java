@@ -32,11 +32,14 @@ import javax.persistence.OneToOne;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames = {"offensivePlayerId" , "defensicePlayerId"})})
 public class Team implements ITeam {
     
     @Id
@@ -52,8 +55,15 @@ public class Team implements ITeam {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="defensicePlayerId")
     private Player defensivePlayer;
-    
 
+    public Team() {
+    }
+    
+    public Team(Player defensivePlayer, Player offensivePlayer) {
+        this.defensivePlayer = defensivePlayer;
+        this.offensivePlayer = offensivePlayer;
+    }
+    
     @Override
     public long getId() {
         return id;

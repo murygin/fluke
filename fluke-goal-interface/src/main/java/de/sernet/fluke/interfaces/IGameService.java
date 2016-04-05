@@ -24,6 +24,10 @@ import java.util.List;
  */
 public interface IGameService {
     
+    IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive );
+    
+    IGame create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId);
+    
     IGame save(IGame game);
     
     List<IGame> findById(Long gameId);
