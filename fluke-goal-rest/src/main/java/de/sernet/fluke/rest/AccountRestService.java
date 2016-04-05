@@ -39,7 +39,7 @@ public class AccountRestService {
     IAccountService accountService;
     
     public ResponseEntity<IAccount> save(IAccount account){
-        IAccount savedAccount = accountService.saveAccount(account);
+        IAccount savedAccount = accountService.save(account);
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
     
