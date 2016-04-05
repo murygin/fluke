@@ -34,4 +34,40 @@ public interface ITeam {
     
     void setDefensivePlayer(IPlayer defensivePlayer);
     
+    long getWonGames();
+
+    void setWonGames(long wonGames);
+    
+    void increaseWonGames(short wonGames);
+
+    long getLostGames();
+
+    void setLostGames(long lostGames);
+    
+    void increaseLostGames(short lostGames);
+
+    long getScoredOffensiveGoals();
+
+    void setScoredOffensiveGoals(long scoredOffensiveGoals);
+    
+    void increaseScoredOffensiveGoals(short scoredOffensiveGoals);
+
+    long getScoredDefensiveGoals();
+
+    void setScoredDefensiveGoals(long scoredDefensiveGoals);
+    
+    void increaseScoredDefensiveGoals(short scoredDefensiveGoals);
+
+    long getScoredTotalGoals();
+
+    void setScoredTotalGoals(long scoredTotalGoals);
+    
+    void increaseScoredTotalGoals(short scoredTotalGoals);
+
+    long getConcededGoals();
+
+    void setConcededGoals(long concededGoals);
+    
+    void increaseConcededGoals(short concededGoals);
+    
 }

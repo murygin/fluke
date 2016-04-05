@@ -38,4 +38,41 @@ public interface IPlayer {
 
     void setLastName(String lastName);
 
+    public long getWonGames();
+
+    public void setWonGames(long wonGames);
+    
+    public void increaseWonGames(short wonGames);
+    
+    public void increaseLostGames(short lostGames);
+
+    public long getLostGames();
+
+    public void setLostGames(long lostGames);
+
+    public long getScoredOffensiveGoals();
+
+    public void setScoredOffensiveGoals(long scoredOffensiveGoals);
+    
+    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals);
+
+    public long getScoredDefensiveGoals();
+
+    public void setScoredDefensiveGoals(long scoredDefensiveGoals);
+    
+    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals);
+
+    public long getScoredTotalGoals();
+
+    public void setScoredTotalGoals(long scoredTotalGoals);
+    
+    public void increaseScoredTotalGoals(short scoredTotalGoals);
+
+    public long getConcededGoals();
+
+    public void setConcededGoals(long concededGoals);
+    
+    public void increaseConcededGoals(short concededGoals);
+
+
 }

@@ -68,4 +68,112 @@ public class Player implements IPlayer  {
     public String toString() {    
         return getFirstName() + " " + getLastName();
     }
+
+    @Override
+    public long getWonGames() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setWonGames(long wonGames) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseWonGames(short wonGames) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseLostGames(short lostGames) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public long getLostGames() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setLostGames(long lostGames) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public long getScoredOffensiveGoals() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public long getScoredDefensiveGoals() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public long getScoredTotalGoals() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setScoredTotalGoals(long scoredTotalGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseScoredTotalGoals(short scoredTotalGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public long getConcededGoals() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void setConcededGoals(long concededGoals) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseConcededGoals(short concededGoals) {
+        // TODO Auto-generated method stub
+        
+    }
 }

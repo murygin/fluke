@@ -37,4 +37,5 @@ public interface PlayerRepository extends CrudRepository<Player, Long> {
 	
 	@Query("select p from Player p where p.firstName = :firstName AND p.lastName = :lastName")
 	List<Player> findByFullQualifiedName(@Param("lastName") String lastName, @Param("firstName") String firstName);
+	
 }
