@@ -55,20 +55,33 @@ public class PlayerService implements IPlayerService {
         return playerRepository.findOne(playerId);
     }
 
+    /**
+     * Deletes the player with the given {@code id}. Returns {@code true} if the player existed and
+     * {@code false} if not.
+     *
+     * @param id the {@code id} of the player to be deleted.
+     * @return {@code true} if a player with the given {@code id} existed and {@code false} if not
+     */
     @Override
-    public void delete(IPlayer player) {
-        playerRepository.delete((Player) player);
+    public boolean delete(long id) {
+
+        if (findOne(id) != null) {
+            playerRepository.delete(id);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
-    public Iterable<IPlayer> findAll() {
+    public List<IPlayer> findAll() {
         Iterable<Player> players = playerRepository.findAll();
         List<IPlayer> castedPlayers = Collections.emptyList();
-        
-        for (Player player: players) {
+
+        for (Player player : players) {
             castedPlayers.add((Player) player);
         }
-        
+
         return castedPlayers;
     }
 }

@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
+import java.util.Collections;
 
 /**
  *
@@ -86,6 +87,23 @@ public class PlayerRestClient implements IPlayerService {
         return restTemplate.getForObject(url, Player.class);
     }
     
+    @Override
+    public boolean delete(long playerId) {
+        StringBuilder stringBuilder = new StringBuilder(getBaseUrl());
+        stringBuilder.append(playerId);
+        String uri = stringBuilder.toString();
+        restTemplate.delete(getBaseUrl());
+        return true;
+    }
+
+    @Override
+    public Iterable<IPlayer> findAll() {
+        String uri = getBaseUrl();
+        Iterable players = restTemplate.getForObject(uri, Iterable.class);
+        ResponseEntity<Iterable> responseEntity = restTemplate.getForEntity(uri, Iterable.class);
+        return responseEntity.getBody();
+    }
+
     private String getBaseUrl() {
         StringBuilder sb = new StringBuilder(getServerUrl());
         if(!getServerUrl().endsWith("/") &&  !getPath().startsWith("/")) {
@@ -113,17 +131,4 @@ public class PlayerRestClient implements IPlayerService {
     public void setPath(String path) {
         this.path = path;
     }
-
-    @Override
-    public void delete(IPlayer player) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Iterable<IPlayer> findAll() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }

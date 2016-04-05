@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.persistence.Player;
+import java.util.List;
 
 /**
  *
@@ -62,6 +63,22 @@ public class PlayerRestService {
         IPlayer player = playerService.findOne(playerId);
         HttpStatus status = (player!=null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         ResponseEntity<IPlayer> response = new ResponseEntity<IPlayer>(player, status);
+        return response;
+    }
+
+    @RequestMapping(path = "/{playerId}", method = RequestMethod.DELETE)
+    public ResponseEntity<IPlayer> delete(@PathVariable Long playerId) {
+        HttpStatus status = playerService.delete(playerId) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        ResponseEntity response = new ResponseEntity(status);
+        return response;
+    }
+
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ResponseEntity findAll() {
+        List<IPlayer> players = (List<IPlayer>) playerService.findAll();
+        HttpStatus status = (players != null && !players.isEmpty())
+                ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        ResponseEntity response = new ResponseEntity(status);
         return response;
     }
 }
