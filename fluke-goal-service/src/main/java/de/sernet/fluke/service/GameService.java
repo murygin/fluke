@@ -10,7 +10,9 @@ import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
 import de.sernet.fluke.persistence.Game;
 import de.sernet.fluke.persistence.GameRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameService implements IGameService {
     
     @Autowired

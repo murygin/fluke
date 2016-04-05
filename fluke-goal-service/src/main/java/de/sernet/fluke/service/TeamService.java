@@ -11,7 +11,9 @@ import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.Team;
 import de.sernet.fluke.persistence.TeamRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TeamService implements ITeamService {
     
     @Autowired
