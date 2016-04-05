@@ -19,12 +19,11 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import de.sernet.fluke.interfaces.IGameResult;
 
@@ -32,14 +31,16 @@ import de.sernet.fluke.interfaces.IGameResult;
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class GameResult implements IGameResult {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
+    @Column( name = "blueTeamGoals")
     private short blueTeamGoals;
+    
+    @Column( name = "redTeamGoals")
     private short redTeamGoals;
 
     public GameResult(short redTeamGoals, short blueTeamGoals){

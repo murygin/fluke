@@ -19,12 +19,16 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
@@ -33,15 +37,21 @@ import de.sernet.fluke.interfaces.ITeam;
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Team implements ITeam {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    private IPlayer offensivePlayer;
-    private IPlayer defensivePlayer;
+    @Access(AccessType.PROPERTY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="offensivePlayerId")
+    private Player offensivePlayer;
+    
+    @Access(AccessType.PROPERTY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="defensicePlayerId")
+    private Player defensivePlayer;
     
 
     @Override
@@ -62,7 +72,7 @@ public class Team implements ITeam {
     
     @Override
     public void setOffensivePlayer(IPlayer offensivePlayer) {
-        this.setOffensivePlayer(offensivePlayer);
+        this.offensivePlayer  = (Player)offensivePlayer;
     }
 
     @Override
@@ -72,7 +82,7 @@ public class Team implements ITeam {
 
     @Override
     public void setDefensivePlayer(IPlayer defensivePlayer) {
-        this.defensivePlayer = defensivePlayer;
+        this.defensivePlayer = (Player)defensivePlayer;
     }
 
     /* (non-Javadoc)
