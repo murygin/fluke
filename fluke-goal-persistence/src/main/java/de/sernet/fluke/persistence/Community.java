@@ -27,6 +27,7 @@ import javax.persistence.Id;
 
 import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.IPlayer;
+import java.util.Set;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -116,5 +117,10 @@ public class Community implements ICommunity {
     @Override
     public void setName(String name) {
         this.communityName = name;
+    }
+
+    @Override
+    public Set<IPlayer> getPlayer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

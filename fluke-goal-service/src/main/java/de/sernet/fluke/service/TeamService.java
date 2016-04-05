@@ -23,7 +23,7 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public List<ITeam> findOne(Long teamId) {
+    public List<ITeam> findOne(long teamId) {
         Iterable<Team> internalResult = teamRepository.findById(teamId);
         List<ITeam> result = new ArrayList<>(0);
         for(Team c : internalResult){
@@ -40,6 +40,11 @@ public class TeamService implements ITeamService {
             result.add(c);
         }
         return result;
+    }
+
+    @Override
+    public ITeam findById(long teamId) {
+        return teamRepository.findOne(teamId);
     }
 
 }

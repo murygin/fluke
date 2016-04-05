@@ -30,4 +30,6 @@ public interface IGameService {
 
     List<IGame> findByDate(LocalDateTime time);
     
+    IGame findGame(long gameId);
+    
 }
