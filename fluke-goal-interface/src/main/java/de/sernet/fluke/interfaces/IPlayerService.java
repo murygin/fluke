@@ -19,6 +19,8 @@
  ******************************************************************************/
 package de.sernet.fluke.interfaces;
 
+import java.util.List;
+
 /**
  *
  *
@@ -30,4 +32,7 @@ public interface IPlayerService {
 
     IPlayer findOne(Long playerId);
 
+    void delete(IPlayer player);
+    
+    Iterable<IPlayer> findAll();
 }
