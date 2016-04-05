@@ -56,15 +56,6 @@ public class Team implements ITeam {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="defensicePlayerId", nullable=false)
     private Player defensivePlayer;
-
-    public Team() {
-    }
-    
-    public Team(Player defensivePlayer, Player offensivePlayer) {
-        this.defensivePlayer = defensivePlayer;
-        this.offensivePlayer = offensivePlayer;
-    }
-    
     
     /* how many games the player won over all */
     @Column( name = "wonGames", columnDefinition="bigint default 0")
@@ -91,6 +82,15 @@ public class Team implements ITeam {
      * in his role as the goalkeeper */
     @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
     private long concededGoals;
+
+    public Team() {
+    }
+    
+    public Team(Player defensivePlayer, Player offensivePlayer) {
+        this.defensivePlayer = defensivePlayer;
+        this.offensivePlayer = offensivePlayer;
+    }
+    
     @Override
     public long getId() {
         return id;
