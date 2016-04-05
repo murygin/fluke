@@ -19,27 +19,36 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.IPlayer;
-import java.util.Set;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
+@Entity
 public class Community implements ICommunity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private List<IPlayer> registeredPlayers;
-    private String communityName;
+    @Column (name = "registeredPlayers")
+    @ElementCollection(targetClass=Player.class)
+    private List<Player> registeredPlayers;
+    
+    @Column( name = "name")
+    private String name;
     
     @Override
     public long getId() {
@@ -53,12 +62,14 @@ public class Community implements ICommunity {
 
     @Override
     public List<IPlayer> getRegisteredPlayers() {
-        return registeredPlayers;
+        List<IPlayer> result = new ArrayList<>(registeredPlayers.size());
+        result.addAll(registeredPlayers);
+        return result;
     }
 
     @Override
     public void registerPlayer(IPlayer newPlayer) {
-        registeredPlayers.add(newPlayer);
+        registeredPlayers.add((Player)newPlayer);
     }
 
     /* (non-Javadoc)
@@ -69,7 +80,7 @@ public class Community implements ICommunity {
         final int prime = 31;
         int result = 1;
         result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((communityName == null) ? 0 : communityName.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((registeredPlayers == null) ? 0 : registeredPlayers.hashCode());
         return result;
     }
@@ -92,11 +103,11 @@ public class Community implements ICommunity {
         if (id != other.id) {
             return false;
         }
-        if (communityName == null) {
-            if (other.communityName != null) {
+        if (name == null) {
+            if (other.name != null) {
                 return false;
             }
-        } else if (!communityName.equals(other.communityName)) {
+        } else if (!name.equals(other.name)) {
             return false;
         }
         if (registeredPlayers == null) {
@@ -111,12 +122,12 @@ public class Community implements ICommunity {
 
     @Override
     public String getName() {
-        return communityName; 
+        return name; 
     }
     
     @Override
     public void setName(String name) {
-        this.communityName = name;
+        this.name = name;
     }
 
     @Override

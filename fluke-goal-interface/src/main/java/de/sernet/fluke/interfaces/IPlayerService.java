@@ -19,8 +19,6 @@
  ******************************************************************************/
 package de.sernet.fluke.interfaces;
 
-import java.util.List;
-
 /**
  *
  *

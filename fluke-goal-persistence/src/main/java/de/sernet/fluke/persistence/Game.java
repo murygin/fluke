@@ -21,12 +21,17 @@ package de.sernet.fluke.persistence;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResult;
@@ -36,16 +41,28 @@ import de.sernet.fluke.interfaces.ITeam;
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Game implements IGame {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
+    @Access(AccessType.PROPERTY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="blueTeamId")
     private Team blueTeam;
+    
+    @Access(AccessType.PROPERTY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="redTeamId")
     private Team redTeam;
+    
+    @Column( name = "gameDate")
     private LocalDateTime gameDate;
+    
+    @Access(AccessType.PROPERTY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="gameResultId")
     private GameResult result;
     
     @Override
