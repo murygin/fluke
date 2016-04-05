@@ -24,11 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
-import java.util.Collections;
 
 /**
  *
@@ -96,7 +94,8 @@ public class PlayerRestClient extends AbstractRestClient implements IPlayerServi
     public Iterable<IPlayer> findAll() {
         String uri = getBaseUrl();
         Iterable players = getRestHandler().getForObject(uri, Iterable.class);
-        ResponseEntity<Iterable> responseEntity = getRestHandler().getForEntity(uri, Iterable.class);
+        ResponseEntity<Iterable> responseEntity = getRestHandler().getForEntity(uri,
+                Iterable.class);
         return responseEntity.getBody();
     }
 
