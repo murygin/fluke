@@ -15,10 +15,9 @@
  */
 package de.sernet.fluke.rest;
 
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,8 +51,8 @@ public class TeamRestService {
      * @see de.sernet.fluke.rest.IPlayerService#findOne(java.lang.Long)
      */
     @RequestMapping(path = "/{teamId}", method = RequestMethod.GET)
-    public ResponseEntity<ITeam> findOne(@PathVariable Long teamId) {
-        ITeam team = teamService.findOne(teamId);
+    public ResponseEntity<ITeam> findById(@PathVariable Long teamId) {
+        ITeam team = teamService.findById(teamId);
         HttpStatus status = (team != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         return new ResponseEntity<>(team, status);
     }
