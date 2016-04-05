@@ -114,4 +114,16 @@ public class PlayerRestClient implements IPlayerService {
         this.path = path;
     }
 
+    @Override
+    public void delete(IPlayer player) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public Iterable<IPlayer> findAll() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

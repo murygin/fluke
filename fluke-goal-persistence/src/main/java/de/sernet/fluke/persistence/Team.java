@@ -126,6 +126,7 @@ public class Team implements ITeam {
     /**
      * @return the wonGames
      */
+    @Override
     public long getWonGames() {
         return wonGames;
     }
@@ -133,17 +134,20 @@ public class Team implements ITeam {
     /**
      * @param wonGames the wonGames to set
      */
+    @Override
     public void setWonGames(long wonGames) {
         this.wonGames = wonGames;
     }
     
-    public void increaseWonGames(long wonGames){
+    @Override
+    public void increaseWonGames(short wonGames){
         this.wonGames += wonGames;
     }
 
     /**
      * @return the lostGames
      */
+    @Override
     public long getLostGames() {
         return lostGames;
     }
@@ -151,17 +155,20 @@ public class Team implements ITeam {
     /**
      * @param lostGames the lostGames to set
      */
+    @Override
     public void setLostGames(long lostGames) {
         this.lostGames = lostGames;
     }
     
-    public void increaseLostGames(long lostGames){
+    @Override
+    public void increaseLostGames(short lostGames){
         this.lostGames += lostGames;
     }
 
     /**
      * @return the scoredOffensiveGoals
      */
+    @Override
     public long getScoredOffensiveGoals() {
         return scoredOffensiveGoals;
     }
@@ -169,17 +176,20 @@ public class Team implements ITeam {
     /**
      * @param scoredOffensiveGoals the scoredOffensiveGoals to set
      */
+    @Override
     public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
         this.scoredOffensiveGoals = scoredOffensiveGoals;
     }
     
-    public void increaseScoredOffensiveGoals(long scoredOffensiveGoals){
+    @Override
+    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals){
         this.scoredOffensiveGoals += scoredOffensiveGoals;
     }
 
     /**
      * @return the scoredDefensiveGoals
      */
+    @Override
     public long getScoredDefensiveGoals() {
         return scoredDefensiveGoals;
     }
@@ -187,17 +197,20 @@ public class Team implements ITeam {
     /**
      * @param scoredDefensiveGoals the scoredDefensiveGoals to set
      */
+    @Override
     public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
     
-    public void increaseScoredDefensiveGoals(long scoredDefensiveGoals){
+    @Override
+    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals){
         this.scoredDefensiveGoals += scoredDefensiveGoals;
     }
 
     /**
      * @return the scoredTotalGoals
      */
+    @Override
     public long getScoredTotalGoals() {
         return scoredTotalGoals;
     }
@@ -205,17 +218,20 @@ public class Team implements ITeam {
     /**
      * @param scoredTotalGoals the scoredTotalGoals to set
      */
+    @Override
     public void setScoredTotalGoals(long scoredTotalGoals) {
         this.scoredTotalGoals = scoredTotalGoals;
     }
     
-    public void increaseScoredTotalGoals(long scoredTotalGoals){
+    @Override
+    public void increaseScoredTotalGoals(short scoredTotalGoals){
         this.scoredTotalGoals += scoredTotalGoals;
     }
 
     /**
      * @return the concededGoals
      */
+    @Override
     public long getConcededGoals() {
         return concededGoals;
     }
@@ -223,11 +239,13 @@ public class Team implements ITeam {
     /**
      * @param concededGoals the concededGoals to set
      */
+    @Override
     public void setConcededGoals(long concededGoals) {
         this.concededGoals = concededGoals;
     }
     
-    public void increaseConcededGoals(long concededGoals){
+    @Override
+    public void increaseConcededGoals(short concededGoals){
         this.concededGoals += concededGoals;
     }
 

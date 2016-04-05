@@ -98,6 +98,7 @@ public class Player implements IPlayer  {
     /**
      * @return the wonGames
      */
+    @Override
     public long getWonGames() {
         return wonGames;
     }
@@ -105,21 +106,25 @@ public class Player implements IPlayer  {
     /**
      * @param wonGames the wonGames to set
      */
+    @Override
     public void setWonGames(long wonGames) {
         this.wonGames = wonGames;
     }
-    
-    public void increaseWonGames(){
-        this.wonGames += 1;
+
+    @Override
+    public void increaseWonGames(short wonGames){
+        this.wonGames += wonGames;
     }
     
-    public void increaseLostGames(){
-        this.lostGames += 1;
+    @Override
+    public void increaseLostGames(short lostGames){
+        this.lostGames += lostGames;
     }
 
     /**
      * @return the lostGames
      */
+    @Override
     public long getLostGames() {
         return lostGames;
     }
@@ -127,6 +132,7 @@ public class Player implements IPlayer  {
     /**
      * @param lostGames the lostGames to set
      */
+    @Override
     public void setLostGames(long lostGames) {
         this.lostGames = lostGames;
     }
@@ -134,6 +140,7 @@ public class Player implements IPlayer  {
     /**
      * @return the scoredOffensiveGoals
      */
+    @Override
     public long getScoredOffensiveGoals() {
         return scoredOffensiveGoals;
     }
@@ -141,17 +148,20 @@ public class Player implements IPlayer  {
     /**
      * @param scoredOffensiveGoals the scoredOffensiveGoals to set
      */
+    @Override
     public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
         this.scoredOffensiveGoals = scoredOffensiveGoals;
     }
     
-    public void increaseScoredOffensiveGoals(long scoredOffensiveGoals){
+    @Override
+    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals){
         this.scoredOffensiveGoals += scoredOffensiveGoals;
     }
 
     /**
      * @return the scoredDefensiveGoals
      */
+    @Override
     public long getScoredDefensiveGoals() {
         return scoredDefensiveGoals;
     }
@@ -159,17 +169,20 @@ public class Player implements IPlayer  {
     /**
      * @param scoredDefensiveGoals the scoredDefensiveGoals to set
      */
+    @Override
     public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
     
-    public void increaseScoredDefensiveGoals(long scoredDefensiveGoals){
+    @Override
+    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals){
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
 
     /**
      * @return the scoredTotalGoals
      */
+    @Override
     public long getScoredTotalGoals() {
         return scoredTotalGoals;
     }
@@ -177,13 +190,20 @@ public class Player implements IPlayer  {
     /**
      * @param scoredTotalGoals the scoredTotalGoals to set
      */
+    @Override
     public void setScoredTotalGoals(long scoredTotalGoals) {
         this.scoredTotalGoals = scoredTotalGoals;
+    }
+    
+    @Override
+    public void increaseScoredTotalGoals(short scoredTotalGoals){
+        this.scoredTotalGoals += scoredTotalGoals;
     }
 
     /**
      * @return the concededGoals
      */
+    @Override
     public long getConcededGoals() {
         return concededGoals;
     }
@@ -191,11 +211,13 @@ public class Player implements IPlayer  {
     /**
      * @param concededGoals the concededGoals to set
      */
+    @Override
     public void setConcededGoals(long concededGoals) {
         this.concededGoals = concededGoals;
     }
     
-    public void increaseConcededGoals(long concededGoals){
+    @Override
+    public void increaseConcededGoals(short concededGoals){
         this.concededGoals += concededGoals;
     }
 
