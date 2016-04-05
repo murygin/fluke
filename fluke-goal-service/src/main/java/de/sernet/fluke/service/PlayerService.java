@@ -54,21 +54,27 @@ public class PlayerService implements IPlayerService {
     public IPlayer findOne(Long playerId) {
         return playerRepository.findOne(playerId);
     }
-
+    /**
+     *
+     * @param player
+     */
     @Override
     public void delete(IPlayer player) {
         playerRepository.delete((Player) player);
     }
-
+    
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterable<IPlayer> findAll() {
         Iterable<Player> players = playerRepository.findAll();
-        List<IPlayer> castedPlayers = Collections.emptyList();
-        
+        List<IPlayer> castedPlayers = Collections.emptyList();     
         for (Player player: players) {
             castedPlayers.add((Player) player);
-        }
-        
+        } 
         return castedPlayers;
     }
+    
 }

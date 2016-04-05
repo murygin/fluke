@@ -80,8 +80,4 @@ public class GameService implements IGameService {
         return gameRepository.findOne(gameId);
     }
 
-    private void checkForNull(IPlayer redOffensive) throws FlukeServiceException {
-
-    }
-
 }

@@ -17,10 +17,20 @@ package de.sernet.fluke.security.test;
  */
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.interfaces.IGame;
+import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.interfaces.IPlayerService;
+import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.persistence.Account;
+import de.sernet.fluke.persistence.Game;
+import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
+import de.sernet.fluke.persistence.Team;
 import de.sernet.fluke.security.PasswordEncoderFactory;
 import de.sernet.fluke.service.ServiceApplication;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,14 +50,21 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ServiceApplication.class)
-public class AccountServiceTest {
+public class GameServiceTest {
 
     @Autowired
-    IAccountService accountService;
+    IPlayerService playerService;
+    
+    @Autowired
+    ITeamService teamService;
+    
+    @Autowired
+    IGameService gameService;
+    
     
     private final PasswordEncoder encoder;
 
-    public AccountServiceTest() {
+    public GameServiceTest() {
         this.encoder = PasswordEncoderFactory.getInstance();
     }
 
@@ -68,21 +85,29 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void createAccount() {
-        final String login = UUID.randomUUID().toString().substring(0,8);
-        final String password = UUID.randomUUID().toString().substring(0,10);
-        final String email = login + "@sernet.de";
-        IAccount rawAccount = new Account(login, password, email);
-        accountService.createAccount(rawAccount);
-
-        IAccount foundAccount = accountService.findByLogin(login);
-        Assert.assertNotNull("Account with login: " + login + " not found.", foundAccount);
-        Assert.assertEquals(login, foundAccount.getLogin());
-        Assert.assertEquals(email, foundAccount.getEmail());      
-        Assert.assertTrue("Password does nmot match", encoder.matches(password, foundAccount.getPassword()));
+    public void createGame() {
+        IPlayer sh = new Player();
+        sh.setFirstName("Sebastian");
+        sh = playerService.save(sh);
+        IPlayer bw = new Player();
+        bw.setFirstName("Benjamin");
+        bw = playerService.save(bw);
+        IPlayer dm = new Player();
+        dm.setFirstName("Daniel");
+        dm = playerService.save(dm);
+        IPlayer mr = new Player();
+        mr.setFirstName("Moritz");
+        mr = playerService.save(mr);
         
-        accountService.delete(foundAccount);
-        foundAccount = accountService.findByLogin(login);
-        Assert.assertNull("Account with login: " + login + " found after deletion.", foundAccount);
+        ITeam blue = new Team((Player)sh, (Player)bw);
+        blue = teamService.save(blue);
+        ITeam red = new Team((Player)dm, (Player)mr);
+        red = teamService.save(red);
+        
+        IGame game = new Game();
+        game.setBlueTeam(blue);
+        game.setRedTeam(red);
+        game.setGameDate(LocalDateTime.now());
+        game = gameService.save(game);       
     }
 }
