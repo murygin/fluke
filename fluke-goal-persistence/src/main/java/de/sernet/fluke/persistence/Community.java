@@ -29,6 +29,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.UniqueConstraint;
 
 import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.IPlayer;
@@ -47,7 +48,7 @@ public class Community implements ICommunity {
     @ElementCollection(targetClass=Player.class)
     private List<Player> registeredPlayers;
     
-    @Column( name = "name")
+    @Column( name = "name", unique=true)
     private String name;
     
     @Override

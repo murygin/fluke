@@ -24,13 +24,8 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public List<IGame> findById(Long gameId) {
-        Iterable<Game> internalResult = gameRepository.findById(gameId);
-        List<IGame> result = new ArrayList<>(0);
-        for(Game c : internalResult){
-            result.add(c);
-        }
-        return result;
+    public IGame findById(Long gameId) {
+        return (IGame) gameRepository.findById(gameId);
     }
     
     @Override

@@ -26,7 +26,7 @@ public interface IGameService {
     
     IGame save(IGame game);
     
-    List<IGame> findById(Long gameId);
+    IGame findById(Long gameId);
 
     List<IGame> findByDate(LocalDateTime time);
     

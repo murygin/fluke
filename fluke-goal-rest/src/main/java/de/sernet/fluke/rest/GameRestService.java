@@ -52,7 +52,7 @@ public class GameRestService {
      */
     @RequestMapping(path = "/{gameId}", method = RequestMethod.GET)
     public ResponseEntity<IGame> findOne(@PathVariable Long gameId) {
-        IGame iGame = iGameService.findGame(gameId);
+        IGame iGame = iGameService.findById(gameId);
         HttpStatus status = (iGame != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         ResponseEntity<IGame> response = new ResponseEntity<>(iGame, status);
         return response;

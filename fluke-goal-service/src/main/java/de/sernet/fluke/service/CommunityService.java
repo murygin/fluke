@@ -23,13 +23,8 @@ public class CommunityService implements ICommunityService {
     }
 
     @Override
-    public List<ICommunity> findByName(String name) {
-        Iterable<Community> internalResult = communityRepository.findByName(name);
-        List<ICommunity> result = new ArrayList<>(0);
-        for(Community c : internalResult){
-            result.add(c);
-        }
-        return result;
+    public ICommunity findByName(String name) {
+        return (ICommunity)communityRepository.findByName(name);
     }
 
     @Override

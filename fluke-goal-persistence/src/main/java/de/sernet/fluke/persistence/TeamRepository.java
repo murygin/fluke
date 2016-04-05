@@ -30,7 +30,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface TeamRepository extends CrudRepository<Team, Long> {
     
-    List<Team> findById(@Param("id") Long id);
+    Team findById(@Param("id") Long id);
     
     @Query("select t from Team t where t.defensivePlayer = :defensivePlayer AND t.offensivePlayer = :offensivePlayer ")
     List<Team> findByPlayers(@Param("defensivePlayer") Player defensivePlayer, @Param("offensivePlayer") Player offensivePlayer);
