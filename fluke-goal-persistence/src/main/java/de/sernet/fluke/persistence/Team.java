@@ -22,6 +22,7 @@ package de.sernet.fluke.persistence;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -45,15 +46,39 @@ public class Team implements ITeam {
     
     @Access(AccessType.PROPERTY)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="offensivePlayerId")
+    @JoinColumn(name="offensivePlayerId", nullable=false)
     private Player offensivePlayer;
     
     @Access(AccessType.PROPERTY)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="defensicePlayerId")
+    @JoinColumn(name="defensicePlayerId", nullable=false)
     private Player defensivePlayer;
     
-
+    /* how many games the player won over all */
+    @Column( name = "wonGames", columnDefinition="bigint default 0")
+    private long wonGames;
+    
+    /* how many games the player lost over all */
+    @Column( name = "lostGames", columnDefinition="bigint default 0")
+    private long lostGames;
+    
+    /* how many offensive goals does the player have scored over all */
+    @Column ( name = "scoredOffensiveGoals", columnDefinition="bigint default 0")
+    private long scoredOffensiveGoals;
+    
+    /* how many defensive goals does the player have scored over all */
+    @Column ( name = "scoredDefensiveGoals", columnDefinition="bigint default 0")
+    private long scoredDefensiveGoals;
+    
+    /* how many goals (sum of defensive and offensive) does the 
+     * player have scored over all */
+    @Column ( name = "scoredTotalGoals", columnDefinition="bigint default 0")
+    private long scoredTotalGoals;
+    
+    /* how often was the player not able to save an attempt to score a goal
+     * in his role as the goalkeeper */
+    @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
+    private long concededGoals;
     @Override
     public long getId() {
         return id;
@@ -85,6 +110,115 @@ public class Team implements ITeam {
         this.defensivePlayer = (Player)defensivePlayer;
     }
 
+
+    /**
+     * @return the wonGames
+     */
+    public long getWonGames() {
+        return wonGames;
+    }
+
+    /**
+     * @param wonGames the wonGames to set
+     */
+    public void setWonGames(long wonGames) {
+        this.wonGames = wonGames;
+    }
+    
+    public void increaseWonGames(long wonGames){
+        this.wonGames += wonGames;
+    }
+
+    /**
+     * @return the lostGames
+     */
+    public long getLostGames() {
+        return lostGames;
+    }
+
+    /**
+     * @param lostGames the lostGames to set
+     */
+    public void setLostGames(long lostGames) {
+        this.lostGames = lostGames;
+    }
+    
+    public void increaseLostGames(long lostGames){
+        this.lostGames += lostGames;
+    }
+
+    /**
+     * @return the scoredOffensiveGoals
+     */
+    public long getScoredOffensiveGoals() {
+        return scoredOffensiveGoals;
+    }
+
+    /**
+     * @param scoredOffensiveGoals the scoredOffensiveGoals to set
+     */
+    public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
+        this.scoredOffensiveGoals = scoredOffensiveGoals;
+    }
+    
+    public void increaseScoredOffensiveGoals(long scoredOffensiveGoals){
+        this.scoredOffensiveGoals += scoredOffensiveGoals;
+    }
+
+    /**
+     * @return the scoredDefensiveGoals
+     */
+    public long getScoredDefensiveGoals() {
+        return scoredDefensiveGoals;
+    }
+
+    /**
+     * @param scoredDefensiveGoals the scoredDefensiveGoals to set
+     */
+    public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
+        this.scoredDefensiveGoals = scoredDefensiveGoals;
+    }
+    
+    public void increaseScoredDefensiveGoals(long scoredDefensiveGoals){
+        this.scoredDefensiveGoals += scoredDefensiveGoals;
+    }
+
+    /**
+     * @return the scoredTotalGoals
+     */
+    public long getScoredTotalGoals() {
+        return scoredTotalGoals;
+    }
+
+    /**
+     * @param scoredTotalGoals the scoredTotalGoals to set
+     */
+    public void setScoredTotalGoals(long scoredTotalGoals) {
+        this.scoredTotalGoals = scoredTotalGoals;
+    }
+    
+    public void increaseScoredTotalGoals(long scoredTotalGoals){
+        this.scoredTotalGoals += scoredTotalGoals;
+    }
+
+    /**
+     * @return the concededGoals
+     */
+    public long getConcededGoals() {
+        return concededGoals;
+    }
+
+    /**
+     * @param concededGoals the concededGoals to set
+     */
+    public void setConcededGoals(long concededGoals) {
+        this.concededGoals = concededGoals;
+    }
+    
+    public void increaseConcededGoals(long concededGoals){
+        this.concededGoals += concededGoals;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */
@@ -92,9 +226,15 @@ public class Team implements ITeam {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + (int) (concededGoals ^ (concededGoals >>> 32));
         result = prime * result + ((defensivePlayer == null) ? 0 : defensivePlayer.hashCode());
         result = prime * result + (int) (id ^ (id >>> 32));
+        result = prime * result + (int) (lostGames ^ (lostGames >>> 32));
         result = prime * result + ((offensivePlayer == null) ? 0 : offensivePlayer.hashCode());
+        result = prime * result + (int) (scoredDefensiveGoals ^ (scoredDefensiveGoals >>> 32));
+        result = prime * result + (int) (scoredOffensiveGoals ^ (scoredOffensiveGoals >>> 32));
+        result = prime * result + (int) (scoredTotalGoals ^ (scoredTotalGoals >>> 32));
+        result = prime * result + (int) (wonGames ^ (wonGames >>> 32));
         return result;
     }
 
@@ -113,6 +253,9 @@ public class Team implements ITeam {
             return false;
         }
         Team other = (Team) obj;
+        if (concededGoals != other.concededGoals) {
+            return false;
+        }
         if (defensivePlayer == null) {
             if (other.defensivePlayer != null) {
                 return false;
@@ -123,6 +266,9 @@ public class Team implements ITeam {
         if (id != other.id) {
             return false;
         }
+        if (lostGames != other.lostGames) {
+            return false;
+        }
         if (offensivePlayer == null) {
             if (other.offensivePlayer != null) {
                 return false;
@@ -130,7 +276,20 @@ public class Team implements ITeam {
         } else if (!offensivePlayer.equals(other.offensivePlayer)) {
             return false;
         }
+        if (scoredDefensiveGoals != other.scoredDefensiveGoals) {
+            return false;
+        }
+        if (scoredOffensiveGoals != other.scoredOffensiveGoals) {
+            return false;
+        }
+        if (scoredTotalGoals != other.scoredTotalGoals) {
+            return false;
+        }
+        if (wonGames != other.wonGames) {
+            return false;
+        }
         return true;
     }
+
 
 }

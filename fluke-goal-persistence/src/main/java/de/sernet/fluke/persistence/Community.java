@@ -48,7 +48,7 @@ public class Community implements ICommunity {
     @ElementCollection(targetClass=Player.class)
     private List<Player> registeredPlayers;
     
-    @Column( name = "name", unique=true)
+    @Column( name = "name", unique=true, nullable=false)
     private String name;
     
     @Override

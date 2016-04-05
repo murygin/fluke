@@ -49,15 +49,15 @@ public class Game implements IGame {
     
     @Access(AccessType.PROPERTY)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="blueTeamId")
+    @JoinColumn(name="blueTeamId", nullable=false)
     private Team blueTeam;
     
     @Access(AccessType.PROPERTY)
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="redTeamId")
+    @JoinColumn(name="redTeamId", nullable=false)
     private Team redTeam;
     
-    @Column( name = "gameDate")
+    @Column( name = "gameDate", nullable=false)
     private LocalDateTime gameDate;
     
     @Access(AccessType.PROPERTY)
