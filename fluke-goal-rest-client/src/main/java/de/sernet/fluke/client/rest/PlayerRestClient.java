@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
+import de.sernet.fluke.interfaces.IPlayerService.IPlayerService;
 
 /**
  *
