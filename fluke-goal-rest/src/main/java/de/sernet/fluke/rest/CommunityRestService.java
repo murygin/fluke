@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.interfaces;
+
+package de.sernet.fluke.rest;
+
+import de.sernet.fluke.interfaces.ICommunityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
- * @author Sebastian Hagedorn <sh[at]sernet.de>
  */
-public interface ITeam {
+@RestController
+@RequestMapping("/service/community")
+public class CommunityRestService {
 
-    long getId();
+    @Autowired
+    ICommunityService iCommunityService;
     
-    void setId(long id);
-    
-    IPlayer getOffensivePlayer();
-    
-    void setOffensivePlayer(IPlayer offensivePlayer);
-    
-    IPlayer getDefensivePlayer();
-    
-    void setDefensivePlayer(IPlayer defensivePlayer);
     
 }

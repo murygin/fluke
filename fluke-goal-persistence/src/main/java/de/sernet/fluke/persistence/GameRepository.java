@@ -19,22 +19,18 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-
-	List<Player> findByLastName(@Param("name") String name);
-	
-	List<Player> findById(@Param("id") long id);
-	
-	@Query("select p from Player p where p.firstName = :firstName AND p.lastName = :lastName")
-	List<Player> findByFullQualifiedName(@Param("lastName") String lastName, @Param("firstName") String firstName);
+public interface GameRepository extends CrudRepository<Game, Long>{
+    
+    List<Game> findById(@Param("id") long id);
+    
+    List<Game> findByGameDate(@Param("gameDate") LocalDateTime gameDate);
 }

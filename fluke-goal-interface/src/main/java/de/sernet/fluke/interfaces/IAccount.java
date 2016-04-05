@@ -16,7 +16,8 @@
 package de.sernet.fluke.interfaces;
 
 /**
- *
+ * Represents an user account for fluke.
+ * 
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface IAccount {

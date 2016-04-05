@@ -15,10 +15,20 @@
  */
 package de.sernet.fluke.interfaces;
 
+import java.util.List;
+
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface ITeamService {
+    
+    ITeam save(ITeam team);
+
+    List<ITeam> findOne(long teamId);
+    
+    ITeam findById(long id);
+    
+    List<ITeam> findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer);
     
 }

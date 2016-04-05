@@ -19,6 +19,8 @@
  ******************************************************************************/
 package de.sernet.fluke.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +55,7 @@ public class PlayerService implements IPlayerService {
     public IPlayer findOne(Long playerId) {
         return playerRepository.findOne(playerId);
     }
+    
+    
 
 }

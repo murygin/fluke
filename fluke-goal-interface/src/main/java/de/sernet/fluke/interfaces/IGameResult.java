@@ -17,24 +17,22 @@
  * Contributors:
  *     Sebastian Hagedorn <sh[at]sernet[dot]de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.persistence;
-
-import java.util.List;
-
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+package de.sernet.fluke.interfaces;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-
-	List<Player> findByLastName(@Param("name") String name);
-	
-	List<Player> findById(@Param("id") long id);
-	
-	@Query("select p from Player p where p.firstName = :firstName AND p.lastName = :lastName")
-	List<Player> findByFullQualifiedName(@Param("lastName") String lastName, @Param("firstName") String firstName);
+public interface IGameResult {
+    
+    void setId(long id);
+    
+    long getId();
+    
+    short getBlueTeamGoals();
+    
+    short getRedTeamGoals();
+    
+    void setBlueTeamGoals(short blueTeamGoals);
+    
+    void setRedTeamGoals(short redTeamGoals);
 }

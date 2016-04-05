@@ -41,7 +41,7 @@ import de.sernet.fluke.persistence.Player;
  */
 @RestController
 @RequestMapping("/service/player")
-public class PlayerRestService  {
+public class PlayerRestService {
 
     @Autowired
     IPlayerService playerService;

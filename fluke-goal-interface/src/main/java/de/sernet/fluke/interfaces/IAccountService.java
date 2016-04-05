@@ -22,6 +22,8 @@ package de.sernet.fluke.interfaces;
  * @author Daniel Murygin
  */
 public interface IAccountService {
+   
+    IAccount saveAccount(IAccount account);
     
     /**
      * Creates an user account from raw account data.

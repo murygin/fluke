@@ -28,13 +28,11 @@ import org.springframework.data.repository.query.Param;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-
-public interface PlayerRepository extends CrudRepository<Player, Long> {
-
-	List<Player> findByLastName(@Param("name") String name);
-	
-	List<Player> findById(@Param("id") long id);
-	
-	@Query("select p from Player p where p.firstName = :firstName AND p.lastName = :lastName")
-	List<Player> findByFullQualifiedName(@Param("lastName") String lastName, @Param("firstName") String firstName);
+public interface TeamRepository extends CrudRepository<Team, Long> {
+    
+    List<Team> findById(@Param("id") Long id);
+    
+    @Query("select t from Team t where t.defensivePlayer = :defensivePlayer AND t.offensivePlayer = :offensivePlayer ")
+    List<Team> findByPlayers(@Param("defensivePlayer") Player defensivePlayer, @Param("offensivePlayer") Player offensivePlayer);
+    
 }

@@ -15,10 +15,18 @@
  */
 package de.sernet.fluke.interfaces;
 
+import java.util.List;
+
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface ICommunityService {
+    
+    ICommunity save(ICommunity community);
+    
+    List<ICommunity> findByName(String name);
+    
+    List<ICommunity> findAll();
     
 }

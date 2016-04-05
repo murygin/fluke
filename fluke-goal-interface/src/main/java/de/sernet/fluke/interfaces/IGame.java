@@ -13,13 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.sernet.fluke.interfaces;
 
+import java.time.LocalDateTime;
+
 /**
- *
+ * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface IGame {
+    
+    void setId(long id);
+    
+    long getId();
+    
+    ITeam getBlueTeam();
+    
+    ITeam getRedTeam();
+    
+    void setBlueTeam(ITeam blueTeam);
+    
+    void setRedTeam(ITeam redTeam);
+    
+    LocalDateTime getGameDate();
+    
+    void setGameDate(LocalDateTime gameDate);
+    
+    void setResult(IGameResult gameResult);
+    
+    IGameResult getResult();
 
 }

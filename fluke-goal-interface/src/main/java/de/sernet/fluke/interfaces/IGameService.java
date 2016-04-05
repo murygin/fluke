@@ -15,10 +15,21 @@
  */
 package de.sernet.fluke.interfaces;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 /**
- *
+ * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface IGameService {
+    
+    IGame save(IGame game);
+    
+    List<IGame> findById(Long gameId);
+
+    List<IGame> findByDate(LocalDateTime time);
+    
+    IGame findGame(long gameId);
     
 }
