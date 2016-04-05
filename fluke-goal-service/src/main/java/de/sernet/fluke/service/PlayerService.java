@@ -19,13 +19,14 @@
  ******************************************************************************/
 package de.sernet.fluke.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.persistence.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
+import java.util.Collections;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -53,7 +54,21 @@ public class PlayerService implements IPlayerService {
     public IPlayer findOne(Long playerId) {
         return playerRepository.findOne(playerId);
     }
-    
-    
 
+    @Override
+    public void delete(IPlayer player) {
+        playerRepository.delete((Player) player);
+    }
+
+    @Override
+    public Iterable<IPlayer> findAll() {
+        Iterable<Player> players = playerRepository.findAll();
+        List<IPlayer> castedPlayers = Collections.emptyList();
+        
+        for (Player player: players) {
+            castedPlayers.add((Player) player);
+        }
+        
+        return castedPlayers;
+    }
 }
