@@ -33,7 +33,7 @@ public interface PlayerRepository extends CrudRepository<Player, Long> {
 
 	List<Player> findByLastName(@Param("name") String name);
 	
-	List<Player> findById(@Param("id") long id);
+	Player findById(@Param("id") long id);
 	
 	@Query("select p from Player p where p.firstName = :firstName AND p.lastName = :lastName")
 	List<Player> findByFullQualifiedName(@Param("lastName") String lastName, @Param("firstName") String firstName);

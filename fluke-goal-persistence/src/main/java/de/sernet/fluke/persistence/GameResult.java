@@ -37,10 +37,10 @@ public class GameResult implements IGameResult {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    @Column( name = "blueTeamGoals")
+    @Column( name = "blueTeamGoals", nullable=false)
     private short blueTeamGoals;
     
-    @Column( name = "redTeamGoals")
+    @Column( name = "redTeamGoals", nullable=false)
     private short redTeamGoals;
 
     public GameResult(short redTeamGoals, short blueTeamGoals){

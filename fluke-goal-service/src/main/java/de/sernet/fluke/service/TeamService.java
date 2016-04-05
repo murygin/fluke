@@ -25,13 +25,8 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public List<ITeam> findOne(long teamId) {
-        Iterable<Team> internalResult = teamRepository.findById(teamId);
-        List<ITeam> result = new ArrayList<>(0);
-        for(Team c : internalResult){
-            result.add(c);
-        }
-        return result;
+    public ITeam findOne(long teamId) {
+        return (ITeam) teamRepository.findById(teamId);
     }
 
     @Override

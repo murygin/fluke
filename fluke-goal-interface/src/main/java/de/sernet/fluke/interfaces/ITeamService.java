@@ -25,7 +25,7 @@ public interface ITeamService {
     
     ITeam save(ITeam team);
 
-    List<ITeam> findOne(long teamId);
+    ITeam findOne(long teamId);
     
     ITeam findById(long id);
     

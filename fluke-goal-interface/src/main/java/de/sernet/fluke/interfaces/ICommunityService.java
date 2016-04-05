@@ -25,7 +25,7 @@ public interface ICommunityService {
     
     ICommunity save(ICommunity community);
     
-    List<ICommunity> findByName(String name);
+    ICommunity findByName(String name);
     
     List<ICommunity> findAll();
     
