@@ -1,12 +1,14 @@
 package de.sernet.fluke.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.persistence.GameResult;
+import de.sernet.fluke.persistence.GameResultRepository;
 
+@Service
 public class GameResultService implements IGameResultService {
 
     @Autowired
@@ -18,9 +20,16 @@ public class GameResultService implements IGameResultService {
     @Autowired
     GameService gameService;
     
+    @Autowired
+    GameResultRepository gameResultRepository;
+    
     @Override
     public void trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
-        game.setResult(new GameResult(goalsRedTeam, goalsBlueTeam));
+        if(game.getResult() == null){
+            game.setResult(new GameResult(goalsRedTeam, goalsBlueTeam));
+        }
+        
+        gameResultRepository.save((GameResult)game.getResult());
         
         // update blue team
         game.getBlueTeam().increaseScoredTotalGoals(goalsBlueTeam);
@@ -48,7 +57,7 @@ public class GameResultService implements IGameResultService {
 
     @Override
     public void trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
-        game.setResult(new GameResult((short)(redDefensiveGoals+redOffensiveGoals), (short)(blueDefensiveGoals+blueOffensiveGoals)));
+        game.setResult(new GameResult((short)redOffensiveGoals, (short)redDefensiveGoals, (short)blueOffensiveGoals, (short)blueDefensiveGoals));
         
         // handle results for team objects
         trackGameResult(game, game.getResult().getRedTeamGoals(), game.getResult().getBlueTeamGoals());
@@ -74,6 +83,8 @@ public class GameResultService implements IGameResultService {
             game.getBlueTeam().getOffensivePlayer().increaseLostGames((short)1);
             game.getBlueTeam().getDefensivePlayer().increaseLostGames((short)1);
         }
+        
+        gameService.save(game);
         
         playerService.save(game.getBlueTeam().getDefensivePlayer());
         playerService.save(game.getBlueTeam().getOffensivePlayer());
