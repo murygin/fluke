@@ -60,6 +60,8 @@ public class PlayerRestClientTest {
         player = playerClient.save(player);
         
         IPlayer playerResult = playerClient.findOne(player.getId());
+        Iterable<IPlayer> allPlayers = playerClient.findAll();
+        assertNotNull(allPlayers);
         assertNotNull(player);
         assertEquals(player.getId(),playerResult.getId());
         assertEquals(player.getFirstName(),playerResult.getFirstName());

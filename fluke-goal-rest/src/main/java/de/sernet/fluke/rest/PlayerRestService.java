@@ -73,12 +73,12 @@ public class PlayerRestService {
         return response;
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity findAll() {
+    @RequestMapping(method = RequestMethod.GET)
+    public List<IPlayer> findAll() {
         List<IPlayer> players = (List<IPlayer>) playerService.findAll();
         HttpStatus status = (players != null && !players.isEmpty())
                 ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity response = new ResponseEntity(status);
-        return response;
+        ResponseEntity<List<IPlayer>> response = new ResponseEntity(players, status);
+        return response.getBody();
     }
 }
