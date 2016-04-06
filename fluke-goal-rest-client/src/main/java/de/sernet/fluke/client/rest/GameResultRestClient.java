@@ -27,6 +27,7 @@ import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -39,11 +40,9 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
     public static final String PATH_DEFAULT = "service/gameResult";
     
+    private static final String NOT_IMPLEMENTED_MSG = "Method not implemented by this client. Use trackGameResult(GoalsOfAGameCollection goals) instead";
+    
     private String path;
-    
-    @Autowired
-    
-    
     
     public GameResultRestClient(){
         this(SERVER_URL_DEFAULT, PATH_DEFAULT);
@@ -60,21 +59,12 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
      */
     @Override
     public IGameResult trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
-
-        
-        return null;
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 
     @Override
     public IGameResult trackGameResult(GoalsOfAGameCollection goals) {
-        IGameResult gameResult = null;
-        if(goals.getBlueScoredDefensiveGoals() != null && goals.getBlueScoredOffensiveGoals() != null 
-                && goals.getRedScoredDefensiveGoals() != null && goals.getRedScoredOffensiveGoals() != null){
-            gameResult = new GameResult(goals.getRedScoredOffensiveGoals(), goals.getRedScoredDefensiveGoals(), goals.getBlueScoredOffensiveGoals(), goals.getBlueScoredDefensiveGoals());
-        } else if(goals.getBlueTeamGoals() != null && goals.getRedTeamGoals() != null){
-            gameResult = new GameResult(goals.getRedTeamGoals(), goals.getRedTeamGoals());
-        }
-        HttpEntity<IGameResult> request = new HttpEntity<>(gameResult);
+        HttpEntity<GoalsOfAGameCollection> request = new HttpEntity<>(goals);
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append("trackGameResult");
         String url = sb.toString();
@@ -118,17 +108,17 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
 
     @Override
     public IGameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam) {
-        return null;
+        return trackGameResult(new GoalsOfAGameCollection(gameId, goalsRedTeam, goalsBlueTeam));
     }
 
     @Override
     public IGameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
-        return null;
+        return trackGameResult(new GoalsOfAGameCollection(gameId, blueOffensiveGoals, blueDefensiveGoals, redOffensiveGoals, redDefensiveGoals));
     }
 
     @Override
     public IGameResult trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
-        return null;
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 
 }
