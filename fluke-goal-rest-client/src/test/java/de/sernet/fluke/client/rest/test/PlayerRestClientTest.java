@@ -19,20 +19,21 @@
  ******************************************************************************/
 package de.sernet.fluke.client.rest.test;
 
+import de.sernet.fluke.client.rest.Application;
+import de.sernet.fluke.client.rest.Player;
+import de.sernet.fluke.client.rest.PlayerRestClient;
+import de.sernet.fluke.interfaces.IPlayer;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import de.sernet.fluke.client.rest.Application;
-import de.sernet.fluke.client.rest.Player;
-import de.sernet.fluke.client.rest.PlayerRestClient;
-import de.sernet.fluke.interfaces.IPlayer;
 
 /**
  *
@@ -66,4 +67,14 @@ public class PlayerRestClientTest {
         assertEquals(player.getLastName(),playerResult.getLastName());
     }
 
+    @Test
+    public void deleteRemovesPlayer() {
+        IPlayer player = new Player();
+        player.setFirstName("Donald");
+        player = playerClient.save(player);
+        
+        assertThat(playerClient.findOne(player.getId()), notNullValue());
+        playerClient.delete(player.getId());
+        assertThat(playerClient.findOne(player.getId()), nullValue());
+    }
 }
