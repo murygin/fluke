@@ -15,62 +15,95 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
-import com.vaadin.annotations.Theme;
-import com.vaadin.annotations.Title;
+import java.util.stream.Stream;
+
+import com.vaadin.annotations.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 
+import de.sernet.fluke.client.rest.AccountRestClient;
+import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
+import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
+import de.sernet.fluke.interfaces.IAccountService;
 
 @Title("Fluke")
 @SpringUI
 @Theme("fluke")
+@PreserveOnRefresh
 public class FlukeUI extends UI {
 
     private static final long serialVersionUID = 1L;
     private FlukeMenuBar menu;
     private Navigator navigator = null;
     private VerticalLayout mainLayout;
+    IAccountService accountService = new AccountRestClient();
+
 
     @Override
     protected void init(VaadinRequest request) {
 
-        createMainLayout();
+        TabSheet tabSheet = new TabSheet();
+        tabSheet.setWidth("400px");
 
-        menu = new FlukeMenuBar(getNavigator());
-        mainLayout.addComponentAsFirst(menu);
-        getNavigator().addViewChangeListener(menu);
+        tabSheet.addComponent(new LoginForm(accountService, () -> {
+            createUI();
+        }));
 
-        addView(new ManagePlayersView());
-        addView(new CreateMatchView());
-        getNavigator().navigateTo(ManagePlayersView.TYPE_ID);
+        tabSheet.addComponent(new RegisterForm(accountService));
+
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.setWidthUndefined();
+        horizontalLayout.setSpacing(true);
+
+        horizontalLayout.addComponent(tabSheet);
+
+        layout.addComponent(horizontalLayout);
+        layout.setComponentAlignment(horizontalLayout, Alignment.TOP_CENTER);
+
+        setContent(layout);
     }
 
-    public Navigator getNavigator() {
-
-        if (navigator == null) {
-            Panel viewDisplay = new Panel();
-            viewDisplay.setSizeFull();
-            mainLayout.addComponent(viewDisplay);
-            mainLayout.setExpandRatio(viewDisplay, 1.0f);
-            navigator = new Navigator(this, viewDisplay);
-        }
-
-        return navigator;
+    public static String printStackTrace(Exception ex) {
+        return Stream.of(ex.getStackTrace()).collect(
+                StringBuilder::new,
+                StringBuilder::append,
+                StringBuilder::append)
+                .toString();
     }
 
-    public void createMainLayout() {
+    public IAccountService getAccountService() {
+        return accountService;
+    }
+
+    public void createUI() {
 
         mainLayout = new VerticalLayout();
         mainLayout.setSizeFull();
         setContent(mainLayout);
+        Panel viewDisplay = new Panel();
+        viewDisplay.setSizeFull();
+        mainLayout.addComponent(viewDisplay);
+        mainLayout.setExpandRatio(viewDisplay, 1.0f);
+        navigator = new Navigator(this, viewDisplay);
+
+        menu = new FlukeMenuBar(navigator);
+        mainLayout.addComponentAsFirst(menu);
+        navigator.addViewChangeListener(menu);
+
+        addView(new ManagePlayersView());
+        addView(new CreateMatchView());
+        navigator.navigateTo(ManagePlayersView.TYPE_ID);
     }
 
     private void addView(AbstractPlayerView newView) {
 
-        getNavigator().addView(newView.getTypeID(), newView);
+        navigator.addView(newView.getTypeID(), newView);
         menu.addView(newView.getTypeID(), newView.getLabel(), null);
     }
 

@@ -16,13 +16,9 @@
 package de.sernet.fluke.gui.vaadin.ui.components;
 
 import com.vaadin.server.VaadinSession;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
-import de.sernet.fluke.gui.vaadin.ui.VaadinUI;
+import com.vaadin.ui.*;
+
+import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 
@@ -66,8 +62,8 @@ public class LoginForm extends FormLayout {
                 password.setValue("");
                 invalidPassword.setVisible(true);
 
-                System.out.println(VaadinUI.printStackTrace(e));
-                Notification.show("Error", VaadinUI.printStackTrace(e),
+                System.out.println(FlukeUI.printStackTrace(e));
+                Notification.show("Error", FlukeUI.printStackTrace(e),
                         com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
             }
         });
