@@ -15,27 +15,17 @@
  */
 package de.sernet.fluke.client.rest;
 
-import static de.sernet.fluke.client.rest.AbstractRestClient.SERVER_URL_DEFAULT;
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.rest.PlayerSelection;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.HttpClients;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
+
+import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.rest.PlayerSelection;
 
 /**
  *
@@ -50,12 +40,12 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
     
     private String path;
     
-    public GameRestClient() {
-        this(SERVER_URL_DEFAULT, PATH_DEFAULT);
+    public GameRestClient(String username, String password) {
+        this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
 
-    public GameRestClient(String serverUrl, String path) {
-        super();
+    public GameRestClient(String username, String password, String serverUrl, String path) {
+        super(username, password);
         setServerUrl(serverUrl);
         setPath(path); 
     }

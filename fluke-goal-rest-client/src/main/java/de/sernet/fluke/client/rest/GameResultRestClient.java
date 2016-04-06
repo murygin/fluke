@@ -17,17 +17,12 @@ package de.sernet.fluke.client.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResult;
-import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -44,12 +39,12 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
     
     private String path;
     
-    public GameResultRestClient(){
-        this(SERVER_URL_DEFAULT, PATH_DEFAULT);
+    public GameResultRestClient(String username, String password) {
+        this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
     
-    public GameResultRestClient(String serverUrl, String path) {
-        super();
+    public GameResultRestClient(String username, String password, String serverUrl, String path) {
+        super(username, password);
         setServerUrl(serverUrl);
         setPath(path);
     }

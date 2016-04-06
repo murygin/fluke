@@ -33,6 +33,8 @@ public class RestClient extends RestTemplate {
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
         credsProvider.setCredentials(
                 new AuthScope(null, -1),
+                // TODO rmotza password usually hashed, only in accountservice
+                // plain!
                 new UsernamePasswordCredentials(username, password));
         HttpClient httpClient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider)
                 .build();

@@ -27,10 +27,16 @@ public abstract class AbstractRestClient {
     
     private String serverUrl;
     
-    private RestOperations restOperations = new RestClient("dm", "geheim");
-    
-    public AbstractRestClient() {
+    private RestOperations restOperations;
+
+    private AbstractRestClient() {
         super();
+        serverUrl = SERVER_URL_DEFAULT;
+    }
+
+    public AbstractRestClient(String username, String password) {
+        this();
+        restOperations = new RestClient(username, password);
     }
 
     protected String getBaseUrl() {

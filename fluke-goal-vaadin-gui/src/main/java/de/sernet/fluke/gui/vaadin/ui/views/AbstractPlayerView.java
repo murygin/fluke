@@ -25,10 +25,12 @@ import java.util.List;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.gui.vaadin.ui.Note;
+import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IPlayer;
 
 /**
@@ -38,7 +40,8 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
 
     private static final long serialVersionUID = 1L;
 
-    protected static final PlayerRestClient playerService = new PlayerRestClient();
+    // TODO rmotza change to account properties
+    protected static final PlayerRestClient playerService = new PlayerRestClient("fluke", "fluke");
 
     public AbstractPlayerView() {
         initContent();
@@ -54,6 +57,9 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
     public abstract String getLabel();
 
     protected void updateList() {
+
+        VaadinSession session = getUI().getSession();
+        IAccount account = session.getAttribute(IAccount.class);
 
         List<IPlayer> players = new ArrayList<>();
         Iterable<IPlayer> findAll = playerService.findAll();

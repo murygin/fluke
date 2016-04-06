@@ -53,7 +53,7 @@ public class AccountBuilder {
     }
 
     public Account createAccount() {
-        return new Account(login, password, email, firstName, lastName);
+        return new Account(login, password, email);
     }
 
 }

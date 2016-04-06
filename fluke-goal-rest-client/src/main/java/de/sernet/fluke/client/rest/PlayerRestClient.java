@@ -38,18 +38,16 @@ public class PlayerRestClient extends AbstractRestClient implements IPlayerServi
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerRestClient.class);
     
-    public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
     public static final String PATH_DEFAULT = "service/player";
     
     private String path;
     
-    public PlayerRestClient() {
-        this(SERVER_URL_DEFAULT, PATH_DEFAULT);
+    public PlayerRestClient(String username, String password) {
+        this(username, password, PATH_DEFAULT);
     }
 
-    public PlayerRestClient(String serverUrl, String path) {
-        super();
-        setServerUrl(serverUrl);
+    public PlayerRestClient(String username, String password, String path) {
+        super(username, password);
         setPath(path);
     }
 

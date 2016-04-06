@@ -23,7 +23,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 
-import de.sernet.fluke.client.rest.AccountRestClient;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
@@ -39,7 +38,7 @@ public class FlukeUI extends UI {
     private FlukeMenuBar menu;
     private Navigator navigator = null;
     private VerticalLayout mainLayout;
-    IAccountService accountService = new AccountRestClient();
+    IAccountService accountService = null;
 
 
     @Override
