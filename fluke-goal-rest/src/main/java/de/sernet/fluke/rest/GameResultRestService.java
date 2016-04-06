@@ -29,7 +29,7 @@ public class GameResultRestService {
                 && goals.getRedScoredDefensiveGoals() != null && goals.getRedScoredOffensiveGoals() != null){
             gameResult = gameResultService.trackGameResult(goals.getGameId(), goals.getRedScoredOffensiveGoals(), goals.getRedScoredDefensiveGoals(), goals.getBlueScoredOffensiveGoals(), goals.getBlueScoredDefensiveGoals());
         } else if(goals.getBlueTeamGoals() != null && goals.getRedTeamGoals() != null){
-            gameResult = gameResultService.trackGameResult(goals.getGameId(), goals.getRedTeamGoals(), goals.getRedTeamGoals());
+            gameResult = gameResultService.trackGameResult(goals.getGameId(), goals.getRedTeamGoals(), goals.getBlueTeamGoals());
         }
         ResponseEntity<IGameResult> response = new ResponseEntity<>(gameResult, HttpStatus.OK);
         return response;        

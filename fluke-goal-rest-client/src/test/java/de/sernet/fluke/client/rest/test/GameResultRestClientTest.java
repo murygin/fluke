@@ -23,10 +23,13 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.Application;
+import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.client.rest.GameResult;
 import de.sernet.fluke.client.rest.GameResultRestClient;
+import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
+import junit.framework.Assert;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -38,6 +41,9 @@ public class GameResultRestClientTest {
     @Autowired 
     GameResultRestClient gameResultRestClient;
     
+    @Autowired
+    GameRestClient gameRestClient;
+    
     @Before
     public void init() {
         gameResultRestClient.setServerUrl("http://localhost:8080/service/");
@@ -47,7 +53,18 @@ public class GameResultRestClientTest {
     @Test
     public void test() {
         
-        gameResultRestClient.trackGameResult(new GoalsOfAGameCollection(1, (short)4, (short)6));
+        long gameId = 1;
+        
+        IGame game = gameRestClient.findById(gameId);
+        
+        gameResultRestClient.trackGameResult(new GoalsOfAGameCollection(gameId, (short)4, (short)6));
+        
+        IGame updatedGame = gameRestClient.findById(gameId);
+        
+        Assert.assertEquals(game.getId(), updatedGame.getId());
+        Assert.assertEquals(4, updatedGame.getResult().getRedTeamGoals());
+        Assert.assertEquals(6, updatedGame.getResult().getBlueTeamGoals());
+        
         
 //        IGameResult gameResult = new GameResult((short)6, (short)6);
 //        gameResult = gameResultRestClient.save(gameResult);

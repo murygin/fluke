@@ -34,6 +34,10 @@ public class GameResultService implements IGameResultService {
             game.setResult(gameResult);
         } else {
             gameResult = game.getResult();
+            gameResult.setBlueTeamGoals(goalsBlueTeam);
+            gameResult.setRedTeamGoals(goalsRedTeam);
+            gameResultRepository.save((GameResult)gameResult);
+            game.setResult(gameResult);
         }
         
         // update blue team

@@ -96,11 +96,12 @@ public class Game implements IGame {
     }
 
     @Override
-    public void setResult(IGameResult gameResult) {
+    public void setResult(@JsonDeserialize(as = GameResult.class)IGameResult gameResult) {
         this.result = (GameResult)gameResult;
     }
 
     @Override
+    @JsonDeserialize(as = GameResult.class)
     public IGameResult getResult() {
         return this.result;
     }
