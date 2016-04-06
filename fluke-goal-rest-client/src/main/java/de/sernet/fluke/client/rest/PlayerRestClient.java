@@ -36,27 +36,23 @@ import java.util.Collections;
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
 @Service
-public class PlayerRestClient implements IPlayerService {
+public class PlayerRestClient extends AbstractRestClient implements IPlayerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerRestClient.class);
     
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
-    public static final String PATH_DEFAULT = "element";
+    public static final String PATH_DEFAULT = "service/player";
     
-    private String serverUrl = SERVER_URL_DEFAULT;
-    private String path = PATH_DEFAULT;
-    
-    RestTemplate restTemplate = new RestTemplate();
-
+    private String path;
     
     public PlayerRestClient() {
-        super();
+        this(SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
 
     public PlayerRestClient(String serverUrl, String path) {
         super();
-        this.serverUrl = serverUrl;
-        this.path = path;
+        setServerUrl(serverUrl);
+        setPath(path);
     }
 
     /* (non-Javadoc)
@@ -69,7 +65,7 @@ public class PlayerRestClient implements IPlayerService {
         if (LOG.isInfoEnabled()) {
             LOG.info("Save, URL: " + url);
         }
-        ResponseEntity<? extends IPlayer> responseEntity = restTemplate.postForEntity(url, request, entity.getClass());
+        ResponseEntity<? extends IPlayer> responseEntity = getRestHandler().postForEntity(url, request, entity.getClass());
         return responseEntity.getBody();
     }
 
@@ -84,7 +80,7 @@ public class PlayerRestClient implements IPlayerService {
         if (LOG.isInfoEnabled()) {
             LOG.info("findOne, URL: " + url);
         }
-        return restTemplate.getForObject(url, Player.class);
+        return getRestHandler().getForObject(url, Player.class);
     }
     
     @Override
@@ -92,43 +88,26 @@ public class PlayerRestClient implements IPlayerService {
         StringBuilder stringBuilder = new StringBuilder(getBaseUrl());
         stringBuilder.append(playerId);
         String uri = stringBuilder.toString();
-        restTemplate.delete(getBaseUrl());
+        getRestHandler().delete(getBaseUrl());
         return true;
     }
 
     @Override
     public Iterable<IPlayer> findAll() {
         String uri = getBaseUrl();
-        Iterable players = restTemplate.getForObject(uri, Iterable.class);
-        ResponseEntity<Iterable> responseEntity = restTemplate.getForEntity(uri, Iterable.class);
+        Iterable players = getRestHandler().getForObject(uri, Iterable.class);
+        ResponseEntity<Iterable> responseEntity = getRestHandler().getForEntity(uri, Iterable.class);
         return responseEntity.getBody();
     }
 
-    private String getBaseUrl() {
-        StringBuilder sb = new StringBuilder(getServerUrl());
-        if(!getServerUrl().endsWith("/") &&  !getPath().startsWith("/")) {
-            sb.append("/");
-        }
-        sb.append(getPath());
-        if(!getPath().endsWith("/")) {
-            sb.append("/");
-        }
-        return sb.toString();
-    }
-    
-    private String getServerUrl() {
-        return serverUrl;
-    }
-
-    public void setServerUrl(String serverUrl) {
-        this.serverUrl = serverUrl;
-    }
-
+    @Override
     public String getPath() {
         return path;
     }
 
+    @Override
     public void setPath(String path) {
         this.path = path;
     }
+
 }
