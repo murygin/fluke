@@ -23,9 +23,11 @@ import org.springframework.web.client.RestOperations;
  */
 public abstract class AbstractRestClient {
     
+    public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
+    
     private String serverUrl;
     
-    private RestOperations restOperations = new RestClient("fluke", "fluke");
+    private RestOperations restOperations = new RestClient("dm", "geheim");
     
     public AbstractRestClient() {
         super();
