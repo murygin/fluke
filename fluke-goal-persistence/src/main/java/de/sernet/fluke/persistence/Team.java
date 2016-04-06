@@ -83,8 +83,7 @@ public class Team implements ITeam {
     @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
     private long concededGoals;
 
-    public Team() {
-    }
+    public Team() {}
     
     public Team(Player defensivePlayer, Player offensivePlayer) {
         setDefensivePlayer(defensivePlayer);

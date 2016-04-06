@@ -40,33 +40,37 @@ public class GameResultServiceTest {
     @Autowired
     TeamService teamService;
     
+    private ITeam teamRed;
+    private ITeam teamBlue;
+    
+    private IPlayer teamRedOffense;
+    private IPlayer teamRedDefense;
+    
+    private IPlayer teamBlueOffense;
+    private IPlayer teamBlueDefense;
+    private Game game;
+    
     @Before
     public void init() {
-       
-    }
-    
-    @Test
-    public void test() {
-        ITeam teamRed = new Team();
-        ITeam teamBlue = new Team();
+        teamRed = new Team();
+        teamBlue = new Team();
         
-        IPlayer teamRedOffense = new Player();
+        teamRedOffense = new Player();
         teamRedOffense.setFirstName("Homer");
         teamRedOffense.setLastName("Simpson");
         playerService.save(teamRedOffense);
         
-        IPlayer teamRedDefense = new Player();
+        teamRedDefense = new Player();
         teamRedDefense.setFirstName("Bart");
         teamRedDefense.setLastName("Simpson");
         playerService.save(teamRedDefense);
 
-        
-        IPlayer teamBlueOffense = new Player();
+        teamBlueOffense = new Player();
         teamBlueOffense.setFirstName("Marge");
         teamBlueOffense.setLastName("Simpson");
         playerService.save(teamBlueOffense);
         
-        IPlayer teamBlueDefense = new Player();
+        teamBlueDefense = new Player();
         teamBlueDefense.setFirstName("Lisa");
         teamBlueDefense.setLastName("Simpson");
         playerService.save(teamBlueDefense);
@@ -78,10 +82,29 @@ public class GameResultServiceTest {
         teamBlue.setOffensivePlayer(teamBlueOffense);
         teamBlue.setDefensivePlayer(teamBlueDefense);
         teamService.save(teamBlue);
-
-        Game game = new Game(teamRed, teamBlue);
+       
+    }
+    
+    @Test 
+    public void testTrackGame(){
+        game = new Game(teamBlue, teamRed);
+        gameService.save(game);
         
+        long id  = game.getId();
         
+        gameResultService.trackGameResult(game, (short)4, (short)6);
+        
+        IGame persistantGame = gameService.findGame(id);
+        Assert.assertEquals(persistantGame.getGameDate(), game.getGameDate());
+        Assert.assertEquals(persistantGame.getResult().getBlueTeamGoals(), game.getResult().getBlueTeamGoals());
+        Assert.assertEquals(persistantGame.getResult().getRedTeamGoals(), game.getResult().getRedTeamGoals());
+        Assert.assertEquals(6, game.getResult().getBlueTeamGoals());
+        Assert.assertEquals(4, game.getResult().getRedTeamGoals());
+    }
+    
+    @Test
+    public void testTrackGameDetailed() {
+        game = new Game(teamRed, teamBlue);
         gameService.save(game);
         long id = game.getId();
         
@@ -98,5 +121,5 @@ public class GameResultServiceTest {
         Assert.assertEquals(persistantGame.getBlueTeam(), game.getBlueTeam());
         Assert.assertEquals(persistantGame.getRedTeam(), game.getRedTeam());
     }
-
+    
 }
