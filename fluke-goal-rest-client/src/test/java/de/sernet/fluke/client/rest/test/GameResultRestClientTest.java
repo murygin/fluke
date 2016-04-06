@@ -17,15 +17,22 @@ package de.sernet.fluke.client.rest.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.sernet.fluke.client.rest.Application;
 import de.sernet.fluke.client.rest.GameResult;
 import de.sernet.fluke.client.rest.GameResultRestClient;
 import de.sernet.fluke.interfaces.IGameResult;
+import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringApplicationConfiguration(Application.class)
 public class GameResultRestClientTest {
     
     @Autowired 
@@ -39,8 +46,11 @@ public class GameResultRestClientTest {
     
     @Test
     public void test() {
-        IGameResult gameResult = new GameResult((short)6, (short)6);
-        gameResult = gameResultRestClient.save(gameResult);
+        
+        gameResultRestClient.trackGameResult(new GoalsOfAGameCollection(1, (short)4, (short)6));
+        
+//        IGameResult gameResult = new GameResult((short)6, (short)6);
+//        gameResult = gameResultRestClient.save(gameResult);
         
     }
 
