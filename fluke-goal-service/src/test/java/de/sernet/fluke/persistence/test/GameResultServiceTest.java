@@ -87,7 +87,7 @@ public class GameResultServiceTest {
         
         gameResultService.trackGameResult(game, (short)4, (short)2, (short)2, (short)2);
         
-        IGame persistantGame = gameService.findGame(id);
+        IGame persistantGame = gameService.findById(id);
         Assert.assertEquals(persistantGame.getGameDate(), game.getGameDate());
         Assert.assertEquals(persistantGame.getResult().getBlueTeamGoals(), game.getResult().getBlueTeamGoals());
         Assert.assertEquals(persistantGame.getResult().getRedTeamGoals(), game.getResult().getRedTeamGoals());

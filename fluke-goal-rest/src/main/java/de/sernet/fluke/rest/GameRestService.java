@@ -35,14 +35,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class GameRestService {
 
     @Autowired
-    IGameService iGameService;
+    IGameService gameService;
 
     /* (non-Javadoc)
      * @see de.sernet.fluke.rest.IPlayerService#save(de.sernet.fluke.persistence.Player)
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<IGame> save(@RequestBody IGame iGame) {
-        IGame savedIGame = iGameService.save(iGame);
+        IGame savedIGame = gameService.save(iGame);
+        ResponseEntity<IGame> response = new ResponseEntity<>(savedIGame, HttpStatus.CREATED);
+        return response;
+    }
+    
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
+    public ResponseEntity<IGame> create(@RequestBody PlayerSelection playerSelection) {
+        IGame savedIGame = gameService.create(
+            playerSelection.getRedOffensiveId(), 
+            playerSelection.getRedDefensiveId(), 
+            playerSelection.getBlueOffensiveId(), 
+            playerSelection.getBlueDefensiveId());
         ResponseEntity<IGame> response = new ResponseEntity<>(savedIGame, HttpStatus.CREATED);
         return response;
     }
@@ -52,7 +63,7 @@ public class GameRestService {
      */
     @RequestMapping(path = "/{gameId}", method = RequestMethod.GET)
     public ResponseEntity<IGame> findOne(@PathVariable Long gameId) {
-        IGame iGame = iGameService.findById(gameId);
+        IGame iGame = gameService.findById(gameId);
         HttpStatus status = (iGame != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         ResponseEntity<IGame> response = new ResponseEntity<>(iGame, status);
         return response;

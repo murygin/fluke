@@ -38,12 +38,10 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) {
-        Game game = new Game();
+    public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) { 
         ITeam red = teamService.findOrCreate(redDefensive, redOffensive);
         ITeam blue = teamService.findOrCreate(blueDefensive, blueOffensive);
-        game.setBlueTeam(blue);
-        game.setRedTeam(red);
+        Game game = new Game(red, blue);
         return gameRepository.save(game);
     }
 
