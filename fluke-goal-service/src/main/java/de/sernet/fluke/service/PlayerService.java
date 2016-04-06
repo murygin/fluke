@@ -56,21 +56,16 @@ public class PlayerService implements IPlayerService {
     }
 
     /**
-     * Deletes the player with the given {@code id}. Returns {@code true} if the player existed and
-     * {@code false} if not.
+     * Deletes the player with the given {@code id}.
      *
      * @param id the {@code id} of the player to be deleted.
-     * @return {@code true} if a player with the given {@code id} existed and {@code false} if not
      */
     @Override
-    public boolean delete(long id) {
+    public void delete(long id) {
 
         if (findOne(id) != null) {
             playerRepository.delete(id);
-            return true;
         }
-
-        return false;
     }
 
     @Override

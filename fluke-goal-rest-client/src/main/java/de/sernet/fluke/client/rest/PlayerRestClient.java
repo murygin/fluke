@@ -84,12 +84,11 @@ public class PlayerRestClient extends AbstractRestClient implements IPlayerServi
     }
     
     @Override
-    public boolean delete(long playerId) {
+    public void delete(long playerId) {
         StringBuilder stringBuilder = new StringBuilder(getBaseUrl());
         stringBuilder.append(playerId);
         String uri = stringBuilder.toString();
         getRestHandler().delete(getBaseUrl());
-        return true;
     }
 
     @Override

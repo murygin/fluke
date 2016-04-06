@@ -32,7 +32,7 @@ public interface IPlayerService {
 
     IPlayer findOne(Long playerId);
 
-    boolean delete(long id);
+    void delete(long id);
 
     Iterable<IPlayer> findAll();
 }
