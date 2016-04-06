@@ -19,21 +19,56 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * Service to manage game. 
+ * Use service IGameResultService to manage game results.
+ * 
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
 public interface IGameService {
     
+    /**
+     * Creates a new game.
+     * 
+     * @param redOffensive Offensive player in red team
+     * @param redDefensive Defensive player in red team
+     * @param blueOffensive Offensive player in blue team
+     * @param blueDefensive Defensive player in blue team
+     * @return The game after it was created in data store
+     */
     IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive );
     
+    /**
+     * Creates a new game.
+     * 
+     * @param redOffensiveId Id of offensive player in red team
+     * @param redDefensiveId Id of defensive player in red team
+     * @param blueOffensiveId Id of offensive player in blue team
+     * @param blueDefensiveId Id of defensive player in blue team
+     * @return The game after it was created in data store
+     */
     IGame create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId);
     
+    /**
+     * Saves a new or existing game in data store.
+     * 
+     * @param game A game
+     * @return The game after it was saved in data store
+     */
     IGame save(IGame game);
     
+    /**
+     * @param gameId The data store id of a game
+     * @return The game with the id
+     */
     IGame findById(Long gameId);
 
+    /**
+     * Returns game with a specific date.
+     * 
+     * @param time A date
+     * @return Games with the date
+     */
     List<IGame> findByDate(LocalDateTime time);
-    
-    IGame findGame(long gameId);
     
 }

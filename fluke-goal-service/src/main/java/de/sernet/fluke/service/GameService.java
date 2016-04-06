@@ -73,9 +73,4 @@ public class GameService implements IGameService {
         return result;
     }
 
-    @Override
-    public IGame findGame(long gameId) {
-        return gameRepository.findOne(gameId);
-    }
-
 }
