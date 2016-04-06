@@ -8,6 +8,7 @@ import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.persistence.GameResult;
 import de.sernet.fluke.persistence.GameResultRepository;
+import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 @Service
 public class GameResultService implements IGameResultService {
@@ -25,12 +26,15 @@ public class GameResultService implements IGameResultService {
     GameResultRepository gameResultRepository;
     
     @Override
-    public void trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
+    public IGameResult trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
+        IGameResult gameResult = null;
         if(game.getResult() == null){
-            game.setResult(new GameResult(goalsRedTeam, goalsBlueTeam));
+            gameResult = new GameResult(goalsRedTeam, goalsBlueTeam);
+            gameResultRepository.save((GameResult)gameResult);
+            game.setResult(gameResult);
+        } else {
+            gameResult = game.getResult();
         }
-        
-        gameResultRepository.save((GameResult)game.getResult());
         
         // update blue team
         game.getBlueTeam().increaseScoredTotalGoals(goalsBlueTeam);
@@ -53,12 +57,15 @@ public class GameResultService implements IGameResultService {
         gameService.save(game);
         teamService.save(game.getBlueTeam());
         teamService.save(game.getRedTeam());
-        
+
+        return gameResult;
     }
 
     @Override
-    public void trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
-        game.setResult(new GameResult((short)redOffensiveGoals, (short)redDefensiveGoals, (short)blueOffensiveGoals, (short)blueDefensiveGoals));
+    public IGameResult trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+        IGameResult gameResult = new GameResult((short)redOffensiveGoals, (short)redDefensiveGoals, (short)blueOffensiveGoals, (short)blueDefensiveGoals);
+        gameResult = gameResultRepository.save((GameResult)gameResult);
+        game.setResult(gameResult);
         
         // handle results for team objects
         trackGameResult(game, game.getResult().getRedTeamGoals(), game.getResult().getBlueTeamGoals());
@@ -92,11 +99,37 @@ public class GameResultService implements IGameResultService {
         
         playerService.save(game.getRedTeam().getDefensivePlayer());
         playerService.save(game.getRedTeam().getOffensivePlayer());
+        
+        return gameResult;
     }
 
     @Override
     public IGameResult save(IGameResult gameResult) {
         return gameResultRepository.save((GameResult)gameResult);
+    }
+
+    @Override
+    public IGameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam) {
+        IGame game = gameService.findById(gameId);
+        return trackGameResult(game, goalsRedTeam, goalsBlueTeam);
+    }
+
+    @Override
+    public IGameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+        IGame game = gameService.findById(gameId);
+        return trackGameResult(game, redOffensiveGoals, redDefensiveGoals, blueOffensiveGoals, blueDefensiveGoals);
+    }
+
+    @Override
+    public IGameResult trackGameResult(GoalsOfAGameCollection goals) {
+        IGameResult gameResult = null;
+        if(goals.getBlueScoredDefensiveGoals() != null && goals.getBlueScoredOffensiveGoals() != null 
+                && goals.getRedScoredDefensiveGoals() != null && goals.getRedScoredOffensiveGoals() != null){
+            gameResult = trackGameResult(goals.getGameId(), goals.getRedScoredOffensiveGoals(), goals.getRedScoredDefensiveGoals(), goals.getBlueScoredOffensiveGoals(), goals.getBlueScoredDefensiveGoals());
+        } else if(goals.getBlueTeamGoals() != null && goals.getRedTeamGoals() != null){
+            gameResult = trackGameResult(goals.getGameId(), goals.getRedTeamGoals(), goals.getRedTeamGoals());
+        }
+        return gameResult;
     }
 
 
