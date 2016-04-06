@@ -67,10 +67,14 @@ public class PlayerRestService {
     }
 
     @RequestMapping(path = "/{playerId}", method = RequestMethod.DELETE)
-    public ResponseEntity<IPlayer> delete(@PathVariable Long playerId) {
-        HttpStatus status = playerService.delete(playerId) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity response = new ResponseEntity(status);
-        return response;
+    public HttpStatus delete(@PathVariable Long playerId) {
+
+        if (playerService.findOne(playerId) != null) {
+            playerService.delete(playerId);
+            return HttpStatus.OK;
+        }
+
+        return HttpStatus.NOT_FOUND;
     }
 
     @RequestMapping(method = RequestMethod.GET)
