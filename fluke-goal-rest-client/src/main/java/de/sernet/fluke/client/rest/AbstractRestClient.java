@@ -15,10 +15,7 @@
  */
 package de.sernet.fluke.client.rest;
 
-import static de.sernet.fluke.client.rest.PlayerRestClient.PATH_DEFAULT;
-import static de.sernet.fluke.client.rest.PlayerRestClient.SERVER_URL_DEFAULT;
 import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -28,7 +25,7 @@ public abstract class AbstractRestClient {
     
     private String serverUrl;
     
-    private RestOperations restOperations = new RestTemplate();
+    private RestOperations restOperations = new RestClient("fluke", "fluke");
     
     public AbstractRestClient() {
         super();

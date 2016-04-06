@@ -13,7 +13,19 @@ public class Player implements IPlayer  {
     private String firstName;
     private String lastName;
 
-	/* (non-Javadoc)
+    public Player(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }
+
+    public Player() {
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see de.sernet.fluke.persistence.IPlayer#getId()
      */
 	@Override
