@@ -19,18 +19,18 @@
  ******************************************************************************/
 package de.sernet.fluke.gui.vaadin.ui.views;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IPlayer;
 
 /**
@@ -39,6 +39,7 @@ import de.sernet.fluke.interfaces.IPlayer;
 public abstract class AbstractPlayerView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractPlayerView.class);
 
     // TODO rmotza change to account properties
     protected static final PlayerRestClient playerService = new PlayerRestClient("fluke", "fluke");
@@ -58,15 +59,23 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
 
     protected void updateList() {
 
-        VaadinSession session = getUI().getSession();
-        IAccount account = session.getAttribute(IAccount.class);
+        // VaadinSession session = getUI().getSession();
+        // IAccount account = session.getAttribute(IAccount.class);
 
         List<IPlayer> players = new ArrayList<>();
         Iterable<IPlayer> findAll = playerService.findAll();
         if(findAll == null){
             Note.info("No players found");
         }else {
-            findAll.forEach(players::add);
+
+            Iterator<IPlayer> iterator = findAll.iterator();
+            while (iterator.hasNext()) {
+                LinkedHashMap item = (LinkedHashMap) iterator.next();
+                int id = (int) item.get("id");
+
+                IPlayer player = playerService.findOne((long) id);
+                players.add(player);
+            }
         }
         getGrid().setContainerDataSource(
                 new BeanItemContainer<>(IPlayer.class, players));

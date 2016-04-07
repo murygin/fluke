@@ -87,7 +87,6 @@ public class PlayerRestClient extends AbstractRestClient implements IPlayerServi
     public void delete(long playerId) {
         StringBuilder stringBuilder = new StringBuilder(getBaseUrl());
         stringBuilder.append(playerId);
-        String uri = stringBuilder.toString();
         getRestHandler().delete(getBaseUrl());
     }
 

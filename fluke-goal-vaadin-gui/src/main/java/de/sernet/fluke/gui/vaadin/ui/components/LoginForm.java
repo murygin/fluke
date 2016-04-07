@@ -17,6 +17,8 @@ package de.sernet.fluke.gui.vaadin.ui.components;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
@@ -33,6 +35,8 @@ import de.sernet.fluke.interfaces.IAccountService;
  */
 public class LoginForm extends FormLayout {
 
+    private static final long serialVersionUID = 1L;
+
     private static final Logger LOG = LoggerFactory.getLogger(LoginForm.class);
 
     private final TextField username = new TextField("Username");
@@ -43,44 +47,39 @@ public class LoginForm extends FormLayout {
 
     private IAccountService realAccountService;
 
-
-    private final Runnable callback;
+    // private final Runnable callback;
 
     private final Button loginBtn;
 
     public LoginForm(IAccountService accountService, Runnable callback) {
 
-        loginBtn = new Button("Login", (event) -> {
-            try {
+        loginBtn = new Button("Login", event -> {
 
+            try {
                 this.realAccountService = new AccountRestClient(username.getValue(),
                         password.getValue());
-                IAccount account = realAccountService.findByLogin(username.getValue());
-                boolean isValid = false;
-                if (account != null){
-                    isValid = realAccountService.validatePassword(username.getValue(),
-                            password.getValue());
-                }
-                if(isValid){
+                    IAccount account = realAccountService.findByLogin(username.getValue());
 
                     VaadinSession session = getUI().getSession();
                     session.setAttribute(IAccount.class, account);
-                    callback.run();
-                } else {
-                    Note.error("Invalid username or password");
-                    invalidPassword.setVisible(true);
-                }
+                callback.run();
+                } catch (HttpClientErrorException e) {
+                    if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                        invalidPassword.setVisible(true);
+                        Note.error("Invalid username or password");
+                    } else {
+                        throw e;
+                    }
+                } catch (Exception e){
+                        username.setValue("");
+                         password.setValue("");
+                         invalidPassword.setVisible(true);
 
-            } catch (Exception e) {
-                username.setValue("");
-                password.setValue("");
-                invalidPassword.setVisible(true);
-
-                LOG.error("authentication failed: {}", e.getLocalizedMessage(),
-                        e);
-                Notification.show("Error", FlukeUI.printStackTrace(e),
-                        com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
-            }
+                         LOG.error("authentication failed: {}", e.getLocalizedMessage(),
+                         e);
+                         Notification.show("Error", FlukeUI.printStackTrace(e),
+                         com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
+                    }
         });
 
         setCaption("login");
@@ -92,6 +91,6 @@ public class LoginForm extends FormLayout {
         addComponent(invalidPassword);
         invalidPassword.setVisible(false);
         this.realAccountService = accountService;
-        this.callback = callback;
+        // this.callback = callback;
     }
 }

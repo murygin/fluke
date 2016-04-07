@@ -41,7 +41,6 @@ public class ManagePlayersView extends AbstractPlayerView {
     private Grid grid;
     private HorizontalLayout mainLayout;
     private FlukePlayerForm playerForm;
-    private Button submit;
 
     public ManagePlayersView() {
         super();
@@ -93,7 +92,7 @@ public class ManagePlayersView extends AbstractPlayerView {
             final IPlayer player = (IPlayer) item;
             playerForm.setName(player.getFirstName(), player.getLastName());
             playerForm.setVisible(true);
-            submit.addClickListener(new ClickListener() {
+            playerForm.getSubmit().addClickListener(new ClickListener() {
 
                 private static final long serialVersionUID = 1L;
 
@@ -102,7 +101,8 @@ public class ManagePlayersView extends AbstractPlayerView {
 
                     player.setFirstName(playerForm.getFirstName());
                     player.setLastName(playerForm.getLastName());
-                    submit.removeClickListener(this);
+                    playerService.save(player);
+                    event.getButton().removeClickListener(this);
                     updateList();
                     playerForm.setVisible(false);
                     Note.info("Player updated");
@@ -133,6 +133,7 @@ public class ManagePlayersView extends AbstractPlayerView {
                 playerService.save(player);
                 Note.info("Player created");
                 updateList();
+                event.getButton().removeClickListener(this);
                 playerForm.setVisible(false);
 
             }

@@ -31,11 +31,19 @@ public abstract class AbstractRestClient {
 
     public AbstractRestClient() {
         super();
-        serverUrl = SERVER_URL_DEFAULT;
+    }
+
+    private AbstractRestClient(String serverUrl) {
+        super();
+        this.serverUrl = serverUrl;
     }
 
     public AbstractRestClient(String username, String password) {
-        this();
+        this(SERVER_URL_DEFAULT, username, password);
+    }
+
+    public AbstractRestClient(String serverUrl, String username, String password) {
+        this(serverUrl);
         restOperations = new RestClient(username, password);
     }
 
