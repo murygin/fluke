@@ -69,10 +69,7 @@ public class LoginForm extends FormLayout {
 
         try {
             
-            FlukeUI flukeUI = (FlukeUI) UI.getCurrent();
-            realAccountService = flukeUI.getAccountService();
-            realAccountService.initRestOperations(username.getValue(),
-                    password.getValue());
+            initRestClientsWithCredentials();
             
             IAccount account = realAccountService.findByLogin(username.getValue());
 
@@ -96,5 +93,22 @@ public class LoginForm extends FormLayout {
             Notification.show("Error", FlukeUI.printStackTrace(e),
                     com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
         }
+    }
+
+    private void initRestClientsWithCredentials() {
+        
+        FlukeUI flukeUI = (FlukeUI) UI.getCurrent();
+        realAccountService = flukeUI.getAccountService();
+        realAccountService.initRestOperations(username.getValue(),
+                password.getValue());
+        
+        flukeUI.getPlayerRestClient().initRestOperations(
+                username.getValue(), password.getValue());
+        
+        flukeUI.getGameRestClient().initRestOperations(
+                username.getValue(), password.getValue());
+        
+        flukeUI.getGameRestClient().initRestOperations(
+                username.getValue(), password.getValue());
     }
 }

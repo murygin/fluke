@@ -54,13 +54,13 @@ public class FlukeUI extends UI {
     private AccountRestClient accountService;
 
     @Autowired
-    private GameRestClient iGameService;
+    private GameRestClient gameRestClient;
 
     @Autowired
-    private GameResultRestClient iGameResultService;
+    private GameResultRestClient gameResultRestClient;
 
     @Autowired
-    private PlayerRestClient IPlayerService;
+    private PlayerRestClient playerRestClient;
 
     @Override
     protected void init(VaadinRequest request) {
@@ -124,16 +124,24 @@ public class FlukeUI extends UI {
         menu.addView(newView.getTypeID(), newView.getLabel(), null);
     }
 
-    public IGameService getiGameService() {
-        return iGameService;
+    /**
+     * @return the gameRestClient
+     */
+    public GameRestClient getGameRestClient() {
+        return gameRestClient;
     }
 
-    public IGameResultService getiGameResultService() {
-        return iGameResultService;
+    /**
+     * @return the gameResultRestClient
+     */
+    public GameResultRestClient getGameResultRestClient() {
+        return gameResultRestClient;
     }
 
-    public IPlayerService getIPlayerService() {
-        return IPlayerService;
+    /**
+     * @return the playerRestClient
+     */
+    public PlayerRestClient getPlayerRestClient() {
+        return playerRestClient;
     }
-
 }

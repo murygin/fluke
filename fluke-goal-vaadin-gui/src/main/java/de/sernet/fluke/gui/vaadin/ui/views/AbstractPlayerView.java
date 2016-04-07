@@ -38,10 +38,10 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
 
     private static final long serialVersionUID = 1L;
 
-    protected static final PlayerRestClient playerService = new PlayerRestClient(FlukeUI.USER_NAME,
-            FlukeUI.PASSWORD);
+    protected final PlayerRestClient playerService;
 
     public AbstractPlayerView() {
+        playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
         initContent();
         addComponent(getMainComponent());
         setSizeFull();
