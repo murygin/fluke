@@ -29,7 +29,7 @@ public abstract class AbstractRestClient {
     
     private RestOperations restOperations;
 
-    private AbstractRestClient() {
+    public AbstractRestClient() {
         super();
         serverUrl = SERVER_URL_DEFAULT;
     }

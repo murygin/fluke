@@ -42,6 +42,10 @@ public class PlayerRestClient extends AbstractRestClient implements IPlayerServi
     
     private String path;
     
+    public PlayerRestClient(){
+        super();
+    }
+
     public PlayerRestClient(String username, String password) {
         this(username, password, PATH_DEFAULT);
     }

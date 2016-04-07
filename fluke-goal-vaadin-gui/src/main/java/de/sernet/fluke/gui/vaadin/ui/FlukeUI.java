@@ -27,6 +27,7 @@ import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
 import de.sernet.fluke.interfaces.IAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Title("Fluke")
 @SpringUI
@@ -38,8 +39,9 @@ public class FlukeUI extends UI {
     private FlukeMenuBar menu;
     private Navigator navigator = null;
     private VerticalLayout mainLayout;
-    IAccountService accountService = null;
 
+    @Autowired
+    IAccountService accountService;
 
     @Override
     protected void init(VaadinRequest request) {

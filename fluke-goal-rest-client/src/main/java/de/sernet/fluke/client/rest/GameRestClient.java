@@ -39,6 +39,8 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
     public static final String PATH_DEFAULT = "service/game";
     
     private String path;
+
+    public GameRestClient(){}
     
     public GameRestClient(String username, String password) {
         this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);

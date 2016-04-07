@@ -39,6 +39,8 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
     
     private String path;
     
+    public GameResultRestClient(){}
+
     public GameResultRestClient(String username, String password) {
         this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
