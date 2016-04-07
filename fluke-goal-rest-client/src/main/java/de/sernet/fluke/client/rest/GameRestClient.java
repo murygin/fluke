@@ -88,12 +88,13 @@ public class GameRestClient extends AbstractRestClient implements IGameService {
         return getRestHandler().getForObject(url, Game.class);
     }
 
-    // unsupported operations
     @Override
     public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return create(redOffensive.getId(), redDefensive.getId(), blueOffensive.getId(),
+                blueDefensive.getId());
     }
 
+    // unsupported operations
     @Override
     public List<IGame> findByDate(LocalDateTime time) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
