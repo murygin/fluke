@@ -41,19 +41,6 @@ public class AccountRestService {
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
 
-    // /*
-    // * (non-Javadoc)
-    // *
-    // * @see de.sernet.fluke.rest.IAccountService#findOne(java.lang.Long)
-    // */
-    // @RequestMapping(path = "/{accountId}", method = RequestMethod.GET)
-    // public ResponseEntity<IAccount> findOne(@PathVariable Long accountId) {
-    // IAccount account = accountService.findOne(accountId);
-    // HttpStatus status = (account != null) ? HttpStatus.OK :
-    // HttpStatus.NOT_FOUND;
-    // return new ResponseEntity<>(account, status);
-    // }
-
     /*
      * (non-Javadoc)
      * 
