@@ -38,11 +38,11 @@ import de.sernet.fluke.interfaces.IGameResultService;
 public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
     
     public static final String TYPE_ID = "trackResultsView";
-    public static final String LABEL = "Track Resuls";
+    public static final String LABEL = "Track Results";
 
     private static final long serialVersionUID = 1L;
 
-//    private Grid grid;
+    private Grid grid;
     private VerticalLayout mainLayout;
 
     private Set<IGame> untrackedGames;
@@ -67,11 +67,13 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
             mainLayout.addComponent(matchPanel);
         }
         addComponent(mainLayout);
+        
     }
 
     @Override
     public void doOnEnter() {
-        // do nothing
+        mainLayout.removeAllComponents();
+        createContent();
     }
 
 }

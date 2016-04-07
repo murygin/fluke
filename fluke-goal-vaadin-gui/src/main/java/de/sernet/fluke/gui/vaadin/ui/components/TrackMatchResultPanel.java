@@ -52,7 +52,7 @@ public class TrackMatchResultPanel extends Panel {
     
     private IGameResultService gameResultService;
     
-    private static int[] goalCountArray = new int[]{0, 1, 2, 3, 4, 5, 6};
+    private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
     
     private IGame game;
     
@@ -75,33 +75,37 @@ public class TrackMatchResultPanel extends Panel {
         gameLabel = new Label(getGameLabel(game));
         form.addComponent(gameLabel);
         
-        redTeamGoalsCombo = new ComboBox("Red Team Goals", Arrays.asList(goalCountArray));
+        redTeamGoalsCombo = getGoalComboBox("Red Team Goals", true);
         form.addComponent(redTeamGoalsCombo);
         
-        blueTeamGoalsCombo = new ComboBox("Blue Team Goals", Arrays.asList(goalCountArray));
+        blueTeamGoalsCombo = getGoalComboBox("Blue Team Goals", true);
         form.addComponent(blueTeamGoalsCombo);
         
-        
-        redOffensiveTeamGoalsCombo = new ComboBox("Red Team Offensive Goals", Arrays.asList(goalCountArray));
-        redOffensiveTeamGoalsCombo.setVisible(false);
+        redOffensiveTeamGoalsCombo = getGoalComboBox("Red Team Offensive Goals", false);
         form.addComponent(redOffensiveTeamGoalsCombo);
         
-        redDefensiveTeamGoalsCombo = new ComboBox("Red Team Defensive Goals", Arrays.asList(goalCountArray));
-        redDefensiveTeamGoalsCombo.setVisible(false);
+        redDefensiveTeamGoalsCombo = getGoalComboBox("Red Team Defensive Goals", false);
         form.addComponent(redDefensiveTeamGoalsCombo);
 
-        blueOffensiveTeamGoalsCombo = new ComboBox("Blue Team Offensive Goals", Arrays.asList(goalCountArray));
-        blueOffensiveTeamGoalsCombo.setVisible(false);
+        blueOffensiveTeamGoalsCombo = getGoalComboBox("Blue Team Offensive Goals", false);
         form.addComponent(blueOffensiveTeamGoalsCombo);
         
-        blueDefensiveTeamGoalsCombo = new ComboBox("Blue Team Defensive Goals", Arrays.asList(goalCountArray));
-        blueDefensiveTeamGoalsCombo.setVisible(false);
+        blueDefensiveTeamGoalsCombo = getGoalComboBox("Blue Team Defensive Goals", false);
         form.addComponent(blueDefensiveTeamGoalsCombo);
         
         submitGameResultButton = new Button("Submit Results", this::trackResult);
         form.addComponent(submitGameResultButton);
         
         setContent(form);
+    }
+    
+    private ComboBox getGoalComboBox(String caption, boolean visible){
+        ComboBox combo = new ComboBox(caption, Arrays.asList(goalCountArray));
+        combo.setVisible(visible);
+        combo.setMultiSelect(false);
+        combo.setNullSelectionAllowed(false);
+        combo.setNullSelectionItemId(0);
+        return combo;
     }
     
     private void trackResult(Button.ClickEvent event){
