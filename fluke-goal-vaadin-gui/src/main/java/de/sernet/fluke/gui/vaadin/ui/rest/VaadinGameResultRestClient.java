@@ -26,6 +26,6 @@ import org.springframework.stereotype.Service;
  */
 @VaadinSessionScope
 @Service
-public class VaadinGameResultClient extends GameResultRestClient {
+public class VaadinGameResultRestClient extends GameResultRestClient {
 
 }

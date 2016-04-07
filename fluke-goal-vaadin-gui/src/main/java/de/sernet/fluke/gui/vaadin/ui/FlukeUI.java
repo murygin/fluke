@@ -17,18 +17,25 @@ package de.sernet.fluke.gui.vaadin.ui;
 
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import de.sernet.fluke.client.rest.AccountRestClient;
+import de.sernet.fluke.client.rest.GameRestClient;
+import de.sernet.fluke.client.rest.GameResultRestClient;
+import de.sernet.fluke.client.rest.PlayerRestClient;
 
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
-import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.interfaces.IGameResultService;
+import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.interfaces.IPlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Title("Fluke")
 @SpringUI
@@ -44,7 +51,16 @@ public class FlukeUI extends UI {
     private VerticalLayout mainLayout;
 
     @Autowired
-    IAccountService accountService;
+    private AccountRestClient accountService;
+
+    @Autowired
+    private GameRestClient iGameService;
+
+    @Autowired
+    private GameResultRestClient iGameResultService;
+
+    @Autowired
+    private PlayerRestClient IPlayerService;
 
     @Override
     protected void init(VaadinRequest request) {
@@ -52,11 +68,8 @@ public class FlukeUI extends UI {
         TabSheet tabSheet = new TabSheet();
         tabSheet.setWidth("400px");
 
-        tabSheet.addComponent(new LoginForm(accountService, () -> {
-            createUI();
-        }));
-
-        tabSheet.addComponent(new RegisterForm(accountService));
+        tabSheet.addComponent(new LoginForm(this::createUI));
+        tabSheet.addComponent(new RegisterForm(getAccountService()));
 
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
@@ -81,7 +94,7 @@ public class FlukeUI extends UI {
                 .toString();
     }
 
-    public IAccountService getAccountService() {
+    public AccountRestClient getAccountService() {
         return accountService;
     }
 
@@ -109,6 +122,18 @@ public class FlukeUI extends UI {
 
         navigator.addView(newView.getTypeID(), newView);
         menu.addView(newView.getTypeID(), newView.getLabel(), null);
+    }
+
+    public IGameService getiGameService() {
+        return iGameService;
+    }
+
+    public IGameResultService getiGameResultService() {
+        return iGameResultService;
+    }
+
+    public IPlayerService getIPlayerService() {
+        return IPlayerService;
     }
 
 }

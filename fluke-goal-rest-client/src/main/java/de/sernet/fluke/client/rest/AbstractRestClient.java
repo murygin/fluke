@@ -22,11 +22,11 @@ import org.springframework.web.client.RestOperations;
  * @author Daniel Murygin
  */
 public abstract class AbstractRestClient {
-    
+
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
-    
+
     private String serverUrl;
-    
+
     private RestOperations restOperations;
 
     public AbstractRestClient() {
@@ -44,6 +44,20 @@ public abstract class AbstractRestClient {
 
     public AbstractRestClient(String serverUrl, String username, String password) {
         this(serverUrl);
+        restOperations = new RestClient(username, password);
+    }
+
+    /**
+     * Inits the rest client with user credentials.
+     *
+     * If the server is secured, this is the only way for clients to talk with
+     * the rest backend.
+     *
+     * @param username The login name of the user.
+     * @param password The password of the user.
+     *
+     */
+    public void initRestOperations(String username, String password) {
         restOperations = new RestClient(username, password);
     }
 

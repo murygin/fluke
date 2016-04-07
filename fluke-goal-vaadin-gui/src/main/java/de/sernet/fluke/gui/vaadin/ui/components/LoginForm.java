@@ -27,7 +27,6 @@ import de.sernet.fluke.client.rest.AccountRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.interfaces.IAccount;
-import de.sernet.fluke.interfaces.IAccountService;
 
 /**
  *
@@ -45,42 +44,15 @@ public class LoginForm extends FormLayout {
 
     private final Label invalidPassword = new Label("Invalid username or password");
 
-    private IAccountService realAccountService;
+    private AccountRestClient realAccountService;
 
-    // private final Runnable callback;
+    private final Runnable callback;
 
     private final Button loginBtn;
 
-    public LoginForm(IAccountService accountService, Runnable callback) {
+    public LoginForm(Runnable callback) {
 
-        loginBtn = new Button("Login", event -> {
-
-            try {
-                this.realAccountService = new AccountRestClient(username.getValue(),
-                        password.getValue());
-                    IAccount account = realAccountService.findByLogin(username.getValue());
-
-                    VaadinSession session = getUI().getSession();
-                    session.setAttribute(IAccount.class, account);
-                callback.run();
-                } catch (HttpClientErrorException e) {
-                    if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
-                        invalidPassword.setVisible(true);
-                        Note.error("Invalid username or password");
-                    } else {
-                        throw e;
-                    }
-                } catch (Exception e){
-                        username.setValue("");
-                         password.setValue("");
-                         invalidPassword.setVisible(true);
-
-                         LOG.error("authentication failed: {}", e.getLocalizedMessage(),
-                         e);
-                         Notification.show("Error", FlukeUI.printStackTrace(e),
-                         com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
-                    }
-        });
+        loginBtn = new Button("Login", this::login);
 
         setCaption("login");
         setSpacing(true);
@@ -90,7 +62,39 @@ public class LoginForm extends FormLayout {
         addComponent(loginBtn);
         addComponent(invalidPassword);
         invalidPassword.setVisible(false);
-        this.realAccountService = accountService;
-        // this.callback = callback;
+        this.callback = callback;
+    }
+
+    private void login(Button.ClickEvent event) {
+
+        try {
+            
+            FlukeUI flukeUI = (FlukeUI) UI.getCurrent();
+            realAccountService = flukeUI.getAccountService();
+            realAccountService.initRestOperations(username.getValue(),
+                    password.getValue());
+            
+            IAccount account = realAccountService.findByLogin(username.getValue());
+
+            VaadinSession session = getUI().getSession();
+            session.setAttribute(IAccount.class, account);
+            callback.run();
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
+                invalidPassword.setVisible(true);
+                Note.error("Invalid username or password");
+            } else {
+                throw e;
+            }
+        } catch (Exception e) {
+            username.setValue("");
+            password.setValue("");
+            invalidPassword.setVisible(true);
+
+            LOG.error("authentication failed: {}", e.getLocalizedMessage(),
+                    e);
+            Notification.show("Error", FlukeUI.printStackTrace(e),
+                    com.vaadin.ui.Notification.Type.ERROR_MESSAGE);
+        }
     }
 }
