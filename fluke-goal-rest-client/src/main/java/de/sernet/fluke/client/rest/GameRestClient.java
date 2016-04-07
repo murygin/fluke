@@ -30,16 +30,18 @@ import de.sernet.fluke.rest.PlayerSelection;
  *
  * @author Daniel Murygin
  */
-public class GameRestClient extends AbstractRestClient  implements IGameService {
+public class GameRestClient extends AbstractRestClient implements IGameService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameRestClient.class);
-    
+
     public static final String PATH_DEFAULT = "service/game";
-    
+
     private String path;
 
-    public GameRestClient(){}
-    
+    public GameRestClient() {
+        path = PATH_DEFAULT;
+    }
+
     public GameRestClient(String username, String password) {
         this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
@@ -47,7 +49,7 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
     public GameRestClient(String username, String password, String serverUrl, String path) {
         super(username, password);
         setServerUrl(serverUrl);
-        setPath(path); 
+        setPath(path);
     }
 
     @Override
@@ -85,9 +87,8 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
         }
         return getRestHandler().getForObject(url, Game.class);
     }
-    
+
     // unsupported operations
-    
     @Override
     public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -97,7 +98,7 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
     public List<IGame> findByDate(LocalDateTime time) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public String getPath() {
         return path;
@@ -107,5 +108,5 @@ public class GameRestClient extends AbstractRestClient  implements IGameService 
     public void setPath(String path) {
         this.path = path;
     }
-    
+
 }

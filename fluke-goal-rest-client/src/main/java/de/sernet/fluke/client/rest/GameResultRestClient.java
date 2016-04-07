@@ -29,26 +29,28 @@ import de.sernet.fluke.rest.GoalsOfAGameCollection;
 public class GameResultRestClient extends AbstractRestClient implements IGameResultService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameResultRestClient.class);
-    
+
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
     public static final String PATH_DEFAULT = "service/gameResult";
-    
+
     private static final String NOT_IMPLEMENTED_MSG = "Method not implemented by this client. Use trackGameResult(GoalsOfAGameCollection goals) instead";
-    
+
     private String path;
-    
-    public GameResultRestClient(){}
+
+    public GameResultRestClient() {
+        path = PATH_DEFAULT;
+    }
 
     public GameResultRestClient(String username, String password) {
         this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
     }
-    
+
     public GameResultRestClient(String username, String password, String serverUrl, String path) {
         super(username, password);
         setServerUrl(serverUrl);
         setPath(path);
     }
-    
+
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResultService#trackGameResult(de.sernet.fluke.interfaces.IGame, short, short)
      */
@@ -68,7 +70,7 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
         }
         ResponseEntity<? extends IGameResult> responseEntity = getRestHandler().postForEntity(url, request, GameResult.class);
         return responseEntity.getBody();
-        
+
     }
 
     /* (non-Javadoc)

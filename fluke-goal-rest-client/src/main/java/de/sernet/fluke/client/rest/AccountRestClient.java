@@ -35,7 +35,9 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
 
     private String path;
 
-    public AccountRestClient(){}
+    public AccountRestClient(){
+       path = PATH_DEFAULT;
+    }
 
     public AccountRestClient(String username, String password) {
         this(username, password, PATH_DEFAULT);
