@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
@@ -33,7 +32,6 @@ import de.sernet.fluke.interfaces.IPlayerService;
  *
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
-@Service
 public class PlayerRestClient extends AbstractRestClient implements IPlayerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerRestClient.class);

@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.rest.PlayerSelection;
@@ -31,7 +30,6 @@ import de.sernet.fluke.rest.PlayerSelection;
  *
  * @author Daniel Murygin
  */
-@Service
 public class GameRestClient extends AbstractRestClient  implements IGameService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameRestClient.class);

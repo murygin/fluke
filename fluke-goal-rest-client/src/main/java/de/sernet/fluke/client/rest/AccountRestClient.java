@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
@@ -29,7 +28,6 @@ import de.sernet.fluke.interfaces.IAccountService;
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
-@Service
 public class AccountRestClient extends AbstractRestClient implements IAccountService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountRestClient.class);
