@@ -28,21 +28,21 @@ public abstract class Note {
     public static void warning(String caption) {
 
         new Notification(caption, null,
-                Notification.TYPE_WARNING_MESSAGE, true)
+                Notification.Type.WARNING_MESSAGE, true)
                         .show(Page.getCurrent());
 
     }
 
     public static void info(String caption) {
         new Notification(caption, null,
-                Notification.TYPE_TRAY_NOTIFICATION, true)
+                Notification.Type.TRAY_NOTIFICATION, true)
                         .show(Page.getCurrent());
 
     }
 
     public static void error(String caption) {
         new Notification(caption, null,
-                Notification.TYPE_ERROR_MESSAGE, true)
+                Notification.Type.ERROR_MESSAGE, true)
                         .show(Page.getCurrent());
 
     }

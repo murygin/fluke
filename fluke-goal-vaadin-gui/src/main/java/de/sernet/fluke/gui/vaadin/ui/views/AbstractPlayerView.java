@@ -21,15 +21,13 @@ package de.sernet.fluke.gui.vaadin.ui.views;
 
 import java.util.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
+import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.interfaces.IPlayer;
 
@@ -39,10 +37,9 @@ import de.sernet.fluke.interfaces.IPlayer;
 public abstract class AbstractPlayerView extends VerticalLayout implements View {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractPlayerView.class);
 
-    // TODO rmotza change to account properties
-    protected static final PlayerRestClient playerService = new PlayerRestClient("fluke", "fluke");
+    protected static final PlayerRestClient playerService = new PlayerRestClient(FlukeUI.USER_NAME,
+            FlukeUI.PASSWORD);
 
     public AbstractPlayerView() {
         initContent();

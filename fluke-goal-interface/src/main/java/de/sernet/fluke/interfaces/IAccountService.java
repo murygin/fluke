@@ -15,8 +15,6 @@
  */
 package de.sernet.fluke.interfaces;
 
-import de.sernet.fluke.rest.PasswordValidationCollection;
-
 /**
  * Service to manage user accounts.
  * 
@@ -69,16 +67,4 @@ public interface IAccountService {
      */
     IAccount findByLogin(String login);
 
-    /**
-     * Validates the plain String password to an Account with a hashed password
-     * 
-     * @param account
-     * @param password
-     * @return
-     */
-    boolean validatePassword(long accountId, String password);
-
-    boolean validatePassword(PasswordValidationCollection collection);
-
-    boolean validatePassword(String userName, String password);
 }

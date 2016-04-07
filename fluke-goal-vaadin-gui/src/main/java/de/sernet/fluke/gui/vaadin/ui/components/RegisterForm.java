@@ -16,19 +16,16 @@
 
 package de.sernet.fluke.gui.vaadin.ui.components;
 
-import com.vaadin.server.Page;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.server.VaadinSession;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.PasswordField;
-import com.vaadin.ui.TextField;
-import de.sernet.fluke.client.rest.AccountBuilder;
-import de.sernet.fluke.interfaces.IAccount;
-import de.sernet.fluke.interfaces.IAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.vaadin.ui.*;
+
+import de.sernet.fluke.client.rest.AccountBuilder;
+import de.sernet.fluke.client.rest.AccountRestClient;
+import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
+import de.sernet.fluke.interfaces.IAccount;
+import de.sernet.fluke.interfaces.IAccountService;
 
 
 /**
@@ -37,7 +34,9 @@ import org.slf4j.LoggerFactory;
  */
 public class RegisterForm extends FormLayout {
 
-    private final Logger LOG = LoggerFactory.getLogger(RegisterForm.class);
+    private static final long serialVersionUID = 1L;
+
+    private static final Logger LOG = LoggerFactory.getLogger(RegisterForm.class);
 
     private final TextField login = new TextField("login name");
 
@@ -57,7 +56,7 @@ public class RegisterForm extends FormLayout {
 
     public RegisterForm(IAccountService accountService) {
 
-        this.accountService = accountService;
+        this.accountService = new AccountRestClient(FlukeUI.USER_NAME, FlukeUI.PASSWORD);
 
         setCaption("register");
 
@@ -92,10 +91,16 @@ public class RegisterForm extends FormLayout {
     }
 
     private void redirectLogout() throws InterruptedException {
-        Page.getCurrent().setLocation(
-                VaadinServlet
-                .getCurrent()
-                .getServletContext()
-                .getContextPath() + "");
+        login.setValue("");
+        getFirstName.setValue("");
+        getLastName.setValue("");
+        password.setValue("");
+        retypedPassword.setValue("");
+        email.setValue("");
+        // Page.getCurrent().setLocation(
+        // VaadinServlet
+        // .getCurrent()
+        // .getServletContext()
+        // .getContextPath() + "");
     }
 }

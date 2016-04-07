@@ -25,7 +25,6 @@ import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.persistence.Account;
 import de.sernet.fluke.persistence.AccountRepository;
-import de.sernet.fluke.rest.PasswordValidationCollection;
 import de.sernet.fluke.security.PasswordEncoderFactory;
 
 /**
@@ -88,36 +87,5 @@ public class AccountService implements IAccountService {
         clone.setFirstName(account.getFirstName());
         clone.setLastName(account.getLastName());
         return clone;
-    }
-
-    @Override
-    public boolean validatePassword(long accountId, String password) {
-        IAccount account = accountRepository.findOne(accountId);
-        return account.getPassword().equals(encoder.encode(password));
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.sernet.fluke.interfaces.IAccountService#validatePassword(de.sernet.
-     * fluke.rest.PasswordValidationCollection)
-     */
-    @Override
-    public boolean validatePassword(PasswordValidationCollection collection) {
-        return validatePassword(collection.getAccountId(), collection.getPassword());
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.sernet.fluke.interfaces.IAccountService#validatePassword(java.lang.
-     * String, java.lang.String)
-     */
-    @Override
-    public boolean validatePassword(String userName, String password) {
-        IAccount account = accountRepository.findByLogin(userName);
-        return account.getPassword().equals(encoder.encode(password));
     }
 }

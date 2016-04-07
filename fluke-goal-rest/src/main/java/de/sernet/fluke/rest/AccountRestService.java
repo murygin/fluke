@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.persistence.Account;
 
 /**
  *
@@ -65,12 +66,10 @@ public class AccountRestService {
         return new ResponseEntity<>(account, status);
     }
 
-    @RequestMapping(path = "/validatePassword", method = RequestMethod.POST)
-    public ResponseEntity<Boolean> validatePassword(
-            @RequestBody PasswordValidationCollection password) {
-        boolean validPassword = accountService.validatePassword(password);
-
-        ResponseEntity<Boolean> response = new ResponseEntity<>(validPassword, HttpStatus.OK);
+    @RequestMapping(path = "/create", method = RequestMethod.POST)
+    public ResponseEntity<IAccount> create(@RequestBody Account rawAccount) {
+        IAccount secureAccount = accountService.createAccount(rawAccount);
+        ResponseEntity<IAccount> response = new ResponseEntity<>(secureAccount, HttpStatus.CREATED);
         return response;
     }
 }

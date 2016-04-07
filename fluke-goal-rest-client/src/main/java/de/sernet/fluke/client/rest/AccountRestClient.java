@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
-import de.sernet.fluke.rest.PasswordValidationCollection;
 
 /**
  *
@@ -32,7 +31,6 @@ import de.sernet.fluke.rest.PasswordValidationCollection;
  */
 @Service
 public class AccountRestClient extends AbstractRestClient implements IAccountService {
-
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountRestClient.class);
     public static final String PATH_DEFAULT = "service/account";
@@ -52,7 +50,14 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
 
     @Override
     public IAccount createAccount(IAccount rawAccount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HttpEntity<IAccount> request = new HttpEntity<>(rawAccount);
+        StringBuilder sb = new StringBuilder(getBaseUrl());
+        sb.append("create");
+        String url = sb.toString();
+        ResponseEntity<? extends IAccount> responseEntity = getRestHandler().postForEntity(url,
+                request,
+                rawAccount.getClass());
+        return responseEntity.getBody();
     }
 
     @Override
@@ -102,47 +107,4 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
         this.path = path;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.sernet.fluke.interfaces.IAccountService#validatePassword(de.sernet.
-     * fluke.interfaces.IAccount, java.lang.String)
-     */
-    @Override
-    public boolean validatePassword(long accountId, String password) {
-        return validatePassword(new PasswordValidationCollection(accountId, password));
-            
-        }
-
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.interfaces.IAccountService#validatePassword(de.sernet.fluke.rest.PasswordValidationCollection)
-     */
-    @Override
-    public boolean validatePassword(PasswordValidationCollection passwordCollection) {
-
-        HttpEntity<PasswordValidationCollection> request = new HttpEntity<>(passwordCollection);
-        StringBuilder sb = new StringBuilder(getBaseUrl());
-        sb.append("validatePassword");
-        String url = sb.toString();
-        // if (LOG.isInfoEnabled()) {
-        LOG.error("validate password, URL: " + url);
-        // }
-        ResponseEntity<Boolean> responseEntity = getRestHandler().postForEntity(url, request,
-                Boolean.class);
-        return responseEntity.getBody();
-    
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * de.sernet.fluke.interfaces.IAccountService#validatePassword(java.lang.
-     * String, java.lang.String)
-     */
-    @Override
-    public boolean validatePassword(String userName, String password) {
-        return validatePassword(new PasswordValidationCollection(userName, password));
-    }
 }

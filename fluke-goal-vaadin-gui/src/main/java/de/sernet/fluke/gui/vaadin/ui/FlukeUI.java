@@ -37,6 +37,8 @@ import de.sernet.fluke.interfaces.IAccountService;
 public class FlukeUI extends UI {
 
     private static final long serialVersionUID = 1L;
+    public static final String USER_NAME = "fluke";
+    public static final String PASSWORD = "fluke";
     private FlukeMenuBar menu;
     private Navigator navigator = null;
     private VerticalLayout mainLayout;
