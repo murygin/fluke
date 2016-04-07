@@ -92,30 +92,37 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     public String createMatch(List<IPlayer> players) {
 
-        if (players.size() < 4) {
+        ArrayList<IPlayer> playersToCreateMatch = new ArrayList<>(players);
+        if (playersToCreateMatch.size() < 4) {
             Note.warning("no match possible,<br>there have to be at least 4 players!");
             return "";
         }
-        // if(players.size()> 4){
-        // Note.warning("only 4 players allowed, rest will be !");
-        //
-        // }
-        StringBuilder match = new StringBuilder();
-        Collections.shuffle(players);
-
-        if (players.size() % 2 != 0) {
-            match.append("not playing: " + players.remove(0) + "<br>");
+        Collections.shuffle(playersToCreateMatch);
+        if (playersToCreateMatch.size() > 4) {
+            Note.warning("only 4 players allowed, rest will be !");
+            playersToCreateMatch = new ArrayList<>(playersToCreateMatch.subList(0, 4));
         }
+        gameService.create(playersToCreateMatch.get(0), playersToCreateMatch.get(1),
+                playersToCreateMatch.get(2), playersToCreateMatch.get(3));
 
-        int num = 1;
-        while (!players.isEmpty()) {
-            match.append("Team: " + num++ + ", ");
-            match.append(players.remove(0).toString() + " & ");
-            match.append(players.remove(0).toString() + ";<br>");
-        }
+        StringBuilder teams = new StringBuilder();
+        teams.append("Team red:<br>");
+        teams.append("offensive ");
+        teams.append(players.get(0).toString());
+        teams.append(",<br>");
+        teams.append("defensive ");
+        teams.append(players.get(1).toString());
+        teams.append("<br><br>");
+        teams.append("Team blue:<br>");
+        teams.append("offensive ");
+        teams.append(players.get(2).toString());
+        teams.append(",<br>");
+        teams.append("defensive ");
+        teams.append(players.get(3).toString());
+
+
         Note.info("match created");
-        return match.toString();
-
+        return teams.toString();
     }
 
 
