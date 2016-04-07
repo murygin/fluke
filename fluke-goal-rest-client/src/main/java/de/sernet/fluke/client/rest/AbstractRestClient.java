@@ -25,7 +25,7 @@ public abstract class AbstractRestClient {
 
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
 
-    private String serverUrl;
+    private String serverUrl = SERVER_URL_DEFAULT;
 
     private RestOperations restOperations;
 
