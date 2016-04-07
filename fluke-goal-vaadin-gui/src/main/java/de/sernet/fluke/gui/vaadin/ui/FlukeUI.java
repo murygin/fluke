@@ -17,6 +17,8 @@ package de.sernet.fluke.gui.vaadin.ui;
 
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.annotations.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
@@ -27,11 +29,10 @@ import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
 import de.sernet.fluke.interfaces.IAccountService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Title("Fluke")
 @SpringUI
-@Theme("fluke")
+@Theme("valo")
 @PreserveOnRefresh
 public class FlukeUI extends UI {
 
