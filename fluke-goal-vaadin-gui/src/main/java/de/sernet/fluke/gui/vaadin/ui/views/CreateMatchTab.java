@@ -100,7 +100,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
         Collections.shuffle(playersToCreateMatch);
         if (playersToCreateMatch.size() > 4) {
             Note.warning("only 4 players allowed, rest will be !");
-            playersToCreateMatch = new ArrayList<>(playersToCreateMatch.subList(0, 3));
+            playersToCreateMatch = new ArrayList<>(playersToCreateMatch.subList(0, 4));
         }
         gameService.create(playersToCreateMatch.get(0), playersToCreateMatch.get(1),
                 playersToCreateMatch.get(2), playersToCreateMatch.get(3));
