@@ -73,4 +73,15 @@ public class GameService implements IGameService {
         return result;
     }
 
+    @Override
+    public IGame[] findAllUntrackedGames() {
+        List<IGame> result = new ArrayList<>();
+        for(IGame game : gameRepository.findAll()){
+            if(game.getResult() == null || (game.getResult().getRedTeamGoals() == 0 && game.getResult().getBlueTeamGoals() == 0)){
+                result.add(game);
+            }
+        }
+        return result.toArray(new IGame[result.size()]);
+    }
+
 }

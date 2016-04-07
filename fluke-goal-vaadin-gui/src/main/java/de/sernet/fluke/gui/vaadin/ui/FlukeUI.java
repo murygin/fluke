@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,7 @@ public class FlukeUI extends UI {
 
         tabSheet.addComponent(new ManagePlayersTab());
         tabSheet.addComponent(new CreateMatchTab());
+        tabSheet.addComponent(new TrackMatchResultsTab(Arrays.asList(gameRestClient.findAllUntrackedGames()), gameResultRestClient));
 
         tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 

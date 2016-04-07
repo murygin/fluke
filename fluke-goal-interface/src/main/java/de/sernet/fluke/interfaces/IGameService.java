@@ -71,4 +71,10 @@ public interface IGameService {
      */
     List<IGame> findByDate(LocalDateTime time);
     
+    /**
+     * returns all untracked Games
+     * @return
+     */
+    IGame[] findAllUntrackedGames();
+    
 }

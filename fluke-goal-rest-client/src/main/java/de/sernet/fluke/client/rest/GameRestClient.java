@@ -109,4 +109,18 @@ public class GameRestClient extends AbstractRestClient implements IGameService {
         this.path = path;
     }
 
+    @Override
+    public Game[] findAllUntrackedGames() {
+        StringBuilder sb = new StringBuilder(getBaseUrl());
+        sb.append("untrackedGames");
+        String url = sb.toString();
+        if (LOG.isInfoEnabled()) {
+            LOG.info("findById, URL: " + url);
+        }
+        Game[] games = getRestHandler().getForObject(url, Game[].class);
+        ResponseEntity<Game[]> responseEntity = getRestHandler().getForEntity(url,
+                Game[].class);
+        return responseEntity.getBody();
+    }
+
 }

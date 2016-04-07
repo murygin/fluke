@@ -17,6 +17,10 @@ package de.sernet.fluke.rest;
 
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.persistence.Game;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,5 +71,18 @@ public class GameRestService {
         HttpStatus status = (iGame != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         ResponseEntity<IGame> response = new ResponseEntity<>(iGame, status);
         return response;
+    }
+    
+    @RequestMapping(path = "/untrackedGames", method = RequestMethod.GET)
+    public Game[] findAllUntrackedGames(){
+        IGame[] untrackedGames = gameService.findAllUntrackedGames();
+        Game[] castedGames = new Game[untrackedGames.length];
+        for(int i = 0; i < untrackedGames.length; i++){
+            castedGames[i] = (Game)untrackedGames[i];
+        }
+        HttpStatus status = (untrackedGames != null && untrackedGames.length > 0)
+                ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        ResponseEntity<Game[]> response = new ResponseEntity<>(castedGames, status);
+        return response.getBody();
     }
 }
