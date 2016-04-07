@@ -16,33 +16,37 @@
 
 package de.sernet.fluke.gui.vaadin.ui.views;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid.SelectionMode;
 
-import de.sernet.fluke.gui.vaadin.backend.BackendService;
+import de.sernet.fluke.client.rest.GameRestClient;
+import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
+import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.interfaces.IPlayer;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public class CreateMatchView extends AbstractPlayerView {
+public class CreateMatchTab extends AbstractPlayerTab {
 
     public static final String TYPE_ID = "createMatchView";
     public static final String LABEL = "Create Match";
 
     private static final long serialVersionUID = 1L;
 
-    private BackendService playerService = BackendService.getInstance();
+    private GameRestClient gameService;
     private Grid grid;
     private HorizontalLayout mainLayout;
     protected Label result;
 
-    public CreateMatchView() {
+    public CreateMatchTab() {
         super();
+        gameService = ((FlukeUI) UI.getCurrent()).getGameRestClient();
+        setCaption("Create Match");
     }
 
     /*
@@ -81,7 +85,36 @@ public class CreateMatchView extends AbstractPlayerView {
                 selectedPlayers.add((IPlayer) object);
             }
         }
-        result.setValue(playerService.createMatch(selectedPlayers));
+
+        result.setValue(createMatch(selectedPlayers));
+
+    }
+
+    public String createMatch(List<IPlayer> players) {
+
+        if (players.size() < 4) {
+            Note.warning("no match possible,<br>there have to be at least 4 players!");
+            return "";
+        }
+        // if(players.size()> 4){
+        // Note.warning("only 4 players allowed, rest will be !");
+        //
+        // }
+        StringBuilder match = new StringBuilder();
+        Collections.shuffle(players);
+
+        if (players.size() % 2 != 0) {
+            match.append("not playing: " + players.remove(0) + "<br>");
+        }
+
+        int num = 1;
+        while (!players.isEmpty()) {
+            match.append("Team: " + num++ + ", ");
+            match.append(players.remove(0).toString() + " & ");
+            match.append(players.remove(0).toString() + ";<br>");
+        }
+        Note.info("match created");
+        return match.toString();
 
     }
 

@@ -31,7 +31,7 @@ import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public class ManagePlayersView extends AbstractPlayerView {
+public class ManagePlayersTab extends AbstractPlayerTab {
 
     public static final String TYPE_ID = "managePlayersView";
     public static final String LABEL = "Manage Players";
@@ -42,8 +42,9 @@ public class ManagePlayersView extends AbstractPlayerView {
     private HorizontalLayout mainLayout;
     private FlukePlayerForm playerForm;
 
-    public ManagePlayersView() {
+    public ManagePlayersTab() {
         super();
+        setCaption("Manage Players");
     }
 
     /*
@@ -53,6 +54,7 @@ public class ManagePlayersView extends AbstractPlayerView {
      */
     @Override
     protected void initContent() {
+
         grid = new Grid();
         grid.setColumns("id", "firstName", "lastName");
         grid.setSelectionMode(SelectionMode.MULTI);
@@ -60,11 +62,10 @@ public class ManagePlayersView extends AbstractPlayerView {
         mainLayout.setWidthUndefined();
         mainLayout.setSpacing(true);
 
-        Button editButton = new Button("Edit player", this::editPlayer);
-        
-        
 
         Button createButton = new Button("Add player", this::createPlayer);
+
+        Button editButton = new Button("Edit player", this::editPlayer);
 
         Button deleteButton = new Button("Delete player");
         deleteButton.addClickListener(this::clickSubmit);
@@ -75,7 +76,7 @@ public class ManagePlayersView extends AbstractPlayerView {
 
         mainLayout.addComponents(grid, buttonLayout);
 
-        updateList();
+        updatePlayerList();
     }
 
     public void editPlayer(ClickEvent event) {
@@ -103,7 +104,7 @@ public class ManagePlayersView extends AbstractPlayerView {
                     player.setLastName(playerForm.getLastName());
                     playerService.save(player);
                     event.getButton().removeClickListener(this);
-                    updateList();
+                    updatePlayerList();
                     playerForm.setVisible(false);
                     Note.info("Player updated");
                 }
@@ -112,7 +113,7 @@ public class ManagePlayersView extends AbstractPlayerView {
         } else {
             Note.error("something went wrong");
         }
-        updateList();
+        updatePlayerList();
 
     }
 
@@ -132,13 +133,13 @@ public class ManagePlayersView extends AbstractPlayerView {
                 player.setLastName(playerForm.getLastName());
                 playerService.save(player);
                 Note.info("Player created");
-                updateList();
+                updatePlayerList();
                 event.getButton().removeClickListener(this);
                 playerForm.setVisible(false);
 
             }
         });
-        updateList();
+        updatePlayerList();
 
     }
 
@@ -152,7 +153,7 @@ public class ManagePlayersView extends AbstractPlayerView {
             }
         }
         selectedPlayers.forEach(player -> playerService.delete(player.getId()));
-        updateList();
+        updatePlayerList();
     }
 
     private Component createInvisibleEditArea() {

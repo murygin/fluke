@@ -19,10 +19,11 @@ package de.sernet.fluke.gui.vaadin.ui.components;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.AccountBuilder;
-import de.sernet.fluke.client.rest.AccountRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
@@ -56,7 +57,7 @@ public class RegisterForm extends FormLayout {
 
     public RegisterForm(IAccountService accountService) {
 
-        this.accountService = new AccountRestClient(FlukeUI.USER_NAME, FlukeUI.PASSWORD);
+        this.accountService = ((FlukeUI) UI.getCurrent()).getAccountService();
 
         setCaption("register");
 
@@ -68,9 +69,18 @@ public class RegisterForm extends FormLayout {
         addComponent(email);
         addComponent(register);
 
+        password.addShortcutListener(
+                new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void handleAction(Object sender, Object target) {
+
+                        register(null);
+                    }
+                });
     }
-
-
     public void register(Button.ClickEvent event) {
         IAccount account = new AccountBuilder()
                 .setLogin(login.getValue())
@@ -97,6 +107,7 @@ public class RegisterForm extends FormLayout {
         password.setValue("");
         retypedPassword.setValue("");
         email.setValue("");
+        login.focus();
         // Page.getCurrent().setLocation(
         // VaadinServlet
         // .getCurrent()

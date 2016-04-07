@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.*;
 
@@ -61,11 +63,24 @@ public class LoginForm extends FormLayout {
         addComponent(password);
         addComponent(loginBtn);
         addComponent(invalidPassword);
+
+        password.addShortcutListener(
+                new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void handleAction(Object sender, Object target) {
+
+                        login(null);
+                    }
+                });
+
         invalidPassword.setVisible(false);
         this.callback = callback;
     }
 
-    private void login(Button.ClickEvent event) {
+    private void login(Event event) {
 
         try {
             

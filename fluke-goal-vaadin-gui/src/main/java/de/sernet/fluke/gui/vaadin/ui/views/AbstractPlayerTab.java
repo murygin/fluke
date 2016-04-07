@@ -22,8 +22,6 @@ package de.sernet.fluke.gui.vaadin.ui.views;
 import java.util.*;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
@@ -34,15 +32,16 @@ import de.sernet.fluke.interfaces.IPlayer;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public abstract class AbstractPlayerView extends VerticalLayout implements View {
+public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITab {
 
     private static final long serialVersionUID = 1L;
 
     protected final PlayerRestClient playerService;
 
-    public AbstractPlayerView() {
+    public AbstractPlayerTab() {
         playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
         initContent();
+        setSpacing(true);
         addComponent(getMainComponent());
         setSizeFull();
         setComponentAlignment(getMainComponent(),
@@ -54,14 +53,12 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
     public abstract String getTypeID();
     public abstract String getLabel();
 
-    protected void updateList() {
-
-        // VaadinSession session = getUI().getSession();
-        // IAccount account = session.getAttribute(IAccount.class);
+    protected void updatePlayerList() {
 
         List<IPlayer> players = new ArrayList<>();
         Iterable<IPlayer> findAll = playerService.findAll();
         if(findAll == null){
+
             Note.info("No players found");
         }else {
 
@@ -80,21 +77,17 @@ public abstract class AbstractPlayerView extends VerticalLayout implements View 
 
     protected abstract Grid getGrid();
 
+    protected abstract void doEnter();
+
     /*
      * (non-Javadoc)
-     *
-     * @see
-     * com.vaadin.navigator.View#enter(com.vaadin.navigator.ViewChangeListener.
-     * ViewChangeEvent)
+     * 
+     * @see de.sernet.fluke.gui.vaadin.ui.views.IFlukeUITab#doOnEnter()
      */
     @Override
-    public void enter(ViewChangeEvent event) {
+    public void doOnEnter() {
 
-        Note.info(getLabel() + " opened");
-        updateList();
+        updatePlayerList();
         doEnter();
-
     }
-
-    protected abstract void doEnter();
 }

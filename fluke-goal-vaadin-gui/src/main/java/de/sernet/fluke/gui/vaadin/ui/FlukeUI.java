@@ -17,38 +17,29 @@ package de.sernet.fluke.gui.vaadin.ui;
 
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.annotations.*;
-import com.vaadin.navigator.Navigator;
+import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
-import de.sernet.fluke.client.rest.AccountRestClient;
-import de.sernet.fluke.client.rest.GameRestClient;
-import de.sernet.fluke.client.rest.GameResultRestClient;
-import de.sernet.fluke.client.rest.PlayerRestClient;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
+import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 
+import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.views.*;
-import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Title("Fluke")
 @SpringUI
 @Theme("valo")
-@PreserveOnRefresh
+// @PreserveOnRefresh
 public class FlukeUI extends UI {
 
     private static final long serialVersionUID = 1L;
-    public static final String USER_NAME = "fluke";
-    public static final String PASSWORD = "fluke";
-    private FlukeMenuBar menu;
-    private Navigator navigator = null;
-    private VerticalLayout mainLayout;
 
     @Autowired
     private AccountRestClient accountService;
@@ -70,6 +61,7 @@ public class FlukeUI extends UI {
 
         tabSheet.addComponent(new LoginForm(this::createUI));
         tabSheet.addComponent(new RegisterForm(getAccountService()));
+
 
         VerticalLayout layout = new VerticalLayout();
         layout.setSizeFull();
@@ -100,28 +92,40 @@ public class FlukeUI extends UI {
 
     public void createUI() {
 
-        mainLayout = new VerticalLayout();
-        mainLayout.setSizeFull();
-        setContent(mainLayout);
-        Panel viewDisplay = new Panel();
-        viewDisplay.setSizeFull();
-        mainLayout.addComponent(viewDisplay);
-        mainLayout.setExpandRatio(viewDisplay, 1.0f);
-        navigator = new Navigator(this, viewDisplay);
+        TabSheet tabSheet = new TabSheet();
 
-        menu = new FlukeMenuBar(navigator);
-        mainLayout.addComponentAsFirst(menu);
-        navigator.addViewChangeListener(menu);
+        tabSheet.addComponent(new ManagePlayersTab());
+        tabSheet.addComponent(new CreateMatchTab());
 
-        addView(new ManagePlayersView());
-        addView(new CreateMatchView());
-        navigator.navigateTo(ManagePlayersView.TYPE_ID);
-    }
+        tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 
-    private void addView(AbstractPlayerView newView) {
+            private static final long serialVersionUID = 1L;
 
-        navigator.addView(newView.getTypeID(), newView);
-        menu.addView(newView.getTypeID(), newView.getLabel(), null);
+            @Override
+            public void selectedTabChange(SelectedTabChangeEvent event) {
+                Component component = event.getComponent();
+                    TabSheet tabSheet = (TabSheet) component;
+                component = tabSheet.getSelectedTab();
+                if (component instanceof IFlukeUITab) {
+                    IFlukeUITab currentTab = (IFlukeUITab) component;
+                    currentTab.doOnEnter();
+                }
+            }
+
+        });
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.setWidthUndefined();
+        horizontalLayout.setSpacing(true);
+
+        horizontalLayout.addComponent(tabSheet);
+
+        layout.addComponent(horizontalLayout);
+        layout.setComponentAlignment(horizontalLayout, Alignment.TOP_CENTER);
+
+        setContent(layout);
     }
 
     /**

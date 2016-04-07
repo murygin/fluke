@@ -19,6 +19,8 @@
  ******************************************************************************/
 package de.sernet.fluke.gui.vaadin.ui.components;
 
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.ui.*;
 
 /**
@@ -41,6 +43,18 @@ public class FlukePlayerForm extends Panel {
         form.addComponent(lastName);
 
         submit = new Button("Submit");
+
+        lastName.addShortcutListener(
+                new ShortcutListener("Enter", ShortcutAction.KeyCode.ENTER, null) {
+
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void handleAction(Object sender, Object target) {
+
+                        submit.click();
+                    }
+                });
         form.addComponent(submit);
 
         setContent(form);
