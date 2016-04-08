@@ -123,7 +123,8 @@ public class LoginForm extends FormLayout {
         flukeUI.getGameRestClient().initRestOperations(
                 username.getValue(), password.getValue());
         
-        flukeUI.getGameRestClient().initRestOperations(
+        flukeUI.getGameResultRestClient().initRestOperations(
                 username.getValue(), password.getValue());
-    }
+        
+        }
 }
