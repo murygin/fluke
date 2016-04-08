@@ -19,21 +19,19 @@
  ******************************************************************************/
 package de.sernet.fluke.client.rest.test;
 
-import de.sernet.fluke.client.rest.Application;
-import de.sernet.fluke.client.rest.Player;
-import de.sernet.fluke.client.rest.PlayerRestClient;
-import de.sernet.fluke.interfaces.IPlayer;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import de.sernet.fluke.client.rest.*;
+import de.sernet.fluke.interfaces.IPlayer;
 
 /**
  *
@@ -61,7 +59,7 @@ public class PlayerRestClientTest {
         player = playerClient.save(player);
         
         IPlayer playerResult = playerClient.findOne(player.getId());
-        Iterable<IPlayer> allPlayers = playerClient.findAll();
+        IPlayer[] allPlayers = playerClient.findAll();
         assertNotNull(allPlayers);
         assertNotNull(player);
         assertEquals(player.getId(),playerResult.getId());

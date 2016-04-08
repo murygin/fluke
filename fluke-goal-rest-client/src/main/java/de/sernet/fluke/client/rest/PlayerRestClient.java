@@ -89,11 +89,10 @@ public class PlayerRestClient extends AbstractSecureRestClient implements IPlaye
     }
 
     @Override
-    public Iterable<IPlayer> findAll() {
+    public IPlayer[] findAll() {
         String uri = getBaseUrl();
-        Iterable players = getRestHandler().getForObject(uri, Iterable.class);
-        ResponseEntity<Iterable> responseEntity = getRestHandler().getForEntity(uri,
-                Iterable.class);
+        ResponseEntity<Player[]> responseEntity = getRestHandler().getForEntity(uri,
+                Player[].class);
         return responseEntity.getBody();
     }
 

@@ -71,7 +71,7 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public List<IPlayer> findAll() {
+    public IPlayer[] findAll() {
         Iterable<Player> players = playerRepository.findAll();
         List<IPlayer> castedPlayers = new ArrayList<>();
 
@@ -79,6 +79,6 @@ public class PlayerService implements IPlayerService {
             castedPlayers.add((Player) player);
         }
 
-        return castedPlayers;
+        return castedPlayers.toArray(new IPlayer[] {});
     }
 }

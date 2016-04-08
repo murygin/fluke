@@ -94,7 +94,7 @@ public class LoginForm extends FormLayout {
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 invalidPassword.setVisible(true);
-                Note.error("Invalid username or password");
+                Note.warning("Invalid username or password");
             } else {
                 throw e;
             }

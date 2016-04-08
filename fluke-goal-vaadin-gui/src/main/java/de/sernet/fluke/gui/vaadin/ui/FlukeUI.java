@@ -31,7 +31,7 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
-import de.sernet.fluke.gui.vaadin.ui.views.*;
+import de.sernet.fluke.gui.vaadin.ui.tabs.*;
 
 
 @Title("Fluke")
@@ -99,6 +99,7 @@ public class FlukeUI extends UI {
         tabSheet.addComponent(new CreateMatchTab());
         tabSheet.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
 
+        tabSheet.setSizeFull();
         tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 
             private static final long serialVersionUID = 1L;

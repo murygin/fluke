@@ -13,49 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.gui.vaadin.ui.views;
+package de.sernet.fluke.gui.vaadin.ui.tabs;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Component;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.ui.*;
 import com.vaadin.ui.Grid.SelectionMode;
 
-import de.sernet.fluke.client.rest.GameRestClient;
-import de.sernet.fluke.client.rest.GameResultRestClient;
+import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.interfaces.*;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
-    
+
     public static final String TYPE_ID = "trackResultsView";
     public static final String LABEL = "Track Results";
 
     private static final long serialVersionUID = 1L;
 
-    private Grid grid;
-    private VerticalLayout mainLayout;
-
+    private HorizontalLayout mainLayout;
     private Set<IGame> untrackedGames;
-    
     private IGameResultService gameResultService;
-    
+    private Grid grid;
+
     private IGameService gameService;
-    
+
     public TrackMatchResultsTab(GameRestClient gameRestClient, GameResultRestClient gameResultService) {
         this.untrackedGames = new HashSet<>();
         this.gameService = gameRestClient;
@@ -69,15 +57,48 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#initContent()
      */
     protected void createContent() {
-        
-        mainLayout = new VerticalLayout();
-        
-        for(IGame game : untrackedGames){
-            TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
-             mainLayout.addComponent(matchPanel);
-        }
+
+        mainLayout = new HorizontalLayout();
+
+        mainLayout.setSizeFull();
+
+        grid = new Grid();
+        grid.setColumns("gameDate", "redTeam", "blueTeam");
+        grid.setSelectionMode(SelectionMode.SINGLE);
+        grid.setContainerDataSource(
+                new BeanItemContainer<>(IGame.class, untrackedGames));
+
+
+        Button editButton = new Button("Edit Result", this::editResult);
+        mainLayout.addComponents(grid, editButton);
+        grid.addItemClickListener(new ItemClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void itemClick(ItemClickEvent event) {
+                if (!event.isDoubleClick())
+                    return;
+                editResult(event);
+            }
+        });
         addComponent(mainLayout);
-        
+
+    }
+
+    private void editResult(Event event) {
+
+        Game game = (Game) grid.getSelectedRow();
+        TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
+
+        Window resultWindow = new Window("Edit result");
+        VerticalLayout windowLayout = new VerticalLayout(matchPanel);
+        windowLayout.setMargin(true);
+        windowLayout.setSpacing(true);
+        resultWindow.setContent(windowLayout);
+        resultWindow.center();
+        getUI().addWindow(resultWindow);
+
     }
 
     @Override
@@ -87,7 +108,7 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
         this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
         createContent();
     }
-    
+
     public void refreshContent(){
         doOnEnter();
     }

@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.gui.vaadin.ui.views;
+package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.vaadin.event.ItemClickEvent;
+import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -41,6 +43,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     private Grid grid;
     private HorizontalLayout mainLayout;
     private FlukePlayerForm playerForm;
+    private Window playerWindow;
 
     public ManagePlayersTab() {
         super();
@@ -58,6 +61,17 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         grid = new Grid();
         grid.setColumns("id", "firstName", "lastName");
         grid.setSelectionMode(SelectionMode.MULTI);
+        grid.addItemClickListener(new ItemClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void itemClick(ItemClickEvent event) {
+                if (!event.isDoubleClick())
+                    return;
+                editPlayer(event);
+            }
+        });
         mainLayout = new HorizontalLayout();
         mainLayout.setWidthUndefined();
         mainLayout.setSpacing(true);
@@ -69,30 +83,31 @@ public class ManagePlayersTab extends AbstractPlayerTab {
 
         Button deleteButton = new Button("Delete player");
         deleteButton.addClickListener(this::clickSubmit);
-        
+        playerWindow = new Window();
+        playerWindow.setContent(playerForm);
 
-        VerticalLayout buttonLayout = new VerticalLayout(createButton, editButton, deleteButton,
-                createInvisibleEditArea());
+        FormLayout buttonLayout = new FormLayout(createButton, editButton, deleteButton);
 
+        playerForm = new FlukePlayerForm();
         mainLayout.addComponents(grid, buttonLayout);
 
         updatePlayerList();
     }
 
-    public void editPlayer(ClickEvent event) {
+    public void editPlayer(Event event) {
 
         if (grid.getSelectedRows().size() < 1) {
-            Note.error("Please select a player");
+            Note.warning("Please select a player");
             return;
         }
         if (grid.getSelectedRows().size() > 1) {
             Note.warning("Only 1 selection is allowed, first item is used");
         }
+
         Object item = new ArrayList<>(grid.getSelectedRows()).get(0);
         if (item instanceof IPlayer) {
             final IPlayer player = (IPlayer) item;
             playerForm.setName(player.getFirstName(), player.getLastName());
-            playerForm.setVisible(true);
             playerForm.getSubmit().addClickListener(new ClickListener() {
 
                 private static final long serialVersionUID = 1L;
@@ -105,10 +120,11 @@ public class ManagePlayersTab extends AbstractPlayerTab {
                     playerService.save(player);
                     event.getButton().removeClickListener(this);
                     updatePlayerList();
-                    playerForm.setVisible(false);
+                    playerWindow.close();
                     Note.info("Player updated");
                 }
             });
+            openPlayerWindow("Edit Player");
 
         } else {
             Note.error("something went wrong");
@@ -117,10 +133,16 @@ public class ManagePlayersTab extends AbstractPlayerTab {
 
     }
 
+    public void openPlayerWindow(String caption) {
+        playerWindow.setContent(playerForm);
+        playerWindow.setCaption(caption);
+        playerWindow.center();
+        getUI().addWindow(playerWindow);
+    }
+
     private void createPlayer(ClickEvent event) {
 
         playerForm.setName("", "");
-        playerForm.setVisible(true);
         playerForm.getSubmit().addClickListener(new ClickListener() {
 
             private static final long serialVersionUID = 1L;
@@ -135,10 +157,12 @@ public class ManagePlayersTab extends AbstractPlayerTab {
                 Note.info("Player created");
                 updatePlayerList();
                 event.getButton().removeClickListener(this);
-                playerForm.setVisible(false);
+                playerWindow.close();
 
             }
         });
+
+        openPlayerWindow("Create Player");
         updatePlayerList();
 
     }
@@ -156,12 +180,6 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         updatePlayerList();
     }
 
-    private Component createInvisibleEditArea() {
-
-        playerForm = new FlukePlayerForm();
-        playerForm.setVisible(false);
-        return playerForm;
-    }
 
     /*
      * (non-Javadoc)
@@ -206,7 +224,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#doEnter()
      */
     @Override

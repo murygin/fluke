@@ -17,19 +17,11 @@ package de.sernet.fluke.gui.vaadin.ui.components;
 
 import java.util.Arrays;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
+import com.vaadin.ui.*;
 
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.gui.vaadin.ui.views.IFlukeUITab;
-import de.sernet.fluke.gui.vaadin.ui.views.TrackMatchResultsTab;
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.gui.vaadin.ui.tabs.TrackMatchResultsTab;
+import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 
@@ -53,7 +45,7 @@ public class TrackMatchResultPanel extends Panel {
     private Button showDetailedTrackingButton;
     private Button submitGameResultButton;
     
-    private final static String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
+    private static final String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
     
     private IGameResultService gameResultService;
     

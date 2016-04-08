@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.gui.vaadin.ui.views;
+package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>

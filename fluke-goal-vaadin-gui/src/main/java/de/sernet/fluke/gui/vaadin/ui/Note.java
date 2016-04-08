@@ -15,7 +15,6 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
-import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
 /**
@@ -23,27 +22,19 @@ import com.vaadin.ui.Notification;
  */
 public abstract class Note {
 
-    Notification note;
-
     public static void warning(String caption) {
 
-        new Notification(caption, null,
-                Notification.Type.WARNING_MESSAGE, true)
-                        .show(Page.getCurrent());
+        Notification.show(caption, Notification.Type.WARNING_MESSAGE);
 
     }
 
     public static void info(String caption) {
-        new Notification(caption, null,
-                Notification.Type.TRAY_NOTIFICATION, true)
-                        .show(Page.getCurrent());
+        Notification.show(caption, Notification.Type.TRAY_NOTIFICATION);
 
     }
 
     public static void error(String caption) {
-        new Notification(caption, null,
-                Notification.Type.ERROR_MESSAGE, true)
-                        .show(Page.getCurrent());
+        Notification.show(caption, Notification.Type.ERROR_MESSAGE);
 
     }
 

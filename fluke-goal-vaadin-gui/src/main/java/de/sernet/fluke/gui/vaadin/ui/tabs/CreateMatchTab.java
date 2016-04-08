@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package de.sernet.fluke.gui.vaadin.ui.views;
+package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 import java.util.*;
 
@@ -72,7 +72,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
         result.setContentMode(ContentMode.HTML);
 
-        VerticalLayout layout = new VerticalLayout(createButton, result);
+        VerticalLayout layout = new VerticalLayout(createButton);
         mainLayout.addComponent(layout);
     }
 
@@ -88,6 +88,14 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
         result.setValue(createMatch(selectedPlayers));
 
+        Window resultWindow = new Window("Match created");
+        VerticalLayout windowLayout = new VerticalLayout(result);
+        windowLayout.setMargin(true);
+        windowLayout.setSpacing(true);
+        resultWindow.setContent(windowLayout);
+        resultWindow.center();
+        getUI().addWindow(resultWindow);
+
     }
 
     public String createMatch(List<IPlayer> players) {
@@ -98,14 +106,23 @@ public class CreateMatchTab extends AbstractPlayerTab {
             return "";
         }
         Collections.shuffle(playersToCreateMatch);
+        StringBuilder teams = new StringBuilder();
         if (playersToCreateMatch.size() > 4) {
-            Note.warning("only 4 players allowed, rest will be !");
+            Note.info("only 4 players allowed, rest will be removed!");
+            teams.append("Not Playing");
+            teams.append(" [ ");
+            while (playersToCreateMatch.size() > 4) {
+                teams.append(playersToCreateMatch.remove(0));
+                teams.append(", ");
+            }
+            teams.deleteCharAt(teams.length() - 1);
+            teams.deleteCharAt(teams.length() - 1);
+            teams.append(" ] <br><br>");
             playersToCreateMatch = new ArrayList<>(playersToCreateMatch.subList(0, 4));
         }
         gameService.create(playersToCreateMatch.get(0), playersToCreateMatch.get(1),
                 playersToCreateMatch.get(2), playersToCreateMatch.get(3));
 
-        StringBuilder teams = new StringBuilder();
         teams.append("Team red:<br>");
         teams.append("offensive ");
         teams.append(players.get(0).toString());
@@ -169,7 +186,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#doEnter()
      */
     @Override

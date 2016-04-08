@@ -21,6 +21,7 @@ package de.sernet.fluke.client.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
 
@@ -282,6 +283,28 @@ public class Team implements ITeam {
             return false;
         }
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<").append(getPlayerAbbr(getOffensivePlayer())).append(", ");
+        sb.append(getPlayerAbbr(getDefensivePlayer())).append(">");
+        return sb.toString();
+    }
+
+    private String getPlayerAbbr(IPlayer player) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(player.getFirstName().charAt(0));
+        if (player.getLastName() != null) {
+            sb.append(player.getLastName().charAt(0));
+        }
+        return sb.toString();
     }
 
 

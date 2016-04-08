@@ -17,7 +17,7 @@
  * Contributors:
  *     Ruth Motza <rm[at]sernet[dot]de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.gui.vaadin.ui.views;
+package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 import java.util.*;
 
@@ -56,20 +56,12 @@ public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITa
     protected void updatePlayerList() {
 
         List<IPlayer> players = new ArrayList<>();
-        Iterable<IPlayer> findAll = playerService.findAll();
+        IPlayer[] findAll = playerService.findAll();
         if(findAll == null){
 
             Note.info("No players found");
         }else {
-
-            Iterator<IPlayer> iterator = findAll.iterator();
-            while (iterator.hasNext()) {
-                LinkedHashMap item = (LinkedHashMap) iterator.next();
-                int id = (int) item.get("id");
-
-                IPlayer player = playerService.findOne((long) id);
-                players.add(player);
-            }
+            players.addAll(Arrays.asList(findAll));
         }
         getGrid().setContainerDataSource(
                 new BeanItemContainer<>(IPlayer.class, players));
@@ -81,7 +73,7 @@ public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITa
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see de.sernet.fluke.gui.vaadin.ui.views.IFlukeUITab#doOnEnter()
      */
     @Override

@@ -32,5 +32,5 @@ public interface IPlayerService {
 
     void delete(long id);
 
-    Iterable<IPlayer> findAll();
+    IPlayer[] findAll();
 }

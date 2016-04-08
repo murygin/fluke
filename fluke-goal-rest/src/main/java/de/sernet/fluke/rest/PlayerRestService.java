@@ -19,19 +19,17 @@
  ******************************************************************************/
 package de.sernet.fluke.rest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.persistence.Player;
-import java.util.List;
 
 /**
  *
@@ -51,8 +49,7 @@ public class PlayerRestService {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<IPlayer> save(@RequestBody Player player) {
         IPlayer savedPlayer = playerService.save(player);
-        ResponseEntity<IPlayer> response = new ResponseEntity<IPlayer>(savedPlayer, HttpStatus.CREATED);
-        return response;
+        return new ResponseEntity<>(savedPlayer, HttpStatus.CREATED);
     }
     
     /* (non-Javadoc)
@@ -62,8 +59,7 @@ public class PlayerRestService {
     public ResponseEntity<IPlayer> findOne(@PathVariable Long playerId) {
         IPlayer player = playerService.findOne(playerId);
         HttpStatus status = (player!=null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity<IPlayer> response = new ResponseEntity<IPlayer>(player, status);
-        return response;
+        return new ResponseEntity<>(player, status);
     }
 
     @RequestMapping(path = "/{playerId}", method = RequestMethod.DELETE)
@@ -79,10 +75,10 @@ public class PlayerRestService {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<IPlayer> findAll() {
-        List<IPlayer> players = (List<IPlayer>) playerService.findAll();
+        List<IPlayer> players = Arrays.asList(playerService.findAll());
         HttpStatus status = (players != null && !players.isEmpty())
                 ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity<List<IPlayer>> response = new ResponseEntity(players, status);
+        ResponseEntity<List<IPlayer>> response = new ResponseEntity<>(players, status);
         return response.getBody();
     }
 }
