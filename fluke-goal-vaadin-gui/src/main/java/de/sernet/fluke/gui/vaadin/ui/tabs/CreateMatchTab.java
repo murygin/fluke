@@ -45,6 +45,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
     protected Label result;
     private CreateMatchManualForm matchPanel;
     private Window manualMatchWindow;
+    private Window resultWindow;
 
     public CreateMatchTab() {
         super();
@@ -85,8 +86,8 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     private void createMatchAutomatically(ClickEvent event) {
 
-        ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
         ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
+        ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
         for (Object object : selectedObjects) {
             if (object instanceof IPlayer) {
                 selectedPlayers.add((IPlayer) object);
@@ -95,7 +96,10 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
         result.setValue(createMatchAutomatically(selectedPlayers));
 
-        Window resultWindow = new Window("Match created");
+        if (resultWindow.isVisible()) {
+            resultWindow.close();
+        }
+        resultWindow = new Window("Match created");
         VerticalLayout windowLayout = new VerticalLayout(result);
         windowLayout.setMargin(true);
         windowLayout.setSpacing(true);
@@ -115,7 +119,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
         Collections.shuffle(playersToCreateMatch);
         StringBuilder teams = new StringBuilder();
         if (playersToCreateMatch.size() > 4) {
-            Note.info("only 4 players allowed, rest will be removed!");
+            Note.warning("only 4 players allowed, rest will be removed!");
             teams.append("Not Playing");
             teams.append(" [ ");
             while (playersToCreateMatch.size() > 4) {
@@ -125,24 +129,23 @@ public class CreateMatchTab extends AbstractPlayerTab {
             teams.deleteCharAt(teams.length() - 1);
             teams.deleteCharAt(teams.length() - 1);
             teams.append(" ] <br><br>");
-            playersToCreateMatch = new ArrayList<>(playersToCreateMatch.subList(0, 4));
         }
         gameService.create(playersToCreateMatch.get(0), playersToCreateMatch.get(1),
                 playersToCreateMatch.get(2), playersToCreateMatch.get(3));
 
         teams.append("Team red:<br>");
         teams.append("offensive ");
-        teams.append(players.get(0).toString());
+        teams.append(playersToCreateMatch.get(0).toString());
         teams.append(",<br>");
         teams.append("defensive ");
-        teams.append(players.get(1).toString());
+        teams.append(playersToCreateMatch.get(1).toString());
         teams.append("<br><br>");
         teams.append("Team blue:<br>");
         teams.append("offensive ");
-        teams.append(players.get(2).toString());
+        teams.append(playersToCreateMatch.get(2).toString());
         teams.append(",<br>");
         teams.append("defensive ");
-        teams.append(players.get(3).toString());
+        teams.append(playersToCreateMatch.get(3).toString());
 
 
         Note.info("match created");
@@ -150,11 +153,17 @@ public class CreateMatchTab extends AbstractPlayerTab {
     }
 
     private void createMatchManually(ClickEvent event) {
-        Collection<Object> selectedRows = grid.getSelectedRows();
+
+
         ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
-        for (Object object : selectedRows) {
-            if (object instanceof IPlayer) {
-                selectedPlayers.add((IPlayer) object);
+        if (grid.getSelectedRows().size() < 1) {
+            selectedPlayers.addAll(Arrays.asList(playerService.findAll()));
+        } else {
+            ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
+            for (Object object : selectedObjects) {
+                if (object instanceof IPlayer) {
+                    selectedPlayers.add((IPlayer) object);
+                }
             }
         }
         matchPanel = new CreateMatchManualForm(selectedPlayers);
