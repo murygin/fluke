@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import com.vaadin.ui.*;
 
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.model.Player;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -36,9 +36,9 @@ public class CreateMatchManualForm extends Panel {
     private Button submitMatchButton;
     
     
-    private Collection<IPlayer> comboContent;
+    private Collection<Player> comboContent;
 
-    public CreateMatchManualForm(Collection<IPlayer> content) {
+    public CreateMatchManualForm(Collection<Player> content) {
         
         final FormLayout layout = new FormLayout();
         layout.setMargin(true);
@@ -90,10 +90,10 @@ public class CreateMatchManualForm extends Panel {
      */
     public long[] getGame() {
         long[] ids = new long[4];
-        ids[0] = ((IPlayer) redDefensiveTeamPlayer.getValue()).getId();
-        ids[1] = ((IPlayer) redOffensiveTeamPlayer.getValue()).getId();
-        ids[2] = ((IPlayer) blueDefensiveTeamPlayer.getValue()).getId();
-        ids[3] = ((IPlayer) blueOffensiveTeamPlayer.getValue()).getId();
+        ids[0] = ((Player) redDefensiveTeamPlayer.getValue()).getId();
+        ids[1] = ((Player) redOffensiveTeamPlayer.getValue()).getId();
+        ids[2] = ((Player) blueDefensiveTeamPlayer.getValue()).getId();
+        ids[3] = ((Player) blueOffensiveTeamPlayer.getValue()).getId();
         return ids;
     }
 }

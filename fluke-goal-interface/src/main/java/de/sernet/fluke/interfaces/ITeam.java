@@ -15,6 +15,8 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Player;
+
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
@@ -33,13 +35,13 @@ public interface ITeam {
     
     void setId(long id);
     
-    IPlayer getOffensivePlayer();
+    Player getOffensivePlayer();
     
-    void setOffensivePlayer(IPlayer offensivePlayer);
+    void setOffensivePlayer(Player offensivePlayer);
     
-    IPlayer getDefensivePlayer();
+    Player getDefensivePlayer();
     
-    void setDefensivePlayer(IPlayer defensivePlayer);
+    void setDefensivePlayer(Player defensivePlayer);
     
     long getWonGames();
 

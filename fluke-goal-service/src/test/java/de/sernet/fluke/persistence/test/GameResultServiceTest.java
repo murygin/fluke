@@ -32,11 +32,11 @@ public class GameResultServiceTest {
     private ITeam teamRed;
     private ITeam teamBlue;
     
-    private IPlayer teamRedOffense;
-    private IPlayer teamRedDefense;
+    private Player teamRedOffense;
+    private Player teamRedDefense;
     
-    private IPlayer teamBlueOffense;
-    private IPlayer teamBlueDefense;
+    private Player teamBlueOffense;
+    private Player teamBlueDefense;
     private Game game;
     
     @Before

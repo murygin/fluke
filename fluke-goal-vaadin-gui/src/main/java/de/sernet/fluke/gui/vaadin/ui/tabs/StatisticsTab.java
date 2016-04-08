@@ -1,30 +1,24 @@
 package de.sernet.fluke.gui.vaadin.ui.tabs;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.vaadin.data.sort.Sort;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import de.sernet.fluke.client.rest.Player;
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.client.rest.TeamRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.model.Player;
 
 public class StatisticsTab extends FormLayout implements IFlukeUITab {
     
@@ -55,18 +49,18 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
         
         playerGrid = new Grid();
         playerGrid.setColumns(
-                IPlayer.FIRSTNAME,
-                IPlayer.LASTNAME,
-                IPlayer.WONGAMES,
-                IPlayer.LOSTGAMES,
-                IPlayer.SCOREDTOTALGOALS,
-                IPlayer.SCOREDOFFENSIVEGOALS,
-                IPlayer.SCOREDDEFENSIVEGOALS,
-                IPlayer.CONCEDEDGOALS);
+                Player.FIRSTNAME,
+                Player.LASTNAME,
+                Player.WONGAMES,
+                Player.LOSTGAMES,
+                Player.SCOREDTOTALGOALS,
+                Player.SCOREDOFFENSIVEGOALS,
+                Player.SCOREDDEFENSIVEGOALS,
+                Player.CONCEDEDGOALS);
         
-        playerGrid.setSortOrder(Sort.by(IPlayer.WONGAMES, SortDirection.DESCENDING)
-                .then(IPlayer.SCOREDTOTALGOALS, SortDirection.DESCENDING)
-                .then(IPlayer.LOSTGAMES, SortDirection.ASCENDING)
+        playerGrid.setSortOrder(Sort.by(Player.WONGAMES, SortDirection.DESCENDING)
+                .then(Player.SCOREDTOTALGOALS, SortDirection.DESCENDING)
+                .then(Player.LOSTGAMES, SortDirection.ASCENDING)
                 .build());
         playerGrid.setWidthUndefined();
 
@@ -113,13 +107,13 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
     
     private void updatePlayerList() {
 
-        List<IPlayer> players = Arrays.asList(playerService.findAll());
+        List<Player> players = Arrays.asList(playerService.findAll());
         if(players == null || players.isEmpty()){
             Note.info("No players found");
         }else {
 
             playerGrid.setContainerDataSource(
-                    new BeanItemContainer<>(IPlayer.class, players));
+                    new BeanItemContainer<>(Player.class, players));
         }
     }
 

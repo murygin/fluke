@@ -27,7 +27,7 @@ import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.model.Player;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
@@ -86,11 +86,11 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     private void createMatchAutomatically(ClickEvent event) {
 
-        ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
+        ArrayList<Player> selectedPlayers = new ArrayList<>();
         ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
         for (Object object : selectedObjects) {
-            if (object instanceof IPlayer) {
-                selectedPlayers.add((IPlayer) object);
+            if (object instanceof Player) {
+                selectedPlayers.add((Player) object);
             }
         }
 
@@ -109,9 +109,9 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     }
 
-    public String createMatchAutomatically(List<IPlayer> players) {
+    public String createMatchAutomatically(List<Player> players) {
 
-        ArrayList<IPlayer> playersToCreateMatch = new ArrayList<>(players);
+        ArrayList<Player> playersToCreateMatch = new ArrayList<>(players);
         if (playersToCreateMatch.size() < 4) {
             Note.warning("no match possible,<br>there have to be at least 4 players!");
             return "";
@@ -155,14 +155,14 @@ public class CreateMatchTab extends AbstractPlayerTab {
     private void createMatchManually(ClickEvent event) {
 
 
-        ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
+        ArrayList<Player> selectedPlayers = new ArrayList<>();
         if (grid.getSelectedRows().size() < 1) {
             selectedPlayers.addAll(Arrays.asList(playerService.findAll()));
         } else {
             ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
             for (Object object : selectedObjects) {
-                if (object instanceof IPlayer) {
-                    selectedPlayers.add((IPlayer) object);
+                if (object instanceof Player) {
+                    selectedPlayers.add((Player) object);
                 }
             }
         }

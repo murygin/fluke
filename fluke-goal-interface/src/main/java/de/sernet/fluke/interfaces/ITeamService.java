@@ -15,7 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
-import java.util.List;
+import de.sernet.fluke.model.Player;
 
 /**
  *
@@ -29,9 +29,9 @@ public interface ITeamService {
     
     ITeam findById(long id);
     
-    ITeam findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer);
+    ITeam findByPlayers(Player defensivePlayer, Player offensivePlayer);
     
-    ITeam findOrCreate(IPlayer defensivePlayer, IPlayer offensivePlayer);
+    ITeam findOrCreate(Player defensivePlayer, Player offensivePlayer);
     
     ITeam[] findAll();
     

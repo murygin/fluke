@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Player;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface IGameService {
      * @param blueDefensive Defensive player in blue team
      * @return The game after it was created in data store
      */
-    IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive );
+    IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive );
     
     /**
      * Creates a new game.

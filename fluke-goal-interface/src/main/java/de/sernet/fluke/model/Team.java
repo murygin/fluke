@@ -31,7 +31,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -98,26 +97,25 @@ public class Team implements ITeam {
     @Override
     public void setId(long id) {
         this.id = id;
-
     }
 
     @Override
-    public IPlayer getOffensivePlayer() {
+    public Player getOffensivePlayer() {
         return offensivePlayer;
     }
     
     @Override
-    public void setOffensivePlayer(IPlayer offensivePlayer) {
+    public void setOffensivePlayer(Player offensivePlayer) {
         this.offensivePlayer  = (Player)offensivePlayer;
     }
 
     @Override
-    public IPlayer getDefensivePlayer() {
+    public Player getDefensivePlayer() {
         return defensivePlayer;
     }
 
     @Override
-    public void setDefensivePlayer(IPlayer defensivePlayer) {
+    public void setDefensivePlayer(Player defensivePlayer) {
         this.defensivePlayer = (Player)defensivePlayer;
     }
 

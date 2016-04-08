@@ -31,7 +31,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.*;
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.model.Player;
 
 /**
  *
@@ -53,13 +53,13 @@ public class PlayerRestClientTest {
     
     @Test
     public void test() {
-        IPlayer player = new Player();
+        Player player = new Player();
         player.setFirstName("Daniel");
         player.setLastName("Murygin");
         player = playerClient.save(player);
         
-        IPlayer playerResult = playerClient.findOne(player.getId());
-        IPlayer[] allPlayers = playerClient.findAll();
+        Player playerResult = playerClient.findOne(player.getId());
+        Player[] allPlayers = playerClient.findAll();
         assertNotNull(allPlayers);
         assertNotNull(player);
         assertEquals(player.getId(),playerResult.getId());
@@ -69,7 +69,7 @@ public class PlayerRestClientTest {
 
     @Test
     public void deleteRemovesPlayer() {
-        IPlayer player = new Player();
+        Player player = new Player();
         player.setFirstName("Donald");
         player = playerClient.save(player);
         

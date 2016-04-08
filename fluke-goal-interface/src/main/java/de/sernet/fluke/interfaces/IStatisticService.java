@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Player;
 import java.util.LinkedList;
 
 /**
@@ -22,7 +23,7 @@ import java.util.LinkedList;
  */
 public interface IStatisticService {
     
-    LinkedList<IPlayer> getPlayerRanking();
+    LinkedList<Player> getPlayerRanking();
     
     LinkedList<ITeam> getTeamRanking();
 

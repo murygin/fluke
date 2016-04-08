@@ -27,7 +27,7 @@ import com.vaadin.ui.*;
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.model.Player;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
@@ -55,8 +55,8 @@ public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITa
 
     protected void updatePlayerList() {
 
-        List<IPlayer> players = new ArrayList<>();
-        IPlayer[] findAll = playerService.findAll();
+        List<Player> players = new ArrayList<>();
+        Player[] findAll = playerService.findAll();
         if(findAll == null){
 
             Note.info("No players found");
@@ -64,7 +64,7 @@ public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITa
             players.addAll(Arrays.asList(findAll));
         }
         getGrid().setContainerDataSource(
-                new BeanItemContainer<>(IPlayer.class, players));
+                new BeanItemContainer<>(Player.class, players));
     }
 
     protected abstract Grid getGrid();

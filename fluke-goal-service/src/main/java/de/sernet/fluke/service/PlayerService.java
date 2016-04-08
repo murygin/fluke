@@ -25,7 +25,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
@@ -42,18 +41,18 @@ public class PlayerService implements IPlayerService {
     PlayerRepository playerRepository;
     
     /* (non-Javadoc)
-     * @see de.sernet.fluke.interfaces.IPlayerService#save(de.sernet.fluke.interfaces.IPlayer)
+     * @see de.sernet.fluke.interfaces.PlayerService#save(de.sernet.fluke.interfaces.Player)
      */
     @Override
-    public IPlayer save(IPlayer player) {
+    public Player save(Player player) {
         return playerRepository.save((Player)player);
     }
 
     /* (non-Javadoc)
-     * @see de.sernet.fluke.interfaces.IPlayerService#findOne(java.lang.Long)
+     * @see de.sernet.fluke.interfaces.PlayerService#findOne(java.lang.Long)
      */
     @Override
-    public IPlayer findOne(Long playerId) {
+    public Player findOne(Long playerId) {
         return playerRepository.findOne(playerId);
     }
 
@@ -71,14 +70,14 @@ public class PlayerService implements IPlayerService {
     }
 
     @Override
-    public IPlayer[] findAll() {
+    public Player[] findAll() {
         Iterable<Player> players = playerRepository.findAll();
-        List<IPlayer> castedPlayers = new ArrayList<>();
+        List<Player> castedPlayers = new ArrayList<>();
 
         for (Player player : players) {
             castedPlayers.add((Player) player);
         }
 
-        return castedPlayers.toArray(new IPlayer[] {});
+        return castedPlayers.toArray(new Player[] {});
     }
 }

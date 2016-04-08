@@ -24,7 +24,6 @@ import java.util.*;
 import javax.persistence.*;
 
 import de.sernet.fluke.interfaces.ICommunity;
-import de.sernet.fluke.interfaces.IPlayer;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -61,14 +60,14 @@ public class Community implements ICommunity {
     }
 
     @Override
-    public List<IPlayer> getRegisteredPlayers() {
-        List<IPlayer> result = new ArrayList<>(registeredPlayers.size());
+    public List<Player> getRegisteredPlayers() {
+        List<Player> result = new ArrayList<>(registeredPlayers.size());
         result.addAll(registeredPlayers);
         return result;
     }
 
     @Override
-    public void registerPlayer(IPlayer newPlayer) {
+    public void registerPlayer(Player newPlayer) {
         registeredPlayers.add((Player)newPlayer);
     }
 
@@ -131,7 +130,7 @@ public class Community implements ICommunity {
     }
 
     @Override
-    public Set<IPlayer> getPlayer() {
+    public Set<Player> getPlayer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

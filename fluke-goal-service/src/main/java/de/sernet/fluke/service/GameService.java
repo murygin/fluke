@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.model.Game;
+import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.GameRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,30 +22,30 @@ public class GameService implements IGameService {
     GameRepository gameRepository;
 
     @Autowired
-    IPlayerService playerService;
+    PlayerService playerService;
 
     @Autowired
     ITeamService teamService;
 
     @Override
     public IGame create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId) {
-        IPlayer redOffensive = loadPlayer(redOffensiveId);
-        IPlayer redDefensive = loadPlayer(redDefensiveId);
-        IPlayer blueOffensive = loadPlayer(blueOffensiveId);
-        IPlayer blueDefensive = loadPlayer(blueDefensiveId);
+        Player redOffensive = loadPlayer(redOffensiveId);
+        Player redDefensive = loadPlayer(redDefensiveId);
+        Player blueOffensive = loadPlayer(blueOffensiveId);
+        Player blueDefensive = loadPlayer(blueDefensiveId);
         return create(redOffensive, redDefensive, blueOffensive, blueDefensive);
     }
 
     @Override
-    public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) { 
+    public IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) { 
         ITeam red = teamService.findOrCreate(redDefensive, redOffensive);
         ITeam blue = teamService.findOrCreate(blueDefensive, blueOffensive);
         Game game = new Game(red, blue);
         return gameRepository.save(game);
     }
 
-    private IPlayer loadPlayer(long playerId) throws FlukeServiceException {
-        IPlayer player = playerService.findOne(playerId);
+    private Player loadPlayer(long playerId) throws FlukeServiceException {
+        Player player = playerService.findOne(playerId);
         if (player == null) {
             throw new FlukeServiceException("No player found for id: " + playerId);
         }

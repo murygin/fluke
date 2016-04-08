@@ -25,11 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.persistence.PersistenceApplication;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
-
 
 import static org.junit.Assert.*;
 
@@ -59,7 +57,7 @@ public class PlayerRepositoryTest {
         player.setLastName("Murygin");
         player = playerRepository.save(player);
         
-        IPlayer playerResult = playerRepository.findOne(player.getId());
+        Player playerResult = playerRepository.findOne(player.getId());
         assertNotNull(player);
         assertEquals(player.getId(),playerResult.getId());
         assertEquals(player.getFirstName(),playerResult.getFirstName());

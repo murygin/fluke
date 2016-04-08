@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Player;
 import java.util.List;
 import java.util.Set;
 
@@ -32,9 +33,9 @@ public interface ICommunity {
 
     void setName(String name);
 
-    List<IPlayer> getRegisteredPlayers();
+    List<Player> getRegisteredPlayers();
 
-    void registerPlayer(IPlayer player);
+    void registerPlayer(Player player);
 
-    Set<IPlayer> getPlayer();
+    Set<Player> getPlayer();
 }

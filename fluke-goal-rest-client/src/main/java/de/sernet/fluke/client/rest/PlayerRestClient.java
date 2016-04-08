@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
+import de.sernet.fluke.model.Player;
 
 /**
  *
@@ -57,13 +57,13 @@ public class PlayerRestClient extends AbstractSecureRestClient implements IPlaye
      * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
      */
     @Override
-    public IPlayer save(IPlayer entity) {
-        HttpEntity<IPlayer> request = new HttpEntity<>(entity);
+    public Player save(Player entity) {
+        HttpEntity<Player> request = new HttpEntity<>(entity);
         String url = getBaseUrl();
         if (LOG.isInfoEnabled()) {
             LOG.info("Save, URL: " + url);
         }
-        ResponseEntity<? extends IPlayer> responseEntity = getRestHandler().postForEntity(url, request, entity.getClass());
+        ResponseEntity<? extends Player> responseEntity = getRestHandler().postForEntity(url, request, entity.getClass());
         return responseEntity.getBody();
     }
 
@@ -71,7 +71,7 @@ public class PlayerRestClient extends AbstractSecureRestClient implements IPlaye
      * @see org.springframework.data.repository.CrudRepository#findOne(java.io.Serializable)
      */
     @Override
-    public IPlayer findOne(Long id) {
+    public Player findOne(Long id) {
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append(id);
         String url = sb.toString();
@@ -89,7 +89,7 @@ public class PlayerRestClient extends AbstractSecureRestClient implements IPlaye
     }
 
     @Override
-    public IPlayer[] findAll() {
+    public Player[] findAll() {
         String uri = getBaseUrl();
         ResponseEntity<Player[]> responseEntity = getRestHandler().getForEntity(uri,
                 Player[].class);

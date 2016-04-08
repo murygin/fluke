@@ -24,6 +24,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Player;
 import de.sernet.fluke.rest.PlayerSelection;
 
 /**
@@ -85,7 +86,7 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
     }
 
     @Override
-    public IGame create(IPlayer redOffensive, IPlayer redDefensive, IPlayer blueOffensive, IPlayer blueDefensive) {
+    public IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) {
         return create(redOffensive.getId(), redDefensive.getId(), blueOffensive.getId(),
                 blueDefensive.getId());
     }

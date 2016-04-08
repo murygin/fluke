@@ -22,6 +22,7 @@ import com.vaadin.ui.*;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.tabs.TrackMatchResultsTab;
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Player;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 
@@ -169,7 +170,7 @@ public class TrackMatchResultPanel extends Panel {
         return sb.toString();
     }
     
-    private String getPlayerAbbr(IPlayer player){
+    private String getPlayerAbbr(Player player){
         StringBuilder sb = new StringBuilder();
         sb.append(player.getFirstName().charAt(0));
         if(player.getLastName() != null && player.getLastName().length() != 0){

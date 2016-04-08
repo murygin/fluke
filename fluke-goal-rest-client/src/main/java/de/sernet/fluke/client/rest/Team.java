@@ -22,8 +22,8 @@ package de.sernet.fluke.client.rest;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.model.Player;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Team implements ITeam {
@@ -67,23 +67,23 @@ public class Team implements ITeam {
 
     @Override
     @JsonDeserialize(as = Player.class)
-    public IPlayer getOffensivePlayer() {
+    public Player getOffensivePlayer() {
         return offensivePlayer;
     }
     
     @Override
-    public void setOffensivePlayer(@JsonDeserialize(as = Player.class) IPlayer offensivePlayer) {
+    public void setOffensivePlayer(@JsonDeserialize(as = Player.class) Player offensivePlayer) {
         this.offensivePlayer  = (Player)offensivePlayer;
     }
 
     @Override
     @JsonDeserialize(as = Player.class)
-    public IPlayer getDefensivePlayer() {
+    public Player getDefensivePlayer() {
         return defensivePlayer;
     }
 
     @Override
-    public void setDefensivePlayer(@JsonDeserialize(as = Player.class) IPlayer defensivePlayer) {
+    public void setDefensivePlayer(@JsonDeserialize(as = Player.class) Player defensivePlayer) {
         this.defensivePlayer = (Player)defensivePlayer;
     }
 
@@ -298,7 +298,7 @@ public class Team implements ITeam {
         return sb.toString();
     }
 
-    private String getPlayerAbbr(IPlayer player) {
+    private String getPlayerAbbr(Player player) {
         StringBuilder sb = new StringBuilder();
         sb.append(player.getFirstName().charAt(0));
         if (player.getLastName() != null && player.getLastName().length() != 0) {

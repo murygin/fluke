@@ -28,7 +28,7 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public ITeam findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer) {
+    public ITeam findByPlayers(Player defensivePlayer, Player offensivePlayer) {
         return teamRepository.findByPlayers((Player)defensivePlayer, (Player)offensivePlayer);
     }
 
@@ -38,7 +38,7 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public ITeam findOrCreate(IPlayer defensivePlayer, IPlayer offensivePlayer) {
+    public ITeam findOrCreate(Player defensivePlayer, Player offensivePlayer) {
         ITeam team = findByPlayers(defensivePlayer, offensivePlayer);
         if(team==null) {
             team = new Team((Player)defensivePlayer,(Player)offensivePlayer);

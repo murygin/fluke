@@ -15,19 +15,16 @@
  */
 package de.sernet.fluke.service;
 
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.interfaces.IStatisticService;
 import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.model.Player;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -36,7 +33,7 @@ import de.sernet.fluke.interfaces.ITeam;
 public class StatisticService implements IStatisticService {
 
     @Autowired
-    IPlayerService playerService;
+    PlayerService playerService;
     
     @Autowired
     IGameService gameService;
@@ -48,8 +45,8 @@ public class StatisticService implements IStatisticService {
      * @see de.sernet.fluke.interfaces.IStatisticService#getPlayerRanking()
      */
     @Override
-    public LinkedList<IPlayer> getPlayerRanking() {
-        IPlayer[] players = playerService.findAll();
+    public LinkedList<Player> getPlayerRanking() {
+        Player[] players = playerService.findAll();
         return null;
     }
 

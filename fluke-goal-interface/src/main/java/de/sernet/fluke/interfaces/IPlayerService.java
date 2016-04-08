@@ -13,11 +13,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
-<<<<<<< 8addcc43005a7347d0f1433a069173aa921ff6b1:fluke-goal-interface/src/main/java/de/sernet/fluke/interfaces/IPlayerService.java
  * Contributors:
  *     Daniel Murygin <dm{a}sernet{dot}de> - initial API and implementation
  ******************************************************************************/
 package de.sernet.fluke.interfaces;
+
+import de.sernet.fluke.model.Player;
 
 /**
  *
@@ -26,11 +27,11 @@ package de.sernet.fluke.interfaces;
  */
 public interface IPlayerService {
 
-    IPlayer save(IPlayer player);
+    Player save(Player player);
 
-    IPlayer findOne(Long playerId);
+    Player findOne(Long playerId);
 
     void delete(long id);
 
-    IPlayer[] findAll();
+    Player[] findAll();
 }

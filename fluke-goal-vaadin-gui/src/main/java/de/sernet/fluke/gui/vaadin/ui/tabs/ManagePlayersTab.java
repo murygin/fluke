@@ -26,10 +26,9 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid.SelectionMode;
 
-import de.sernet.fluke.client.rest.Player;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.FlukePlayerForm;
-import de.sernet.fluke.interfaces.IPlayer;
+import de.sernet.fluke.model.Player;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
@@ -60,7 +59,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     protected void initContent() {
 
         grid = new Grid();
-        grid.setColumns("id", IPlayer.FIRSTNAME, IPlayer.LASTNAME);
+        grid.setColumns("id", Player.FIRSTNAME, Player.LASTNAME);
         grid.setSelectionMode(SelectionMode.MULTI);
         grid.addItemClickListener(new ItemClickListener() {
 
@@ -98,7 +97,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     public void editPlayer(Event event) {
 
 
-        IPlayer player;
+        Player player;
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
             Property<Long> item = itemEvent.getItem().getItemProperty("id");
@@ -113,11 +112,11 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         }
 
         Object item = new ArrayList<>(grid.getSelectedRows()).get(0);
-        if (item instanceof IPlayer) {
+        if (item instanceof Player) {
             Note.error("something went wrong");
             return;
         }
-            player = (IPlayer) item;
+            player = (Player) item;
         }
         playerForm.setName(player.getFirstName(), player.getLastName());
         playerForm.getSubmit().addClickListener(new ClickListener() {
@@ -178,10 +177,10 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     private void clickSubmit(ClickEvent event) {
 
         Collection<Object> selectedRows = grid.getSelectedRows();
-        ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
+        ArrayList<Player> selectedPlayers = new ArrayList<>();
         for (Object object : selectedRows) {
-            if (object instanceof IPlayer) {
-                selectedPlayers.add((IPlayer) object);
+            if (object instanceof Player) {
+                selectedPlayers.add((Player) object);
             }
         }
         selectedPlayers.forEach(player -> playerService.delete(player.getId()));

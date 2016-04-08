@@ -23,7 +23,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
 
@@ -39,7 +38,7 @@ public class TeamRestService {
     ITeamService teamService;
 
     /* (non-Javadoc)
-     * @see de.sernet.fluke.rest.IPlayerService#save(de.sernet.fluke.persistence.Player)
+     * @see de.sernet.fluke.rest.PlayerService#save(de.sernet.fluke.persistence.Player)
      */
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ITeam> save(@RequestBody ITeam team) {
@@ -48,7 +47,7 @@ public class TeamRestService {
     }
 
     /* (non-Javadoc)
-     * @see de.sernet.fluke.rest.IPlayerService#findOne(java.lang.Long)
+     * @see de.sernet.fluke.rest.PlayerService#findOne(java.lang.Long)
      */
     @RequestMapping(path = "/{teamId}", method = RequestMethod.GET)
     public ResponseEntity<ITeam> findById(@PathVariable Long teamId) {

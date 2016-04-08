@@ -6,218 +6,147 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import de.sernet.fluke.interfaces.IPlayer;
-
 @Entity
-public class Player implements IPlayer  {
+public class Player {
+
+    public static final String FIRSTNAME = "firstName";
+    public static final String LASTNAME = "lastName";
+    public static final String WONGAMES = "wonGames";
+    public static final String LOSTGAMES = "lostGames";
+    public static final String SCOREDOFFENSIVEGOALS = "scoredOffensiveGoals";
+    public static final String SCOREDDEFENSIVEGOALS = "scoredDefensiveGoals";
+    public static final String SCOREDTOTALGOALS = "scoredTotalGoals";
+    public static final String CONCEDEDGOALS = "concededGoals";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-    
-    @Column ( name = IPlayer.FIRSTNAME, nullable=false)
+    private long id;
+
+    @Column(name = Player.FIRSTNAME, nullable = false)
     private String firstName;
-    
-    @Column ( name = IPlayer.LASTNAME)
+
+    @Column(name = Player.LASTNAME)
     private String lastName;
-    
+
     /* how many games the player won over all */
-    @Column( name = IPlayer.WONGAMES, columnDefinition="bigint default 0")
+    @Column(name = Player.WONGAMES, columnDefinition = "bigint default 0")
     private long wonGames;
-    
+
     /* how many games the player lost over all */
-    @Column( name = IPlayer.LOSTGAMES, columnDefinition="bigint default 0")
+    @Column(name = Player.LOSTGAMES, columnDefinition = "bigint default 0")
     private long lostGames;
-    
+
     /* how many offensive goals does the player have scored over all */
-    @Column ( name = IPlayer.SCOREDOFFENSIVEGOALS, columnDefinition="bigint default 0")
+    @Column(name = Player.SCOREDOFFENSIVEGOALS, columnDefinition = "bigint default 0")
     private long scoredOffensiveGoals;
-    
+
     /* how many defensive goals does the player have scored over all */
-    @Column ( name = IPlayer.SCOREDDEFENSIVEGOALS, columnDefinition="bigint default 0")
+    @Column(name = Player.SCOREDDEFENSIVEGOALS, columnDefinition = "bigint default 0")
     private long scoredDefensiveGoals;
-    
+
     /* how many goals (sum of defensive and offensive) does the 
      * player have scored over all */
-    @Column ( name = IPlayer.SCOREDTOTALGOALS, columnDefinition="bigint default 0")
+    @Column(name = Player.SCOREDTOTALGOALS, columnDefinition = "bigint default 0")
     private long scoredTotalGoals;
-    
+
     /* how often was the player not able to save an attempt to score a goal
      * in his role as the goalkeeper */
-    @Column ( name = IPlayer.CONCEDEDGOALS,  columnDefinition="bigint default 0")
+    @Column(name = Player.CONCEDEDGOALS, columnDefinition = "bigint default 0")
     private long concededGoals;
-    
-	/* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#getId()
-     */
-	@Override
+
     public long getId() {
         return id;
     }
 
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#setId(long)
-     */
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#getFirstName()
-     */
-    @Override
     public String getFirstName() {
-		return firstName;
-	}
+        return firstName;
+    }
 
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#setFirstName(java.lang.String)
-     */
-    @Override
     public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+        this.firstName = firstName;
+    }
 
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#getLastName()
-     */
-    @Override
     public String getLastName() {
-		return lastName;
-	}
+        return lastName;
+    }
 
-    /* (non-Javadoc)
-     * @see de.sernet.fluke.persistence.IPlayer#setLastName(java.lang.String)
-     */
-    @Override
     public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-    
-    /**
-     * @return the wonGames
-     */
-    @Override
+        this.lastName = lastName;
+    }
+
     public long getWonGames() {
         return wonGames;
     }
 
-    /**
-     * @param wonGames the wonGames to set
-     */
-    @Override
     public void setWonGames(long wonGames) {
         this.wonGames = wonGames;
     }
 
-    @Override
-    public void increaseWonGames(short wonGames){
+    public void increaseWonGames(short wonGames) {
         this.wonGames += wonGames;
     }
-    
-    @Override
-    public void increaseLostGames(short lostGames){
+
+    public void increaseLostGames(short lostGames) {
         this.lostGames += lostGames;
     }
 
-    /**
-     * @return the lostGames
-     */
-    @Override
     public long getLostGames() {
         return lostGames;
     }
 
-    /**
-     * @param lostGames the lostGames to set
-     */
-    @Override
     public void setLostGames(long lostGames) {
         this.lostGames = lostGames;
     }
 
-    /**
-     * @return the scoredOffensiveGoals
-     */
-    @Override
     public long getScoredOffensiveGoals() {
         return scoredOffensiveGoals;
     }
 
-    /**
-     * @param scoredOffensiveGoals the scoredOffensiveGoals to set
-     */
-    @Override
     public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
         this.scoredOffensiveGoals = scoredOffensiveGoals;
     }
-    
-    @Override
-    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals){
+
+    public void increaseScoredOffensiveGoals(short scoredOffensiveGoals) {
         this.scoredOffensiveGoals += scoredOffensiveGoals;
     }
 
-    /**
-     * @return the scoredDefensiveGoals
-     */
-    @Override
     public long getScoredDefensiveGoals() {
         return scoredDefensiveGoals;
     }
 
-    /**
-     * @param scoredDefensiveGoals the scoredDefensiveGoals to set
-     */
-    @Override
     public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
-    
-    @Override
-    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals){
+
+    public void increaseScoredDefensiveGoals(short scoredDefensiveGoals) {
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
 
-    /**
-     * @return the scoredTotalGoals
-     */
-    @Override
     public long getScoredTotalGoals() {
         return scoredTotalGoals;
     }
 
-    /**
-     * @param scoredTotalGoals the scoredTotalGoals to set
-     */
-    @Override
     public void setScoredTotalGoals(long scoredTotalGoals) {
         this.scoredTotalGoals = scoredTotalGoals;
     }
-    
-    @Override
-    public void increaseScoredTotalGoals(short scoredTotalGoals){
+
+    public void increaseScoredTotalGoals(short scoredTotalGoals) {
         this.scoredTotalGoals += scoredTotalGoals;
     }
 
-    /**
-     * @return the concededGoals
-     */
-    @Override
     public long getConcededGoals() {
         return concededGoals;
     }
 
-    /**
-     * @param concededGoals the concededGoals to set
-     */
-    @Override
     public void setConcededGoals(long concededGoals) {
         this.concededGoals = concededGoals;
     }
-    
-    @Override
-    public void increaseConcededGoals(short concededGoals){
+
+    public void increaseConcededGoals(short concededGoals) {
         this.concededGoals += concededGoals;
     }
 
@@ -300,6 +229,5 @@ public class Player implements IPlayer  {
         }
         return true;
     }
-
 
 }

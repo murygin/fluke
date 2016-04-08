@@ -69,16 +69,16 @@ public class GameServiceTest {
 
     @Test
     public void createGame() {
-        IPlayer sh = new Player();
+        Player sh = new Player();
         sh.setFirstName("Sebastian");
         sh = playerService.save(sh);
-        IPlayer bw = new Player();
+        Player bw = new Player();
         bw.setFirstName("Benjamin");
         bw = playerService.save(bw);
-        IPlayer dm = new Player();
+        Player dm = new Player();
         dm.setFirstName("Daniel");
         dm = playerService.save(dm);
-        IPlayer mr = new Player();
+        Player mr = new Player();
         mr.setFirstName("Moritz");
         mr = playerService.save(mr);
         
