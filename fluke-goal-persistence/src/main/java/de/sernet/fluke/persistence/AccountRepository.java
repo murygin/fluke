@@ -18,11 +18,13 @@ package de.sernet.fluke.persistence;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 /**
  *
  * @author Daniel Murygin
  */
+@RepositoryRestResource(exported = false)
 public interface AccountRepository extends CrudRepository<Account, Long> {
     
     Account findByLogin(@Param("login") String login);
