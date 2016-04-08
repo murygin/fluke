@@ -54,14 +54,25 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
         switchStatistic = new Button("Switch Player/Team stats", this::switchStatistic);
         
         playerGrid = new Grid();
-        playerGrid.setColumns("firstName", "lastName", "wonGames", "lostGames", "scoredTotalGoals", "scoredOffensiveGoals", "scoredDefensiveGoals", "concededGoals");
+        playerGrid.setColumns(
+                IPlayer.FIRSTNAME,
+                IPlayer.LASTNAME,
+                IPlayer.WONGAMES,
+                IPlayer.LOSTGAMES,
+                IPlayer.SCOREDTOTALGOALS,
+                IPlayer.SCOREDOFFENSIVEGOALS,
+                IPlayer.SCOREDDEFENSIVEGOALS,
+                IPlayer.CONCEDEDGOALS);
         
-        playerGrid.setSortOrder(Sort.by("wonGames", SortDirection.DESCENDING).then("scoredTotalGoals", SortDirection.DESCENDING).then("lostGames", SortDirection.ASCENDING).build());
+        playerGrid.setSortOrder(Sort.by(IPlayer.WONGAMES, SortDirection.DESCENDING)
+                .then(IPlayer.SCOREDTOTALGOALS, SortDirection.DESCENDING)
+                .then(IPlayer.LOSTGAMES, SortDirection.ASCENDING)
+                .build());
         playerGrid.setWidthUndefined();
 
         teamGrid = new Grid();
-        teamGrid.setColumns("offensivePlayer", "defensivePlayer", "wonGames", "lostGames", "scoredTotalGoals", "concededGoals", "scoredOffensiveGoals", "scoredDefensiveGoals");
-        teamGrid.setSortOrder(Sort.by("wonGames", SortDirection.DESCENDING).then("lostGames", SortDirection.ASCENDING).then("scoredTotalGoals", SortDirection.DESCENDING).build());
+        teamGrid.setColumns("offensivePlayer", "defensivePlayer", ITeam.WONGAMES, ITeam.LOSTGAMES, ITeam.SCOREDTOTALGOALS, ITeam.CONCEDEDGOALS, ITeam.SCOREDOFFENSIVEGOALS, ITeam.SCOREDDEFENSIVEGOALS);
+        teamGrid.setSortOrder(Sort.by(ITeam.WONGAMES, SortDirection.DESCENDING).then(ITeam.LOSTGAMES, SortDirection.ASCENDING).then(ITeam.SCOREDTOTALGOALS, SortDirection.DESCENDING).build());
         teamGrid.setVisible(false);
         
         mainLayout = new VerticalLayout();

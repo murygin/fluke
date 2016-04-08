@@ -21,6 +21,13 @@ package de.sernet.fluke.interfaces;
  * @author Sebastian Hagedorn <sh[at]sernet.de>
  */
 public interface ITeam {
+    
+    static final String WONGAMES = "wonGames";
+    static final String LOSTGAMES = "lostGames";
+    static final String SCOREDOFFENSIVEGOALS = "scoredOffensiveGoals";
+    static final String SCOREDDEFENSIVEGOALS = "scoredDefensiveGoals";
+    static final String SCOREDTOTALGOALS = "scoredTotalGoals";
+    static final String CONCEDEDGOALS = "concededGoals";
 
     long getId();
     

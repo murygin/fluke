@@ -25,7 +25,16 @@ package de.sernet.fluke.interfaces;
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
 public interface IPlayer {
-
+    
+    static final String FIRSTNAME = "firstName";
+    static final String LASTNAME = "lastName";
+    static final String WONGAMES = "wonGames";
+    static final String LOSTGAMES = "lostGames";
+    static final String SCOREDOFFENSIVEGOALS = "scoredOffensiveGoals";
+    static final String SCOREDDEFENSIVEGOALS = "scoredDefensiveGoals";
+    static final String SCOREDTOTALGOALS ="scoredTotalGoals";
+    static final String CONCEDEDGOALS = "concededGoals";
+    
     long getId();
 
     void setId(long id);

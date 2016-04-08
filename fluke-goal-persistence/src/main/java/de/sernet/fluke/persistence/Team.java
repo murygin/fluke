@@ -58,29 +58,29 @@ public class Team implements ITeam {
     private Player defensivePlayer;
     
     /* how many games the player won over all */
-    @Column( name = "wonGames", columnDefinition="bigint default 0")
+    @Column( name = ITeam.WONGAMES, columnDefinition="bigint default 0")
     private long wonGames;
     
     /* how many games the player lost over all */
-    @Column( name = "lostGames", columnDefinition="bigint default 0")
+    @Column( name = ITeam.LOSTGAMES, columnDefinition="bigint default 0")
     private long lostGames;
     
     /* how many offensive goals does the player have scored over all */
-    @Column ( name = "scoredOffensiveGoals", columnDefinition="bigint default 0")
+    @Column ( name = ITeam.SCOREDOFFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredOffensiveGoals;
     
     /* how many defensive goals does the player have scored over all */
-    @Column ( name = "scoredDefensiveGoals", columnDefinition="bigint default 0")
+    @Column ( name = ITeam.SCOREDDEFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredDefensiveGoals;
     
     /* how many goals (sum of defensive and offensive) does the 
      * player have scored over all */
-    @Column ( name = "scoredTotalGoals", columnDefinition="bigint default 0")
+    @Column ( name = ITeam.SCOREDTOTALGOALS, columnDefinition="bigint default 0")
     private long scoredTotalGoals;
     
     /* how often was the player not able to save an attempt to score a goal
      * in his role as the goalkeeper */
-    @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
+    @Column ( name = ITeam.CONCEDEDGOALS,  columnDefinition="bigint default 0")
     private long concededGoals;
 
     public Team() {}

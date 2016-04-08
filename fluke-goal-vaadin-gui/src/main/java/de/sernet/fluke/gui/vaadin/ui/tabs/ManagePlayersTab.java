@@ -59,7 +59,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     protected void initContent() {
 
         grid = new Grid();
-        grid.setColumns("id", "firstName", "lastName");
+        grid.setColumns("id", IPlayer.FIRSTNAME, IPlayer.LASTNAME);
         grid.setSelectionMode(SelectionMode.MULTI);
         grid.addItemClickListener(new ItemClickListener() {
 

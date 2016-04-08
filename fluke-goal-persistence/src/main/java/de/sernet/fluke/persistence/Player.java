@@ -15,36 +15,36 @@ public class Player implements IPlayer  {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
     
-    @Column ( name = "firstName", nullable=false)
+    @Column ( name = IPlayer.FIRSTNAME, nullable=false)
     private String firstName;
     
-    @Column ( name = "lastName")
+    @Column ( name = IPlayer.LASTNAME)
     private String lastName;
     
     /* how many games the player won over all */
-    @Column( name = "wonGames", columnDefinition="bigint default 0")
+    @Column( name = IPlayer.WONGAMES, columnDefinition="bigint default 0")
     private long wonGames;
     
     /* how many games the player lost over all */
-    @Column( name = "lostGames", columnDefinition="bigint default 0")
+    @Column( name = IPlayer.LOSTGAMES, columnDefinition="bigint default 0")
     private long lostGames;
     
     /* how many offensive goals does the player have scored over all */
-    @Column ( name = "scoredOffensiveGoals", columnDefinition="bigint default 0")
+    @Column ( name = IPlayer.SCOREDOFFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredOffensiveGoals;
     
     /* how many defensive goals does the player have scored over all */
-    @Column ( name = "scoredDefensiveGoals", columnDefinition="bigint default 0")
+    @Column ( name = IPlayer.SCOREDDEFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredDefensiveGoals;
     
     /* how many goals (sum of defensive and offensive) does the 
      * player have scored over all */
-    @Column ( name = "scoredTotalGoals", columnDefinition="bigint default 0")
+    @Column ( name = IPlayer.SCOREDTOTALGOALS, columnDefinition="bigint default 0")
     private long scoredTotalGoals;
     
     /* how often was the player not able to save an attempt to score a goal
      * in his role as the goalkeeper */
-    @Column ( name = "concededGoals",  columnDefinition="bigint default 0")
+    @Column ( name = IPlayer.CONCEDEDGOALS,  columnDefinition="bigint default 0")
     private long concededGoals;
     
 	/* (non-Javadoc)
