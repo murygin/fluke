@@ -114,10 +114,10 @@ public class TrackMatchResultPanel extends Panel {
             GoalsOfAGameCollection goals = null;
             if(trackDetailed){
                 if(Short.valueOf((String)redOffensiveTeamGoalsCombo.getValue())
-                        + Short.valueOf((String)redOffensiveTeamGoalsCombo.getValue())
+                        + Short.valueOf((String)redDefensiveTeamGoalsCombo.getValue())
                         ==
                    Short.valueOf((String)blueOffensiveTeamGoalsCombo.getValue())
-                        + Short.valueOf((String)blueOffensiveTeamGoalsCombo.getValue())){
+                        + Short.valueOf((String)blueDefensiveTeamGoalsCombo.getValue())){
                     Note.warning(EVEN_RESULT_WARNING);
                     return;
                 }
