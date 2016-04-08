@@ -96,7 +96,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
         result.setValue(createMatchAutomatically(selectedPlayers));
 
-        if (resultWindow.isVisible()) {
+        if (resultWindow != null && resultWindow.isVisible()) {
             resultWindow.close();
         }
         resultWindow = new Window("Match created");
