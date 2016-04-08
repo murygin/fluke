@@ -23,11 +23,14 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 
+import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.views.IFlukeUITab;
+import de.sernet.fluke.gui.vaadin.ui.views.TrackMatchResultsTab;
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
+import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 
 /**
@@ -50,16 +53,21 @@ public class TrackMatchResultPanel extends Panel {
     private Button showDetailedTrackingButton;
     private Button submitGameResultButton;
     
+    private final static String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
+    
     private IGameResultService gameResultService;
     
     private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
     
     private IGame game;
     
-    public TrackMatchResultPanel(IGame game, IGameResultService service){
+    private TrackMatchResultsTab parent;
+    
+    public TrackMatchResultPanel(IGame game, IGameResultService service, TrackMatchResultsTab parent){
         
         this.gameResultService = service;
         this.game = game;
+        this.parent = parent;
         
         final FormLayout layout = new FormLayout();
         layout.setMargin(true);
@@ -111,17 +119,33 @@ public class TrackMatchResultPanel extends Panel {
     private void trackResult(Button.ClickEvent event){
         if(event.getSource() == submitGameResultButton){
             boolean trackDetailed = !redTeamGoalsCombo.isVisible();
+            GoalsOfAGameCollection goals = null;
             if(trackDetailed){
-                gameResultService.trackGameResult(game, 
-                        (short)redOffensiveTeamGoalsCombo.getValue(), 
-                        (short)redDefensiveTeamGoalsCombo.getValue(), 
-                        (short)blueOffensiveTeamGoalsCombo.getValue(), 
-                        (short)blueDefensiveTeamGoalsCombo.getValue());
+                if(Short.valueOf((String)redOffensiveTeamGoalsCombo.getValue())
+                        + Short.valueOf((String)redOffensiveTeamGoalsCombo.getValue())
+                        ==
+                   Short.valueOf((String)blueOffensiveTeamGoalsCombo.getValue())
+                        + Short.valueOf((String)blueOffensiveTeamGoalsCombo.getValue())){
+                    Note.warning(EVEN_RESULT_WARNING);
+                    return;
+                }
+                goals = new GoalsOfAGameCollection(game.getId(), 
+                        Short.valueOf((String)blueOffensiveTeamGoalsCombo.getValue()),
+                        Short.valueOf((String)blueDefensiveTeamGoalsCombo.getValue()),
+                        Short.valueOf((String)redOffensiveTeamGoalsCombo.getValue()),
+                        Short.valueOf((String)redDefensiveTeamGoalsCombo.getValue()));
             } else {
-                gameResultService.trackGameResult(game,
-                        (short)redTeamGoalsCombo.getValue(),
-                        (short)blueTeamGoalsCombo.getValue());
+                if(Short.valueOf((String)redTeamGoalsCombo.getValue()) == 
+                        Short.valueOf((String)blueTeamGoalsCombo.getValue())){
+                    Note.warning(EVEN_RESULT_WARNING);
+                    return;
+                }
+                goals = new GoalsOfAGameCollection(game.getId(),
+                        Short.valueOf((String)redTeamGoalsCombo.getValue()),
+                        Short.valueOf((String)blueTeamGoalsCombo.getValue()));
             }
+            gameResultService.trackGameResult(goals);
+            parent.refreshContent();
         }
     }
         

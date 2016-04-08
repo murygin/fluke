@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.gui.vaadin.ui.views;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,12 +26,16 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Grid.SelectionMode;
 
+import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.client.rest.GameResultRestClient;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResultService;
+import de.sernet.fluke.interfaces.IGameService;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -47,12 +52,15 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
 
     private Set<IGame> untrackedGames;
     
-    private IGameResultService service;
+    private IGameResultService gameResultService;
     
-    public TrackMatchResultsTab(List<IGame> untrackedResults, GameResultRestClient service) {
+    private IGameService gameService;
+    
+    public TrackMatchResultsTab(GameRestClient gameRestClient, GameResultRestClient gameResultService) {
         this.untrackedGames = new HashSet<>();
-        this.untrackedGames.addAll(untrackedResults);
-        this.service = service;
+        this.gameService = gameRestClient;
+        this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
+        this.gameResultService = gameResultService;
         createContent();
         this.setCaption(LABEL);
     }
@@ -61,10 +69,12 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#initContent()
      */
     protected void createContent() {
+        
         mainLayout = new VerticalLayout();
+        
         for(IGame game : untrackedGames){
-            TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, service);
-            mainLayout.addComponent(matchPanel);
+            TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
+             mainLayout.addComponent(matchPanel);
         }
         addComponent(mainLayout);
         
@@ -73,7 +83,13 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
     @Override
     public void doOnEnter() {
         mainLayout.removeAllComponents();
+        this.untrackedGames.clear();
+        this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
         createContent();
+    }
+    
+    public void refreshContent(){
+        doOnEnter();
     }
 
 }

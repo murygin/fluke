@@ -97,7 +97,7 @@ public class FlukeUI extends UI {
 
         tabSheet.addComponent(new ManagePlayersTab());
         tabSheet.addComponent(new CreateMatchTab());
-        tabSheet.addComponent(new TrackMatchResultsTab(Arrays.asList(gameRestClient.findAllUntrackedGames()), gameResultRestClient));
+        tabSheet.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
 
         tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 
