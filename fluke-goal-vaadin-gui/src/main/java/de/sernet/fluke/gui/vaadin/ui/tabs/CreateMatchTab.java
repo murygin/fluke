@@ -26,6 +26,7 @@ import com.vaadin.ui.Grid.SelectionMode;
 import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
+import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
 import de.sernet.fluke.interfaces.IPlayer;
 
 /**
@@ -42,6 +43,8 @@ public class CreateMatchTab extends AbstractPlayerTab {
     private Grid grid;
     private HorizontalLayout mainLayout;
     protected Label result;
+    private CreateMatchManualForm matchPanel;
+    private Window manualMatchWindow;
 
     public CreateMatchTab() {
         super();
@@ -68,15 +71,19 @@ public class CreateMatchTab extends AbstractPlayerTab {
         mainLayout.setSpacing(true);
         mainLayout.addComponent(grid);
 
-        Button createButton = new Button("create Match", this::createMatch);
+        Button createAutomaticallyButton = new Button("Create Match automatically",
+                this::createMatchAutomatically);
+
+        Button createManuallyButton = new Button("Create Match manually",
+                this::createMatchManually);
 
         result.setContentMode(ContentMode.HTML);
 
-        VerticalLayout layout = new VerticalLayout(createButton);
+        FormLayout layout = new FormLayout(createAutomaticallyButton, createManuallyButton);
         mainLayout.addComponent(layout);
     }
 
-    private void createMatch(ClickEvent event) {
+    private void createMatchAutomatically(ClickEvent event) {
 
         ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
         ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
@@ -86,7 +93,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
             }
         }
 
-        result.setValue(createMatch(selectedPlayers));
+        result.setValue(createMatchAutomatically(selectedPlayers));
 
         Window resultWindow = new Window("Match created");
         VerticalLayout windowLayout = new VerticalLayout(result);
@@ -98,7 +105,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
 
     }
 
-    public String createMatch(List<IPlayer> players) {
+    public String createMatchAutomatically(List<IPlayer> players) {
 
         ArrayList<IPlayer> playersToCreateMatch = new ArrayList<>(players);
         if (playersToCreateMatch.size() < 4) {
@@ -142,6 +149,53 @@ public class CreateMatchTab extends AbstractPlayerTab {
         return teams.toString();
     }
 
+    private void createMatchManually(ClickEvent event) {
+        Collection<Object> selectedRows = grid.getSelectedRows();
+        ArrayList<IPlayer> selectedPlayers = new ArrayList<>();
+        for (Object object : selectedRows) {
+            if (object instanceof IPlayer) {
+                selectedPlayers.add((IPlayer) object);
+            }
+        }
+        matchPanel = new CreateMatchManualForm(selectedPlayers);
+        manualMatchWindow = new Window("Create a match manually");
+
+        matchPanel.getSubmitButton().addClickListener(this::saveMatch);
+
+        VerticalLayout windowLayout = new VerticalLayout(matchPanel);
+        windowLayout.setMargin(true);
+        windowLayout.setSpacing(true);
+        manualMatchWindow.setContent(windowLayout);
+        manualMatchWindow.center();
+        getUI().addWindow(manualMatchWindow);
+        
+    }
+
+    private void saveMatch(ClickEvent event) {
+
+        long[] ids = matchPanel.getGame();
+        if (onlyUniqueIds(ids)) {
+
+            gameService.create(ids[1], ids[0], ids[3], ids[2]);
+            manualMatchWindow.close();
+            Note.info("Match created");
+        } else {
+            Note.warning("The Players chosen are not unique");
+        }
+
+    }
+
+    /**
+     * @param ids
+     * @return
+     */
+    private boolean onlyUniqueIds(long[] ids) {
+        Set<Long> set = new HashSet<>();
+        for (long id : ids) {
+            set.add(id);
+        }
+        return set.size() == ids.length;
+    }
 
     /*
      * (non-Javadoc)
