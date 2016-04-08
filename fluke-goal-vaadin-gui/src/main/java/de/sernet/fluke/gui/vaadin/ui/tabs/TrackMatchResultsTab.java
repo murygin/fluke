@@ -17,13 +17,15 @@ package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 import java.util.*;
 
+import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Grid.SelectionMode;
 
-import de.sernet.fluke.client.rest.*;
+import de.sernet.fluke.client.rest.GameRestClient;
+import de.sernet.fluke.client.rest.GameResultRestClient;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
 
@@ -88,7 +90,16 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
 
     private void editResult(Event event) {
 
-        Game game = (Game) grid.getSelectedRow();
+
+        IGame game;
+        if (event instanceof ItemClickEvent) {
+            ItemClickEvent itemEvent = (ItemClickEvent) event;
+            Property<Long> item = itemEvent.getItem().getItemProperty("id");
+            game = gameService.findById(item.getValue());
+        } else {
+            game = (IGame) grid.getSelectedRow();
+        }
+
         TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
 
         Window resultWindow = new Window("Edit result");

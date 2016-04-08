@@ -18,6 +18,7 @@ package de.sernet.fluke.gui.vaadin.ui.tabs;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.*;
@@ -96,6 +97,13 @@ public class ManagePlayersTab extends AbstractPlayerTab {
 
     public void editPlayer(Event event) {
 
+
+        IPlayer player;
+        if (event instanceof ItemClickEvent) {
+            ItemClickEvent itemEvent = (ItemClickEvent) event;
+            Property<Long> item = itemEvent.getItem().getItemProperty("id");
+            player = playerService.findOne(item.getValue());
+        } else {
         if (grid.getSelectedRows().size() < 1) {
             Note.warning("Please select a player");
             return;
@@ -106,29 +114,29 @@ public class ManagePlayersTab extends AbstractPlayerTab {
 
         Object item = new ArrayList<>(grid.getSelectedRows()).get(0);
         if (item instanceof IPlayer) {
-            final IPlayer player = (IPlayer) item;
-            playerForm.setName(player.getFirstName(), player.getLastName());
-            playerForm.getSubmit().addClickListener(new ClickListener() {
-
-                private static final long serialVersionUID = 1L;
-
-                @Override
-                public void buttonClick(ClickEvent event) {
-
-                    player.setFirstName(playerForm.getFirstName());
-                    player.setLastName(playerForm.getLastName());
-                    playerService.save(player);
-                    event.getButton().removeClickListener(this);
-                    updatePlayerList();
-                    playerWindow.close();
-                    Note.info("Player updated");
-                }
-            });
-            openPlayerWindow("Edit Player");
-
-        } else {
             Note.error("something went wrong");
+            return;
         }
+            player = (IPlayer) item;
+        }
+        playerForm.setName(player.getFirstName(), player.getLastName());
+        playerForm.getSubmit().addClickListener(new ClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+
+                player.setFirstName(playerForm.getFirstName());
+                player.setLastName(playerForm.getLastName());
+                playerService.save(player);
+                event.getButton().removeClickListener(this);
+                updatePlayerList();
+                playerWindow.close();
+                Note.info("Player updated");
+            }
+        });
+        openPlayerWindow("Edit Player");
         updatePlayerList();
 
     }
