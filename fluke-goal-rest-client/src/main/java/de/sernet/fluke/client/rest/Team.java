@@ -301,7 +301,7 @@ public class Team implements ITeam {
     private String getPlayerAbbr(IPlayer player) {
         StringBuilder sb = new StringBuilder();
         sb.append(player.getFirstName().charAt(0));
-        if (player.getLastName() != null) {
+        if (player.getLastName() != null && player.getLastName().length() != 0) {
             sb.append(player.getLastName().charAt(0));
         }
         return sb.toString();
