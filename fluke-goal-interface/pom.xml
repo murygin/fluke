@@ -16,12 +16,6 @@
             <artifactId>javaee-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-        </dependency>
-        -->
     </dependencies>
     <build>
         <plugins>
@@ -32,6 +26,12 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <layout>NONE</layout>
+                    <excludes>
+                        <exclude>
+                            <groupId>javax</groupId>
+                            <artifactId>javaee-api</artifactId>
+                        </exclude>
+                      </excludes>
                 </configuration>
             </plugin>
         </plugins>
