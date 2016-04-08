@@ -53,6 +53,9 @@ public class FlukeUI extends UI {
     @Autowired
     private PlayerRestClient playerRestClient;
 
+    @Autowired
+    private TeamRestClient teamRestClient;
+    
     @Override
     protected void init(VaadinRequest request) {
 
@@ -97,6 +100,7 @@ public class FlukeUI extends UI {
         tabSheet.addComponent(new ManagePlayersTab());
         tabSheet.addComponent(new CreateMatchTab());
         tabSheet.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
+        tabSheet.addComponent(new StatisticsTab());
 
         tabSheet.setSizeFull();
         tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
@@ -135,6 +139,10 @@ public class FlukeUI extends UI {
      */
     public GameRestClient getGameRestClient() {
         return gameRestClient;
+    }
+    
+    public TeamRestClient getTeamRestClient(){
+        return teamRestClient;
     }
 
     /**

@@ -69,28 +69,28 @@ public class TrackMatchResultPanel extends Panel {
     }
 
     private void createContent(IGame game, final FormLayout form) {
-        showDetailedTrackingButton = new Button("Track Detailed Results", this::switchCombos);
+        showDetailedTrackingButton = new Button("Switch Tracking Level", this::switchCombos);
         form.addComponent(showDetailedTrackingButton);
 
         gameLabel = new Label(getGameLabel(game));
         form.addComponent(gameLabel);
         
-        redTeamGoalsCombo = getGoalComboBox("Red Team Goals", true);
+        redTeamGoalsCombo = getGoalComboBox("Red Team Goals", false);
         form.addComponent(redTeamGoalsCombo);
         
-        blueTeamGoalsCombo = getGoalComboBox("Blue Team Goals", true);
+        blueTeamGoalsCombo = getGoalComboBox("Blue Team Goals", false);
         form.addComponent(blueTeamGoalsCombo);
         
-        redOffensiveTeamGoalsCombo = getGoalComboBox("Red Team Offensive Goals", false);
+        redOffensiveTeamGoalsCombo = getGoalComboBox("Red Team Offensive Goals", true);
         form.addComponent(redOffensiveTeamGoalsCombo);
         
-        redDefensiveTeamGoalsCombo = getGoalComboBox("Red Team Defensive Goals", false);
+        redDefensiveTeamGoalsCombo = getGoalComboBox("Red Team Defensive Goals", true);
         form.addComponent(redDefensiveTeamGoalsCombo);
 
-        blueOffensiveTeamGoalsCombo = getGoalComboBox("Blue Team Offensive Goals", false);
+        blueOffensiveTeamGoalsCombo = getGoalComboBox("Blue Team Offensive Goals", true);
         form.addComponent(blueOffensiveTeamGoalsCombo);
         
-        blueDefensiveTeamGoalsCombo = getGoalComboBox("Blue Team Defensive Goals", false);
+        blueDefensiveTeamGoalsCombo = getGoalComboBox("Blue Team Defensive Goals", true);
         form.addComponent(blueDefensiveTeamGoalsCombo);
         
         submitGameResultButton = new Button("Submit Results", this::trackResult);
@@ -143,6 +143,7 @@ public class TrackMatchResultPanel extends Panel {
         
     private void switchCombos(Button.ClickEvent event){
         if(event.getSource() == showDetailedTrackingButton){
+            Note.info("Please note, that tracking results teamwise does not affect \"scored goals/player\"- stats");
             blueTeamGoalsCombo.setVisible(!blueTeamGoalsCombo.isVisible());
             redTeamGoalsCombo.setVisible(!redTeamGoalsCombo.isVisible());
 

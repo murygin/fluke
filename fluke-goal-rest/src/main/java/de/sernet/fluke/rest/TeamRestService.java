@@ -15,11 +15,15 @@
  */
 package de.sernet.fluke.rest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
 
@@ -51,5 +55,14 @@ public class TeamRestService {
         ITeam team = teamService.findById(teamId);
         HttpStatus status = (team != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         return new ResponseEntity<>(team, status);
+    }
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public List<ITeam> findAll() {
+        List<ITeam> teams = Arrays.asList(teamService.findAll());
+        HttpStatus status = (teams != null && !teams.isEmpty())
+                ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        ResponseEntity<List<ITeam>> response = new ResponseEntity<>(teams, status);
+        return response.getBody();
     }
 }

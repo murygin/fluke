@@ -1,5 +1,8 @@
 package de.sernet.fluke.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +43,18 @@ public class TeamService implements ITeamService {
             team = save(team);
         }
         return team;
+    }
+    
+    @Override
+    public ITeam[] findAll() {
+        Iterable<Team> teams = teamRepository.findAll();
+        List<ITeam> castedTeams = new ArrayList<>();
+
+        for (Team team : teams) {
+            castedTeams.add((Team) team);
+        }
+
+        return castedTeams.toArray(new ITeam[] {});
     }
 
 }

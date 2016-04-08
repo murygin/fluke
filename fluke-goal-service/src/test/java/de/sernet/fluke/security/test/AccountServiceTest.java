@@ -81,4 +81,13 @@ public class AccountServiceTest {
         foundAccount = accountService.findByLogin(login);
         Assert.assertNull("Account with login: " + login + " found after deletion.", foundAccount);
     }
+    
+    @Test
+    public void createRestServiceTestingAccount(){
+        final String login = "test";
+        final String password = "test";
+        final String email = "test";
+        IAccount testAccount = new Account(login, password, email);
+        accountService.createAccount(testAccount);
+    }
 }

@@ -15,24 +15,15 @@
  */
 package de.sernet.fluke.interfaces;
 
-import java.util.List;
+import java.util.LinkedList;
 
 /**
- *
- * @author Benjamin Weißenfels <bw@sernet.de>
+ * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public interface ITeamService {
+public interface IStatisticService {
     
-    ITeam save(ITeam team);
+    LinkedList<IPlayer> getPlayerRanking();
+    
+    LinkedList<ITeam> getTeamRanking();
 
-    ITeam findOne(long teamId);
-    
-    ITeam findById(long id);
-    
-    ITeam findByPlayers(IPlayer defensivePlayer, IPlayer offensivePlayer);
-    
-    ITeam findOrCreate(IPlayer defensivePlayer, IPlayer offensivePlayer);
-    
-    ITeam[] findAll();
-    
 }

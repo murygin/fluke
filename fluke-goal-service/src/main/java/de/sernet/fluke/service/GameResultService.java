@@ -48,6 +48,13 @@ public class GameResultService implements IGameResultService {
         game.getRedTeam().increaseScoredTotalGoals(goalsRedTeam);
         game.getRedTeam().increaseConcededGoals(goalsBlueTeam);
         
+        // update scored player goals
+        game.getBlueTeam().getDefensivePlayer().increaseConcededGoals(goalsRedTeam);
+        game.getRedTeam().getDefensivePlayer().increaseConcededGoals(goalsBlueTeam);
+        
+        playerService.save(game.getRedTeam().getDefensivePlayer());
+        playerService.save(game.getRedTeam().getOffensivePlayer());
+        
         // update game won/lost stats
         if(goalsBlueTeam > goalsRedTeam){ // blue wins
             game.getBlueTeam().increaseWonGames((short)1);
@@ -62,6 +69,12 @@ public class GameResultService implements IGameResultService {
         teamService.save(game.getBlueTeam());
         teamService.save(game.getRedTeam());
 
+        playerService.save(game.getBlueTeam().getDefensivePlayer());
+        playerService.save(game.getBlueTeam().getOffensivePlayer());
+        
+        playerService.save(game.getRedTeam().getDefensivePlayer());
+        playerService.save(game.getRedTeam().getOffensivePlayer());
+        
         return gameResult;
     }
 

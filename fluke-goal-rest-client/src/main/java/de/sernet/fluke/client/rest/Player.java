@@ -12,7 +12,20 @@ public class Player implements IPlayer  {
     
     private String firstName;
     private String lastName;
-
+    
+    private long wonGames;
+    
+    private long lostGames;
+    
+    private long scoredOffensiveGoals;
+    
+    private long scoredDefensiveGoals;
+    
+    private long scoredTotalGoals;
+    
+    private long concededGoals;
+    
+    
     public Player(long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
@@ -83,109 +96,91 @@ public class Player implements IPlayer  {
 
     @Override
     public long getWonGames() {
-        // TODO Auto-generated method stub
-        return 0;
+        return wonGames;
     }
 
     @Override
     public void setWonGames(long wonGames) {
-        // TODO Auto-generated method stub
-        
+        this.wonGames = wonGames;
     }
 
     @Override
     public void increaseWonGames(short wonGames) {
-        // TODO Auto-generated method stub
-        
+        this.wonGames += wonGames;
     }
 
     @Override
     public void increaseLostGames(short lostGames) {
-        // TODO Auto-generated method stub
-        
+        this.lostGames += lostGames;
     }
 
     @Override
     public long getLostGames() {
-        // TODO Auto-generated method stub
-        return 0;
+        return lostGames;
     }
 
     @Override
     public void setLostGames(long lostGames) {
-        // TODO Auto-generated method stub
-        
+        this.lostGames = lostGames;
     }
 
     @Override
     public long getScoredOffensiveGoals() {
-        // TODO Auto-generated method stub
-        return 0;
+        return scoredOffensiveGoals;
     }
 
     @Override
     public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredOffensiveGoals = scoredOffensiveGoals;
     }
 
     @Override
     public void increaseScoredOffensiveGoals(short scoredOffensiveGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredOffensiveGoals += scoredOffensiveGoals;
     }
 
     @Override
     public long getScoredDefensiveGoals() {
-        // TODO Auto-generated method stub
-        return 0;
+        return scoredDefensiveGoals;
     }
 
     @Override
     public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
 
     @Override
     public void increaseScoredDefensiveGoals(short scoredDefensiveGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredDefensiveGoals += scoredOffensiveGoals;
     }
 
     @Override
     public long getScoredTotalGoals() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.scoredTotalGoals;
     }
 
     @Override
     public void setScoredTotalGoals(long scoredTotalGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredTotalGoals = scoredTotalGoals;
     }
 
     @Override
     public void increaseScoredTotalGoals(short scoredTotalGoals) {
-        // TODO Auto-generated method stub
-        
+        this.scoredTotalGoals += scoredTotalGoals;
     }
 
     @Override
     public long getConcededGoals() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.concededGoals;
     }
 
     @Override
     public void setConcededGoals(long concededGoals) {
-        // TODO Auto-generated method stub
-        
+        this.concededGoals = concededGoals;
     }
 
     @Override
     public void increaseConcededGoals(short concededGoals) {
-        // TODO Auto-generated method stub
-        
+        this.concededGoals += concededGoals;
     }
 }

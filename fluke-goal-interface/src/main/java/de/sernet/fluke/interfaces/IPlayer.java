@@ -74,5 +74,4 @@ public interface IPlayer {
     
     public void increaseConcededGoals(short concededGoals);
 
-
 }
