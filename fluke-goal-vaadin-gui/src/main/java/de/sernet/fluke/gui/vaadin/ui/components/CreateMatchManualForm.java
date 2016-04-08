@@ -21,7 +21,6 @@ import com.vaadin.ui.*;
 
 import de.sernet.fluke.interfaces.IPlayer;
 
-
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
