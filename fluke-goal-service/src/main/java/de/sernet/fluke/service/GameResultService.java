@@ -29,10 +29,15 @@ public class GameResultService implements IGameResultService {
     public IGameResult trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
         IGameResult gameResult = null;
         if(game.getResult() == null){
+            // method called directly from client
             gameResult = new GameResult(goalsRedTeam, goalsBlueTeam);
             gameResultRepository.save((GameResult)gameResult);
             game.setResult(gameResult);
+            // update scored player goals
+            game.getBlueTeam().getDefensivePlayer().increaseConcededGoals(goalsRedTeam);
+            game.getRedTeam().getDefensivePlayer().increaseConcededGoals(goalsBlueTeam);
         } else {
+            // method calles indirectly (via trackGameResult(GoalsOfAGameCollection goals) )
             gameResult = game.getResult();
             gameResult.setBlueTeamGoals(goalsBlueTeam);
             gameResult.setRedTeamGoals(goalsRedTeam);
@@ -48,9 +53,6 @@ public class GameResultService implements IGameResultService {
         game.getRedTeam().increaseScoredTotalGoals(goalsRedTeam);
         game.getRedTeam().increaseConcededGoals(goalsBlueTeam);
         
-        // update scored player goals
-        game.getBlueTeam().getDefensivePlayer().increaseConcededGoals(goalsRedTeam);
-        game.getRedTeam().getDefensivePlayer().increaseConcededGoals(goalsBlueTeam);
         
         playerService.save(game.getRedTeam().getDefensivePlayer());
         playerService.save(game.getRedTeam().getOffensivePlayer());
@@ -90,11 +92,19 @@ public class GameResultService implements IGameResultService {
         
         // handle results for player objects
         game.getBlueTeam().getOffensivePlayer().increaseScoredOffensiveGoals(blueOffensiveGoals);
+        game.getBlueTeam().getOffensivePlayer().increaseScoredTotalGoals(blueOffensiveGoals);
+        
         game.getBlueTeam().getDefensivePlayer().increaseScoredDefensiveGoals(blueDefensiveGoals);
+        game.getBlueTeam().getDefensivePlayer().increaseScoredTotalGoals(blueDefensiveGoals);
+        
         game.getBlueTeam().getDefensivePlayer().increaseConcededGoals((short) (redOffensiveGoals+redDefensiveGoals));
         
         game.getRedTeam().getOffensivePlayer().increaseScoredOffensiveGoals(redOffensiveGoals);
+        game.getRedTeam().getOffensivePlayer().increaseScoredTotalGoals(redOffensiveGoals);
+        
         game.getRedTeam().getDefensivePlayer().increaseScoredDefensiveGoals(redDefensiveGoals);
+        game.getRedTeam().getDefensivePlayer().increaseScoredTotalGoals(redDefensiveGoals);
+        
         game.getRedTeam().getDefensivePlayer().increaseConcededGoals((short) (blueOffensiveGoals+blueDefensiveGoals));
         
         if(game.getResult().getBlueTeamGoals() > game.getResult().getRedTeamGoals()){ // blue wins
