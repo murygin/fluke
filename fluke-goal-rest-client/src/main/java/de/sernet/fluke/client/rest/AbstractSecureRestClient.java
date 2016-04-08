@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.client.rest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestOperations;
 
 /**
@@ -23,9 +24,8 @@ import org.springframework.web.client.RestOperations;
  */
 public abstract class AbstractSecureRestClient {
 
-    public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
-
-    private String serverUrl = SERVER_URL_DEFAULT;
+    @Value("${rest-server.url}")
+    private String serverUrl;
 
     private RestOperations restOperations;
 
@@ -39,11 +39,6 @@ public abstract class AbstractSecureRestClient {
     }
 
     public AbstractSecureRestClient(String username, String password) {
-        this(SERVER_URL_DEFAULT, username, password);
-    }
-
-    public AbstractSecureRestClient(String serverUrl, String username, String password) {
-        this(serverUrl);
         restOperations = new RestClient(username, password);
     }
 

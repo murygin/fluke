@@ -42,10 +42,6 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
         path = PATH_DEFAULT;
     }
 
-    public GameRestClient(String username, String password) {
-        this(username, password, SERVER_URL_DEFAULT, PATH_DEFAULT);
-    }
-
     public GameRestClient(String username, String password, String serverUrl, String path) {
         super(username, password);
         setServerUrl(serverUrl);
