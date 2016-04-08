@@ -24,7 +24,7 @@ import org.springframework.web.client.RestOperations;
  */
 public abstract class AbstractSecureRestClient {
 
-    @Value("${rest-server.url}")
+    @Value("${rest-server.url:http://localhost:8080}")
     private String serverUrl;
 
     private RestOperations restOperations;
