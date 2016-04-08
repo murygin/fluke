@@ -21,7 +21,7 @@ import org.springframework.web.client.RestOperations;
  *
  * @author Daniel Murygin
  */
-public abstract class AbstractRestClient {
+public abstract class AbstractSecureRestClient {
 
     public static final String SERVER_URL_DEFAULT = "http://localhost:8080/";
 
@@ -29,20 +29,20 @@ public abstract class AbstractRestClient {
 
     private RestOperations restOperations;
 
-    public AbstractRestClient() {
+    public AbstractSecureRestClient() {
         super();
     }
 
-    private AbstractRestClient(String serverUrl) {
+    private AbstractSecureRestClient(String serverUrl) {
         super();
         this.serverUrl = serverUrl;
     }
 
-    public AbstractRestClient(String username, String password) {
+    public AbstractSecureRestClient(String username, String password) {
         this(SERVER_URL_DEFAULT, username, password);
     }
 
-    public AbstractRestClient(String serverUrl, String username, String password) {
+    public AbstractSecureRestClient(String serverUrl, String username, String password) {
         this(serverUrl);
         restOperations = new RestClient(username, password);
     }

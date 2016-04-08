@@ -32,7 +32,7 @@ import de.sernet.fluke.interfaces.IPlayerService;
  *
  * @author Daniel Murygin <dm{a}sernet{dot}de>
  */
-public class PlayerRestClient extends AbstractRestClient implements IPlayerService {
+public class PlayerRestClient extends AbstractSecureRestClient implements IPlayerService {
 
     private static final Logger LOG = LoggerFactory.getLogger(PlayerRestClient.class);
 

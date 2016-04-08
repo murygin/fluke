@@ -26,7 +26,7 @@ import de.sernet.fluke.rest.GoalsOfAGameCollection;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public class GameResultRestClient extends AbstractRestClient implements IGameResultService {
+public class GameResultRestClient extends AbstractSecureRestClient implements IGameResultService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameResultRestClient.class);
 
@@ -88,7 +88,7 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
     }
 
     /* (non-Javadoc)
-     * @see de.sernet.fluke.client.rest.AbstractRestClient#getPath()
+     * @see de.sernet.fluke.client.rest.AbstractSecureRestClient#getPath()
      */
     @Override
     public String getPath() {
@@ -96,7 +96,7 @@ public class GameResultRestClient extends AbstractRestClient implements IGameRes
     }
 
     /* (non-Javadoc)
-     * @see de.sernet.fluke.client.rest.AbstractRestClient#setPath(java.lang.String)
+     * @see de.sernet.fluke.client.rest.AbstractSecureRestClient#setPath(java.lang.String)
      */
     @Override
     public void setPath(String path) {

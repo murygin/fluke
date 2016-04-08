@@ -23,17 +23,21 @@ import org.springframework.http.ResponseEntity;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
-public class AccountRestClient extends AbstractRestClient implements IAccountService {
+public class AccountRestClient extends AbstractSecureRestClient implements IAccountService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountRestClient.class);
     public static final String PATH_DEFAULT = "service/account";
 
     private String path;
+    
+    private RestOperations unsecureRestHandler;
 
     public AccountRestClient(){
        path = PATH_DEFAULT;
@@ -54,7 +58,7 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append("create");
         String url = sb.toString();
-        ResponseEntity<? extends IAccount> responseEntity = getRestHandler().postForEntity(url,
+        ResponseEntity<? extends IAccount> responseEntity = getUnsecureRestHandler().postForEntity(url,
                 request,
                 rawAccount.getClass());
         return responseEntity.getBody();
@@ -89,7 +93,7 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
     /*
      * (non-Javadoc)
      * 
-     * @see de.sernet.fluke.client.rest.AbstractRestClient#getPath()
+     * @see de.sernet.fluke.client.rest.AbstractSecureRestClient#getPath()
      */
     @Override
     public String getPath() {
@@ -100,11 +104,18 @@ public class AccountRestClient extends AbstractRestClient implements IAccountSer
      * (non-Javadoc)
      * 
      * @see
-     * de.sernet.fluke.client.rest.AbstractRestClient#setPath(java.lang.String)
+     * de.sernet.fluke.client.rest.AbstractSecureRestClient#setPath(java.lang.String)
      */
     @Override
     public void setPath(String path) {
         this.path = path;
+    }
+    
+    public RestOperations getUnsecureRestHandler() {
+        if(unsecureRestHandler==null) {
+            unsecureRestHandler = new RestTemplate();
+        }
+        return unsecureRestHandler;
     }
 
 }

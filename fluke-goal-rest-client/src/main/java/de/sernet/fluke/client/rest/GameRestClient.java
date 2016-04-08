@@ -30,7 +30,7 @@ import de.sernet.fluke.rest.PlayerSelection;
  *
  * @author Daniel Murygin
  */
-public class GameRestClient extends AbstractRestClient implements IGameService {
+public class GameRestClient extends AbstractSecureRestClient implements IGameService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameRestClient.class);
 
