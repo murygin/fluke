@@ -61,9 +61,18 @@ public class GameResultService implements IGameResultService {
         if(goalsBlueTeam > goalsRedTeam){ // blue wins
             game.getBlueTeam().increaseWonGames((short)1);
             game.getRedTeam().increaseLostGames((short)1);
+            game.getBlueTeam().getOffensivePlayer().increaseWonGames((short)1);
+            game.getBlueTeam().getDefensivePlayer().increaseWonGames((short)1);
+            game.getRedTeam().getOffensivePlayer().increaseLostGames((short)1);
+            game.getRedTeam().getDefensivePlayer().increaseLostGames((short)1);            
         } else { // red wins
             game.getRedTeam().increaseWonGames((short)1);
             game.getBlueTeam().increaseLostGames((short)1);
+            game.getRedTeam().getOffensivePlayer().increaseWonGames((short)1);
+            game.getRedTeam().getDefensivePlayer().increaseWonGames((short)1);
+            game.getBlueTeam().getOffensivePlayer().increaseLostGames((short)1);
+            game.getBlueTeam().getDefensivePlayer().increaseLostGames((short)1);
+
         }
         
         // store everything in db (save() equals update())
@@ -86,11 +95,11 @@ public class GameResultService implements IGameResultService {
         gameResult = gameResultRepository.save((GameResult)gameResult);
         game.setResult(gameResult);
         
-        // handle results for team objects
+        // handle results for team and player objects
         trackGameResult(game, game.getResult().getRedTeamGoals(), game.getResult().getBlueTeamGoals());
         
         
-        // handle results for player objects
+        // handle (detailed) results for player objects
         game.getBlueTeam().getOffensivePlayer().increaseScoredOffensiveGoals(blueOffensiveGoals);
         game.getBlueTeam().getOffensivePlayer().increaseScoredTotalGoals(blueOffensiveGoals);
         
@@ -106,18 +115,6 @@ public class GameResultService implements IGameResultService {
         game.getRedTeam().getDefensivePlayer().increaseScoredTotalGoals(redDefensiveGoals);
         
         game.getRedTeam().getDefensivePlayer().increaseConcededGoals((short) (blueOffensiveGoals+blueDefensiveGoals));
-        
-        if(game.getResult().getBlueTeamGoals() > game.getResult().getRedTeamGoals()){ // blue wins
-            game.getBlueTeam().getOffensivePlayer().increaseWonGames((short)1);
-            game.getBlueTeam().getDefensivePlayer().increaseWonGames((short)1);
-            game.getRedTeam().getOffensivePlayer().increaseLostGames((short)1);
-            game.getRedTeam().getDefensivePlayer().increaseLostGames((short)1);            
-        } else { // red wins
-            game.getRedTeam().getOffensivePlayer().increaseWonGames((short)1);
-            game.getRedTeam().getDefensivePlayer().increaseWonGames((short)1);
-            game.getBlueTeam().getOffensivePlayer().increaseLostGames((short)1);
-            game.getBlueTeam().getDefensivePlayer().increaseLostGames((short)1);
-        }
         
         gameService.save(game);
         
