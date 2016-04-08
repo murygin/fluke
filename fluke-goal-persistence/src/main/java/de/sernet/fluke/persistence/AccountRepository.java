@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.persistence;
 
+import de.sernet.fluke.model.Account;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.sernet.fluke.persistence;
+package de.sernet.fluke.model;
 
 import javax.persistence.*;
 

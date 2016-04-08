@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.persistence.Game;
+import de.sernet.fluke.model.Game;
 
 /**
  *

@@ -1,5 +1,6 @@
 package de.sernet.fluke.persistence;
 
+import de.sernet.fluke.model.GameResult;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;

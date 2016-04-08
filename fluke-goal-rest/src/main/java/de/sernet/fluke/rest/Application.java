@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 @Configuration
 @ComponentScan("de.sernet.fluke")
-@EntityScan("de.sernet.fluke.persistence")
+@EntityScan("de.sernet.fluke.model")
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

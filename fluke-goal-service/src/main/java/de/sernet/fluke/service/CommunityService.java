@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.ICommunityService;
-import de.sernet.fluke.persistence.Community;
+import de.sernet.fluke.model.Community;
 import de.sernet.fluke.persistence.CommunityRepository;
 import org.springframework.stereotype.Service;
 

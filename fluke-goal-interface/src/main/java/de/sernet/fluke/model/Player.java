@@ -1,4 +1,4 @@
-package de.sernet.fluke.persistence;
+package de.sernet.fluke.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

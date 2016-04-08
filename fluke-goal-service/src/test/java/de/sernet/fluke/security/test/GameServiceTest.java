@@ -1,5 +1,8 @@
 package de.sernet.fluke.security.test;
 
+import de.sernet.fluke.model.Team;
+import de.sernet.fluke.model.Game;
+import de.sernet.fluke.model.Player;
 import java.time.LocalDateTime;
 
 import org.junit.*;

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
-import de.sernet.fluke.persistence.Account;
+import de.sernet.fluke.model.Account;
 
 /**
  *

@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
-import de.sernet.fluke.persistence.Account;
+import de.sernet.fluke.model.Account;
 import de.sernet.fluke.persistence.AccountRepository;
 import de.sernet.fluke.security.PasswordEncoderFactory;
 

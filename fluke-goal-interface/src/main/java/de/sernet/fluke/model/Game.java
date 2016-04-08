@@ -17,7 +17,7 @@
  * Contributors:
  *     Sebastian Hagedorn <sh[at]sernet[dot]de> - initial API and implementation
  ******************************************************************************/
-package de.sernet.fluke.persistence;
+package de.sernet.fluke.model;
 
 import java.time.LocalDateTime;
 

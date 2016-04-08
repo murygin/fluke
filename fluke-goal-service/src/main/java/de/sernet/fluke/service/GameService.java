@@ -12,7 +12,7 @@ import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
-import de.sernet.fluke.persistence.Game;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.persistence.GameRepository;
 import org.springframework.stereotype.Service;
 

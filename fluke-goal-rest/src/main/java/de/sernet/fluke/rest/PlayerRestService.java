@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
-import de.sernet.fluke.persistence.Player;
+import de.sernet.fluke.model.Player;
 
 /**
  *

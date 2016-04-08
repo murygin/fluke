@@ -1,5 +1,6 @@
 package de.sernet.fluke.persistence;
 
+import de.sernet.fluke.model.Community;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

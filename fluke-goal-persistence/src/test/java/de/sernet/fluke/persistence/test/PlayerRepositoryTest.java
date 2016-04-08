@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.persistence.PersistenceApplication;
-import de.sernet.fluke.persistence.Player;
+import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
 
 

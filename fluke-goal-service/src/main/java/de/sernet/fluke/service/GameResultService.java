@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.persistence.GameResult;
+import de.sernet.fluke.model.GameResult;
 import de.sernet.fluke.persistence.GameResultRepository;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 

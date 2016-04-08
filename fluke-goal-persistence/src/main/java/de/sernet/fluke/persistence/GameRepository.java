@@ -19,6 +19,7 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import de.sernet.fluke.model.Game;
 import java.time.LocalDateTime;
 import java.util.List;
 

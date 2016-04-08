@@ -1,5 +1,7 @@
 package de.sernet.fluke.service;
 
+import de.sernet.fluke.model.Team;
+import de.sernet.fluke.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 

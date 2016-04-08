@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 
 import de.sernet.fluke.interfaces.IPlayer;
 import de.sernet.fluke.interfaces.IPlayerService;
-import de.sernet.fluke.persistence.Player;
+import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
 
 /**

@@ -19,6 +19,8 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
+import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
