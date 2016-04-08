@@ -1,5 +1,13 @@
 package de.sernet.fluke.security.test;
 
+import java.time.LocalDateTime;
+
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 /*
  * Copyright 2016 SerNet Service Network GmbH.
  *
@@ -15,34 +23,9 @@ package de.sernet.fluke.security.test;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import de.sernet.fluke.interfaces.IAccount;
-import de.sernet.fluke.interfaces.IAccountService;
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.IPlayerService;
-import de.sernet.fluke.interfaces.ITeam;
-import de.sernet.fluke.interfaces.ITeamService;
-import de.sernet.fluke.persistence.Account;
-import de.sernet.fluke.persistence.Game;
-import de.sernet.fluke.persistence.Player;
-import de.sernet.fluke.persistence.PlayerRepository;
-import de.sernet.fluke.persistence.Team;
-import de.sernet.fluke.security.PasswordEncoderFactory;
+import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.persistence.*;
 import de.sernet.fluke.service.ServiceApplication;
-import java.time.LocalDateTime;
-import java.util.UUID;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *
@@ -62,10 +45,7 @@ public class GameServiceTest {
     IGameService gameService;
     
     
-    private final PasswordEncoder encoder;
-
     public GameServiceTest() {
-        this.encoder = PasswordEncoderFactory.getInstance();
     }
 
     @BeforeClass

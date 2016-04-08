@@ -1,17 +1,10 @@
 package de.sernet.fluke.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.ITeam;
-import de.sernet.fluke.interfaces.ITeamService;
-import de.sernet.fluke.persistence.Player;
-import de.sernet.fluke.persistence.Team;
-import de.sernet.fluke.persistence.TeamRepository;
 import org.springframework.stereotype.Service;
+
+import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.persistence.*;
 
 @Service
 public class TeamService implements ITeamService {

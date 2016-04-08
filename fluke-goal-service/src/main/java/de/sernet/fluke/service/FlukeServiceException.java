@@ -21,6 +21,8 @@ package de.sernet.fluke.service;
  */
 public class FlukeServiceException extends RuntimeException {
 
+    private static final long serialVersionUID = 1L;
+
     public FlukeServiceException(String message) {
         super(message);
     }

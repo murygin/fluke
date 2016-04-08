@@ -1,5 +1,14 @@
 package de.sernet.fluke.security.test;
 
+import java.util.UUID;
+
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 /*
  * Copyright 2016 SerNet Service Network GmbH.
  *
@@ -18,21 +27,8 @@ package de.sernet.fluke.security.test;
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.persistence.Account;
-import de.sernet.fluke.persistence.PlayerRepository;
 import de.sernet.fluke.security.PasswordEncoderFactory;
 import de.sernet.fluke.service.ServiceApplication;
-import java.util.UUID;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  *

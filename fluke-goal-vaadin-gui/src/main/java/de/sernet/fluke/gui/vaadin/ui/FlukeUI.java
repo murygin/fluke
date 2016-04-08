@@ -15,7 +15,6 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;

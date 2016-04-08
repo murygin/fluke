@@ -114,7 +114,6 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
         if (LOG.isInfoEnabled()) {
             LOG.info("findById, URL: " + url);
         }
-        Game[] games = getRestHandler().getForObject(url, Game[].class);
         ResponseEntity<Game[]> responseEntity = getRestHandler().getForEntity(url,
                 Game[].class);
         return responseEntity.getBody();

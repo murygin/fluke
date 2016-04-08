@@ -16,15 +16,13 @@
 
 package de.sernet.fluke.client.rest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
-import org.springframework.web.client.RestOperations;
-import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -32,7 +30,6 @@ import org.springframework.web.client.RestTemplate;
  */
 public class AccountRestClient extends AbstractSecureRestClient implements IAccountService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountRestClient.class);
     public static final String PATH_DEFAULT = "service/account";
 
     private String path;

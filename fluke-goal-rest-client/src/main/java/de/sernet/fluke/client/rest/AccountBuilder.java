@@ -53,7 +53,15 @@ public class AccountBuilder {
     }
 
     public Account createAccount() {
-        return new Account(login, password, email);
+        Account account = new Account(login, password, email);
+        if (firstName != null) {
+            account.setFirstName(firstName);
+        }
+        if (lastName != null) {
+            account.setLastName(lastName);
+        }
+        return account;
+
     }
 
 }

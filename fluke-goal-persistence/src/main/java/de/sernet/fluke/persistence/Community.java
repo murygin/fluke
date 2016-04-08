@@ -19,17 +19,9 @@
  ******************************************************************************/
 package de.sernet.fluke.persistence;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.IPlayer;

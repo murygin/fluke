@@ -15,18 +15,14 @@
  */
 package de.sernet.fluke.client.rest.test;
 
-import de.sernet.fluke.client.rest.Application;
-import de.sernet.fluke.client.rest.Game;
-import de.sernet.fluke.client.rest.GameRestClient;
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.rest.PlayerSelection;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import de.sernet.fluke.client.rest.*;
 
 /**
  *

@@ -1,28 +1,14 @@
 package de.sernet.fluke.persistence.test;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResultService;
-import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.IPlayer;
-import de.sernet.fluke.interfaces.ITeam;
-import de.sernet.fluke.persistence.Game;
-
-import de.sernet.fluke.persistence.PersistenceApplication;
-import de.sernet.fluke.persistence.Player;
-import de.sernet.fluke.persistence.Team;
-import de.sernet.fluke.service.GameResultService;
-import de.sernet.fluke.service.GameService;
-import de.sernet.fluke.service.PlayerService;
-import de.sernet.fluke.service.ServiceApplication;
-import de.sernet.fluke.service.TeamService;
+import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.persistence.*;
+import de.sernet.fluke.service.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(ServiceApplication.class)

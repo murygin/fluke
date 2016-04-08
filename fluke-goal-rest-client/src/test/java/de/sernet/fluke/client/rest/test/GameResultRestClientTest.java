@@ -15,21 +15,15 @@
  */
 package de.sernet.fluke.client.rest.test;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.sernet.fluke.client.rest.Application;
-import de.sernet.fluke.client.rest.GameRestClient;
-import de.sernet.fluke.client.rest.GameResult;
-import de.sernet.fluke.client.rest.GameResultRestClient;
+import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.interfaces.IGame;
-import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
-import junit.framework.Assert;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>

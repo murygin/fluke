@@ -15,8 +15,6 @@
  */
 package de.sernet.fluke.interfaces;
 
-import java.util.List;
-
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
