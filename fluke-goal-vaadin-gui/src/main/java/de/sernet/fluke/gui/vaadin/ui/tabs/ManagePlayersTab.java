@@ -59,8 +59,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     @Override
     protected void initContent() {
 
-        grid = new Grid();
-        
+        grid = new Grid();        
         grid.setSizeFull();
         
         grid.setColumns("id", Player.FIRSTNAME, Player.LASTNAME);
@@ -82,7 +81,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         createButton.setIcon(FontAwesome.PLUS);
         createButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
         createButton.setDescription("add");
-        
+
         Button editButton = new Button("Edit player", this::editPlayer);
         editButton.setIcon(FontAwesome.EDIT);
         editButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
@@ -102,7 +101,6 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         playerWindow = new Window();
         playerWindow.setContent(playerForm);
         playerForm = new FlukePlayerForm();
-        
 
         updatePlayerList();
     }

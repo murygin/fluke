@@ -21,11 +21,13 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Grid.SelectionMode;
-
+import com.vaadin.ui.themes.ValoTheme;
 import de.sernet.fluke.client.rest.GameRestClient;
-import de.sernet.fluke.client.rest.GameResultRestClient;
+
+import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
@@ -33,59 +35,44 @@ import de.sernet.fluke.model.Game;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
+public class TrackMatchResultsTab extends AbstractPlayerTab implements IFlukeUITab {
 
     public static final String TYPE_ID = "trackResultsView";
     public static final String LABEL = "Track Results";
 
     private static final long serialVersionUID = 1L;
-    
-    private Set<Game> untrackedGames;
-    private IGameResultService gameResultService;
-    private IGameService gameService;
 
-    private Window resultWindow;
+    private final Set<Game> untrackedGames;
+    private final IGameResultService gameResultService;
+    private final GameRestClient gameService;
+
     private Grid grid;
-    private HorizontalLayout mainLayout; 
+    private Window resultWindow;
 
-    public TrackMatchResultsTab(GameRestClient gameRestClient, GameResultRestClient gameResultService) {
+    public TrackMatchResultsTab() {
+
+        setCaption(LABEL);
+
+        this.gameService = ((FlukeUI) UI.getCurrent()).getGameRestClient();
+        this.gameResultService = ((FlukeUI) UI.getCurrent()).getGameResultRestClient();
+
         this.untrackedGames = new HashSet<>();
-        this.gameService = gameRestClient;
         this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
-        this.gameResultService = gameResultService;
+
         createContent();
-        this.setCaption(LABEL);
     }
 
     /* (non-Javadoc)
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#initContent()
      */
     protected void createContent() {
-        mainLayout = new HorizontalLayout();
-        mainLayout.setSizeFull();
-
-        grid = new Grid();
-        grid.setColumns("gameDate", "redTeam", "blueTeam");
-        grid.setSelectionMode(SelectionMode.SINGLE);
         grid.setContainerDataSource(
                 new BeanItemContainer<>(Game.class, untrackedGames));
 
-        Button editButton = new Button("Edit Result", this::editResult);
-        mainLayout.addComponents(grid, editButton);
-        grid.addItemClickListener(new ItemClickListener() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            public void itemClick(ItemClickEvent event) {
-                if (!event.isDoubleClick())
-                    return;
-                editResult(event);
-            }
-        });
-        addComponent(mainLayout);
     }
 
     private void editResult(Event event) {
+
         Game game;
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
@@ -108,25 +95,75 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
 
     @Override
     public void doOnEnter() {
-        mainLayout.removeAllComponents();
-        this.untrackedGames.clear();
-        this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
-        createContent();
+
     }
-    
+
     public void afterResultSave() {
         closeResultWindow();
         refreshContent();
     }
 
-    public void refreshContent(){
+    public void refreshContent() {
         doOnEnter();
     }
-    
+
     public void closeResultWindow() {
-        if(resultWindow!=null && resultWindow.isClosable()) {
+        if (resultWindow != null && resultWindow.isClosable()) {
             resultWindow.close();
         }
+    }
+
+    @Override
+    protected Component getMainComponent() {
+        return grid;
+    }
+
+    @Override
+    protected void initContent() {
+        grid = new Grid();
+        grid.setWidth(100, Unit.PERCENTAGE);
+        grid.setColumns("gameDate", "redTeam", "blueTeam");
+        grid.setSelectionMode(SelectionMode.SINGLE);
+
+        grid.addItemClickListener(new ItemClickListener() {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void itemClick(ItemClickEvent event) {
+                if (!event.isDoubleClick()) {
+                    return;
+                }
+                editResult(event);
+            }
+        });
+
+        Button editButton = new Button("Edit Result", this::editResult);
+        editButton.setIcon(FontAwesome.EDIT);
+        editButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        editButton.setDescription("edit");
+
+        addCrudButton(editButton);
+    }
+
+    @Override
+    public String getTypeID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getLabel() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected Grid getGrid() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void doEnter() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

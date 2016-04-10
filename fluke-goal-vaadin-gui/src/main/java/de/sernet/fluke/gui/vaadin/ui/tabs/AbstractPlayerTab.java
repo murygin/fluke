@@ -50,7 +50,7 @@ public abstract class AbstractPlayerTab extends VerticalLayout implements IFluke
         setWidth(100, Unit.PERCENTAGE);
 
         crudMenu = new HorizontalLayout();
-        crudMenu.setHeight("80px");
+        crudMenu.setHeight("90px");
         crudMenu.setSpacing(true);
 
         initContent();
@@ -68,8 +68,10 @@ public abstract class AbstractPlayerTab extends VerticalLayout implements IFluke
     public abstract String getLabel();
 
     public final void addCrudButton(Button button) {
-        crudMenu.addComponent(button);
-        crudMenu.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+        if (crudMenu.getComponentIndex(button) == -1) {
+            crudMenu.addComponent(button);
+            crudMenu.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+        }
     }
 
     protected void updatePlayerList() {
@@ -97,7 +99,6 @@ public abstract class AbstractPlayerTab extends VerticalLayout implements IFluke
      */
     @Override
     public void doOnEnter() {
-
         updatePlayerList();
         doEnter();
     }

@@ -110,9 +110,9 @@ public class FlukeUI extends UI {
         header.addComponent(title);
 
         Component logout = buildLogoutButton();
-
         header.addComponent(logout);
         header.setComponentAlignment(logout, Alignment.TOP_RIGHT);
+
         return header;
     }
 
@@ -147,7 +147,7 @@ public class FlukeUI extends UI {
 
         applicationMenu.addComponent(new ManagePlayersTab());
         applicationMenu.addComponent(new CreateMatchTab());
-        applicationMenu.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
+        applicationMenu.addComponent(new TrackMatchResultsTab());
         applicationMenu.addComponent(new StatisticsTab());
 
         applicationMenu.setSizeFull();
@@ -167,8 +167,7 @@ public class FlukeUI extends UI {
             }
 
         });
-
-
+        
         mainContent.removeComponent(loginToApplication);
         mainContent.addComponent(applicationMenu);
     }
