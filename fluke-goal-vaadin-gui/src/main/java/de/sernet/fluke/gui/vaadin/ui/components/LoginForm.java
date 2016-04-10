@@ -54,14 +54,17 @@ public class LoginForm extends FormLayout {
 
     public LoginForm(Runnable callback) {
 
-        loginBtn = new Button("Login", this::login);
+//        setWidth("1200px");
 
         setCaption("login");
         setSpacing(true);
         username.focus();
         addComponent(username);
         addComponent(password);
+
+        loginBtn = new Button("Login", this::login);
         addComponent(loginBtn);
+
         addComponent(invalidPassword);
 
         password.addShortcutListener(
