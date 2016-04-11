@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
 import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
@@ -28,7 +27,7 @@ public class GameService implements IGameService {
     ITeamService teamService;
 
     @Override
-    public IGame create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId) {
+    public Game create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId) {
         Player redOffensive = loadPlayer(redOffensiveId);
         Player redDefensive = loadPlayer(redDefensiveId);
         Player blueOffensive = loadPlayer(blueOffensiveId);
@@ -37,7 +36,7 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) { 
+    public Game create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) { 
         ITeam red = teamService.findOrCreate(redDefensive, redOffensive);
         ITeam blue = teamService.findOrCreate(blueDefensive, blueOffensive);
         Game game = new Game(red, blue);
@@ -53,19 +52,19 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public IGame save(IGame game) {
+    public Game save(Game game) {
         return gameRepository.save((Game) game);
     }
 
     @Override
-    public IGame findById(Long gameId) {
-        return (IGame) gameRepository.findById(gameId);
+    public Game findById(Long gameId) {
+        return gameRepository.findById(gameId);
     }
 
     @Override
-    public List<IGame> findByDate(LocalDateTime time) {
+    public List<Game> findByDate(LocalDateTime time) {
         Iterable<Game> internalResult = gameRepository.findByGameDate(time);
-        List<IGame> result = new ArrayList<>(0);
+        List<Game> result = new ArrayList<>(0);
         for (Game c : internalResult) {
             result.add(c);
         }
@@ -73,14 +72,14 @@ public class GameService implements IGameService {
     }
 
     @Override
-    public IGame[] findAllUntrackedGames() {
-        List<IGame> result = new ArrayList<>();
-        for(IGame game : gameRepository.findAll()){
+    public Game[] findAllUntrackedGames() {
+        List<Game> result = new ArrayList<>();
+        for(Game game : gameRepository.findAll()){
             if(game.getResult() == null || (game.getResult().getRedTeamGoals() == 0 && game.getResult().getBlueTeamGoals() == 0)){
                 result.add(game);
             }
         }
-        return result.toArray(new IGame[result.size()]);
+        return result.toArray(new Game[result.size()]);
     }
 
 }

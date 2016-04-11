@@ -22,6 +22,7 @@ import com.vaadin.ui.*;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.tabs.TrackMatchResultsTab;
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
@@ -52,11 +53,11 @@ public class TrackMatchResultPanel extends Panel {
     
     private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
     
-    private IGame game;
+    private Game game;
     
     private TrackMatchResultsTab parent;
     
-    public TrackMatchResultPanel(IGame game, IGameResultService service, TrackMatchResultsTab parent){
+    public TrackMatchResultPanel(Game game, IGameResultService service, TrackMatchResultsTab parent){
         
         this.gameResultService = service;
         this.game = game;
@@ -69,7 +70,7 @@ public class TrackMatchResultPanel extends Panel {
         
     }
 
-    private void createContent(IGame game, final FormLayout form) {
+    private void createContent(Game game, final FormLayout form) {
         showDetailedTrackingButton = new Button("Switch Tracking Level", this::switchCombos);
         form.addComponent(showDetailedTrackingButton);
 
@@ -155,7 +156,7 @@ public class TrackMatchResultPanel extends Panel {
         }
     }
 
-    private String getGameLabel(IGame game){
+    private String getGameLabel(Game game){
         StringBuilder sb = new StringBuilder(String.valueOf(game.getId()));
         sb.append(":\tRed ").append(getTeamLabel(game.getRedTeam()));
         sb.append(" vs. ");

@@ -19,6 +19,10 @@
  ******************************************************************************/
 package de.sernet.fluke.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import java.time.LocalDateTime;
 
 import javax.persistence.Access;
@@ -33,7 +37,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.ITeam;
 
@@ -41,7 +44,7 @@ import de.sernet.fluke.interfaces.ITeam;
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-public class Game implements IGame {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,6 +61,8 @@ public class Game implements IGame {
     private Team redTeam;
     
     @Column( name = "gameDate", nullable=false)
+    @JsonSerialize(using=LocalDateTimeSerializer.class)
+    @JsonDeserialize(using=LocalDateTimeDeserializer.class)
     private LocalDateTime gameDate;
     
     @Access(AccessType.PROPERTY)
@@ -73,52 +78,44 @@ public class Game implements IGame {
         this.gameDate = LocalDateTime.now();
     }
     
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public long getId() {
         return this.id;
     }
 
-    @Override
+    @JsonDeserialize(as = Team.class)
     public ITeam getBlueTeam() {
         return blueTeam;
     }
 
-    @Override
+    @JsonDeserialize(as = Team.class)
     public ITeam getRedTeam() {
         return redTeam;
     }
 
-    @Override
     public void setBlueTeam(ITeam blueTeam) {
         this.blueTeam = (Team)blueTeam;
     }
 
-    @Override
     public void setRedTeam(ITeam redTeam) {
         this.redTeam = (Team)redTeam;
     }
 
-    @Override
     public LocalDateTime getGameDate() {
         return this.gameDate;
     }
 
-    @Override
     public void setGameDate(LocalDateTime gameDate) {
         this.gameDate = gameDate;
     }
 
-    @Override
     public void setResult(IGameResult gameResult) {
         this.result = (GameResult)gameResult;
     }
 
-    @Override
     public IGameResult getResult() {
         return this.result;
     }

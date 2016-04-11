@@ -24,6 +24,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.rest.PlayerSelection;
 
@@ -64,13 +65,13 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
     }
 
     @Override
-    public IGame save(IGame game) {
-        HttpEntity<IGame> request = new HttpEntity<>(game);
+    public Game save(Game game) {
+        HttpEntity<Game> request = new HttpEntity<>(game);
         String url = getBaseUrl();
         if (LOG.isInfoEnabled()) {
             LOG.info("Save, URL: " + url);
         }
-        ResponseEntity<? extends IGame> responseEntity = getRestHandler().postForEntity(url, request, game.getClass());
+        ResponseEntity<? extends Game> responseEntity = getRestHandler().postForEntity(url, request, game.getClass());
         return responseEntity.getBody();
     }
 
@@ -86,14 +87,14 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
     }
 
     @Override
-    public IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) {
+    public Game create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) {
         return create(redOffensive.getId(), redDefensive.getId(), blueOffensive.getId(),
                 blueDefensive.getId());
     }
 
     // unsupported operations
     @Override
-    public List<IGame> findByDate(LocalDateTime time) {
+    public List<Game> findByDate(LocalDateTime time) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

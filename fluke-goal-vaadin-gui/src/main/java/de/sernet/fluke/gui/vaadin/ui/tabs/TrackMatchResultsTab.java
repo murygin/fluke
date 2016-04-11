@@ -28,6 +28,7 @@ import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.client.rest.GameResultRestClient;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Game;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -40,7 +41,7 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
     private static final long serialVersionUID = 1L;
 
     private HorizontalLayout mainLayout;
-    private Set<IGame> untrackedGames;
+    private Set<Game> untrackedGames;
     private IGameResultService gameResultService;
     private Grid grid;
 
@@ -68,7 +69,7 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
         grid.setColumns("gameDate", "redTeam", "blueTeam");
         grid.setSelectionMode(SelectionMode.SINGLE);
         grid.setContainerDataSource(
-                new BeanItemContainer<>(IGame.class, untrackedGames));
+                new BeanItemContainer<>(Game.class, untrackedGames));
 
 
         Button editButton = new Button("Edit Result", this::editResult);
@@ -91,13 +92,13 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
     private void editResult(Event event) {
 
 
-        IGame game;
+        Game game;
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
             Property<Long> item = itemEvent.getItem().getItemProperty("id");
             game = gameService.findById(item.getValue());
         } else {
-            game = (IGame) grid.getSelectedRow();
+            game = (Game) grid.getSelectedRow();
         }
 
         TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);

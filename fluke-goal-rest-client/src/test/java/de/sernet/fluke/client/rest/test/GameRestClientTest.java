@@ -23,6 +23,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.*;
+import de.sernet.fluke.model.Game;
 
 /**
  *

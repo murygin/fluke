@@ -87,7 +87,7 @@ public class GameServiceTest {
         ITeam red = new Team((Player)dm, (Player)mr);
         red = teamService.save(red);
         
-        IGame game = new Game();
+        Game game = new Game();
         game.setBlueTeam(blue);
         game.setRedTeam(red);
         game.setGameDate(LocalDateTime.now());

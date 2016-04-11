@@ -3,9 +3,10 @@ package de.sernet.fluke.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
+import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.GameResult;
 import de.sernet.fluke.persistence.GameResultRepository;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
@@ -20,13 +21,13 @@ public class GameResultService implements IGameResultService {
     TeamService teamService;
     
     @Autowired
-    GameService gameService;
+    IGameService gameService;
     
     @Autowired
     GameResultRepository gameResultRepository;
     
     @Override
-    public IGameResult trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
+    public IGameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam) {
         IGameResult gameResult = null;
         if(game.getResult() == null){
             // method called directly from client
@@ -90,7 +91,7 @@ public class GameResultService implements IGameResultService {
     }
 
     @Override
-    public IGameResult trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+    public IGameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
         IGameResult gameResult = new GameResult((short)redOffensiveGoals, (short)redDefensiveGoals, (short)blueOffensiveGoals, (short)blueDefensiveGoals);
         gameResult = gameResultRepository.save((GameResult)gameResult);
         game.setResult(gameResult);
@@ -134,13 +135,13 @@ public class GameResultService implements IGameResultService {
 
     @Override
     public IGameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam) {
-        IGame game = gameService.findById(gameId);
+        Game game = gameService.findById(gameId);
         return trackGameResult(game, goalsRedTeam, goalsBlueTeam);
     }
 
     @Override
     public IGameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
-        IGame game = gameService.findById(gameId);
+        Game game = gameService.findById(gameId);
         return trackGameResult(game, redOffensiveGoals, redDefensiveGoals, blueOffensiveGoals, blueDefensiveGoals);
     }
 

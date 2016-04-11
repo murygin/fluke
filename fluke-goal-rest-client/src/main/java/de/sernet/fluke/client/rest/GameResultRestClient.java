@@ -21,6 +21,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
 import de.sernet.fluke.interfaces.*;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 /**
@@ -55,7 +56,7 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
      * @see de.sernet.fluke.interfaces.IGameResultService#trackGameResult(de.sernet.fluke.interfaces.IGame, short, short)
      */
     @Override
-    public IGameResult trackGameResult(IGame game, short goalsRedTeam, short goalsBlueTeam) {
+    public IGameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 
@@ -114,7 +115,7 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
     }
 
     @Override
-    public IGameResult trackGameResult(IGame game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+    public IGameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 

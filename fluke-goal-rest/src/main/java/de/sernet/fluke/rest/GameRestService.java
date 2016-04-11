@@ -20,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import de.sernet.fluke.interfaces.IGame;
 import de.sernet.fluke.interfaces.IGameService;
 import de.sernet.fluke.model.Game;
 
@@ -39,20 +38,20 @@ public class GameRestService {
      * @see de.sernet.fluke.rest.IPlayerService#save(de.sernet.fluke.persistence.Player)
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<IGame> save(@RequestBody IGame iGame) {
-        IGame savedIGame = gameService.save(iGame);
-        ResponseEntity<IGame> response = new ResponseEntity<>(savedIGame, HttpStatus.CREATED);
+    public ResponseEntity<Game> save(@RequestBody Game game) {
+        Game savedGame = gameService.save(game);
+        ResponseEntity<Game> response = new ResponseEntity<>(savedGame, HttpStatus.CREATED);
         return response;
     }
     
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<IGame> create(@RequestBody PlayerSelection playerSelection) {
-        IGame savedIGame = gameService.create(
+    public ResponseEntity<Game> create(@RequestBody PlayerSelection playerSelection) {
+        Game savedGame = gameService.create(
             playerSelection.getRedOffensiveId(), 
             playerSelection.getRedDefensiveId(), 
             playerSelection.getBlueOffensiveId(), 
             playerSelection.getBlueDefensiveId());
-        ResponseEntity<IGame> response = new ResponseEntity<>(savedIGame, HttpStatus.CREATED);
+        ResponseEntity<Game> response = new ResponseEntity<>(savedGame, HttpStatus.CREATED);
         return response;
     }
 
@@ -60,16 +59,16 @@ public class GameRestService {
      * @see de.sernet.fluke.rest.IPlayerService#findOne(java.lang.Long)
      */
     @RequestMapping(path = "/{gameId}", method = RequestMethod.GET)
-    public ResponseEntity<IGame> findOne(@PathVariable Long gameId) {
-        IGame iGame = gameService.findById(gameId);
+    public ResponseEntity<Game> findOne(@PathVariable Long gameId) {
+        Game iGame = gameService.findById(gameId);
         HttpStatus status = (iGame != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity<IGame> response = new ResponseEntity<>(iGame, status);
+        ResponseEntity<Game> response = new ResponseEntity<>(iGame, status);
         return response;
     }
     
     @RequestMapping(path = "/untrackedGames", method = RequestMethod.GET)
     public Game[] findAllUntrackedGames(){
-        IGame[] untrackedGames = gameService.findAllUntrackedGames();
+        Game[] untrackedGames = gameService.findAllUntrackedGames();
         Game[] castedGames = new Game[untrackedGames.length];
         for(int i = 0; i < untrackedGames.length; i++){
             castedGames[i] = (Game)untrackedGames[i];

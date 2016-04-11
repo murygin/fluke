@@ -22,7 +22,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.*;
-import de.sernet.fluke.interfaces.IGame;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 /**
@@ -49,11 +49,11 @@ public class GameResultRestClientTest {
         
         long gameId = 1;
         
-        IGame game = gameRestClient.findById(gameId);
+        Game game = gameRestClient.findById(gameId);
         
         gameResultRestClient.trackGameResult(new GoalsOfAGameCollection(gameId, (short)4, (short)6));
         
-        IGame updatedGame = gameRestClient.findById(gameId);
+        Game updatedGame = gameRestClient.findById(gameId);
         
         Assert.assertEquals(game.getId(), updatedGame.getId());
         Assert.assertEquals(4, updatedGame.getResult().getRedTeamGoals());

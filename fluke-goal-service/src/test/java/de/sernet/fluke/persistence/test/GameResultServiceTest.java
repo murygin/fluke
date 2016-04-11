@@ -10,7 +10,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.interfaces.*;
-import de.sernet.fluke.persistence.*;
 import de.sernet.fluke.service.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -83,7 +82,7 @@ public class GameResultServiceTest {
         
         gameResultService.trackGameResult(game, (short)4, (short)6);
         
-        IGame persistantGame = gameService.findById(id);
+        Game persistantGame = gameService.findById(id);
         Assert.assertEquals(persistantGame.getGameDate(), game.getGameDate());
         Assert.assertEquals(persistantGame.getResult().getBlueTeamGoals(), game.getResult().getBlueTeamGoals());
         Assert.assertEquals(persistantGame.getResult().getRedTeamGoals(), game.getResult().getRedTeamGoals());
@@ -99,7 +98,7 @@ public class GameResultServiceTest {
         
         gameResultService.trackGameResult(game, (short)4, (short)2, (short)2, (short)2);
         
-        IGame persistantGame = gameService.findById(id);
+        Game persistantGame = gameService.findById(id);
         Assert.assertEquals(persistantGame.getGameDate(), game.getGameDate());
         Assert.assertEquals(persistantGame.getResult().getBlueTeamGoals(), game.getResult().getBlueTeamGoals());
         Assert.assertEquals(persistantGame.getResult().getRedTeamGoals(), game.getResult().getRedTeamGoals());

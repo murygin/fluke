@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,7 +38,7 @@ public interface IGameService {
      * @param blueDefensive Defensive player in blue team
      * @return The game after it was created in data store
      */
-    IGame create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive );
+    Game create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive );
     
     /**
      * Creates a new game.
@@ -48,7 +49,7 @@ public interface IGameService {
      * @param blueDefensiveId Id of defensive player in blue team
      * @return The game after it was created in data store
      */
-    IGame create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId);
+    Game create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId);
     
     /**
      * Saves a new or existing game in data store.
@@ -56,13 +57,13 @@ public interface IGameService {
      * @param game A game
      * @return The game after it was saved in data store
      */
-    IGame save(IGame game);
+    Game save(Game game);
     
     /**
      * @param gameId The data store id of a game
      * @return The game with the id
      */
-    IGame findById(Long gameId);
+    Game findById(Long gameId);
 
     /**
      * Returns game with a specific date.
@@ -70,12 +71,12 @@ public interface IGameService {
      * @param time A date
      * @return Games with the date
      */
-    List<IGame> findByDate(LocalDateTime time);
+    List<Game> findByDate(LocalDateTime time);
     
     /**
      * returns all untracked Games
      * @return
      */
-    IGame[] findAllUntrackedGames();
+    Game[] findAllUntrackedGames();
     
 }
