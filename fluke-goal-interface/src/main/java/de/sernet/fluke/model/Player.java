@@ -123,7 +123,7 @@ public class Player {
     }
 
     public void increaseScoredDefensiveGoals(short scoredDefensiveGoals) {
-        this.scoredDefensiveGoals = scoredDefensiveGoals;
+        this.scoredDefensiveGoals += scoredDefensiveGoals;
     }
 
     public long getScoredTotalGoals() {
