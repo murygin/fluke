@@ -16,8 +16,8 @@ http://pivotal.io/platform/pcf-tutorials/getting-started-with-pivotal-cloud-foun
     fluke-goal-vaadin-gui/src/main/resources/application.proeprties
   * Build with maven: mvn clean package [-DskipTests]
 * Push to Pivotal Web Services
-  * REST API: cf push <API-APP-NAME> -p ./fluke-goal-rest/target/fluke-goal-rest-<VERSION>.jar
-  * vaadin GUI: cf push <APP-NAME> -p ./fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-<VERSION>.jar
+  * REST API: cf push API-APP-NAME -p ./fluke-goal-rest/target/fluke-goal-rest-VERSION.jar
+  * vaadin GUI: cf push APP-NAME -p ./fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-VERSION.jar
 * Add and configure ClearDB MySQL Database at Pivotal Web Services and connect it to the
   REST API application. Repeat steps 'Build' and 'Push' with ClearDB database settings if needed.
 * Run the application: http://<APP-NAME>.cfapps.io
