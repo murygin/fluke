@@ -16,6 +16,8 @@
 
 package de.sernet.fluke.client.rest;
 
+import de.sernet.fluke.model.Account;
+
 
 public class AccountBuilder {
     private String login;

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.sernet.fluke.interfaces.ICommunity;
 import de.sernet.fluke.interfaces.ICommunityService;
 import de.sernet.fluke.model.Community;
 import de.sernet.fluke.persistence.CommunityRepository;
@@ -18,21 +17,21 @@ public class CommunityService implements ICommunityService {
     CommunityRepository communityRepository;
     
     @Override
-    public ICommunity save(ICommunity community) {
+    public Community save(Community community) {
         return communityRepository.save((Community)community);
     }
 
     @Override
-    public ICommunity findByName(String name) {
-        return (ICommunity)communityRepository.findByName(name);
+    public Community findByName(String name) {
+        return (Community)communityRepository.findByName(name);
     }
 
     @Override
-    public List<ICommunity> findAll() {
+    public List<Community> findAll() {
         Iterable<Community> internalResult = communityRepository.findAll(); 
-        List<ICommunity> result = new ArrayList<>(0);
+        List<Community> result = new ArrayList<>(0);
         for(Community c : internalResult){
-            result.add((ICommunity)c);
+            result.add((Community)c);
         }
         return result;
     }

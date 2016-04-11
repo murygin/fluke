@@ -22,7 +22,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.*;
-import de.sernet.fluke.interfaces.IAccount;
+import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -32,13 +34,13 @@ import de.sernet.fluke.interfaces.IAccount;
 @SpringApplicationConfiguration(Application.class)
 public class AccountRestClientTest {
 
-    // @Autowired
-    AccountRestClient restClient = new AccountRestClient("fluke", "fluke");
+    @Autowired
+    IAccountService restClient = new AccountRestClient("fluke", "fluke");
     
     @Test
     public void test() {
         Account account = new Account("rm", "r", "rm@sernet.de");
-        IAccount newAccount = restClient.createAccount(account);
+        Account newAccount = restClient.createAccount(account);
         Assert.assertNotNull(newAccount);
     }
     

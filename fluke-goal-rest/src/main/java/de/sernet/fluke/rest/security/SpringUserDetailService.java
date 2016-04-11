@@ -15,8 +15,8 @@
  */
 package de.sernet.fluke.rest.security;
 
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -37,7 +37,7 @@ public class SpringUserDetailService implements UserDetailsService{
     
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        IAccount account = accountService.findByLogin(login);
+        Account account = accountService.findByLogin(login);
         if(account==null) {
             throw new UsernameNotFoundException(login);
         }

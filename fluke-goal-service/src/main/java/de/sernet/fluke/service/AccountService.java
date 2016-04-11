@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.model.Account;
 import de.sernet.fluke.persistence.AccountRepository;
@@ -46,34 +45,34 @@ public class AccountService implements IAccountService {
     }
     
     @Override
-    public IAccount createAccount(IAccount rawAccount) {
-        IAccount securedAccount = encodePassword(rawAccount);
+    public Account createAccount(Account rawAccount) {
+        Account securedAccount = encodePassword(rawAccount);
         return save(securedAccount);
     }
     
     @Override
-    public IAccount save(IAccount account) {
+    public Account save(Account account) {
         return accountRepository.save((Account)account);
     }
     
     @Override
-    public void delete(IAccount account) {
+    public void delete(Account account) {
         accountRepository.delete((Account)account);
     }
 
     @Override
-    public IAccount findOne(Long accountId) {
+    public Account findOne(Long accountId) {
         return accountRepository.findOne(accountId);
     }
 
     @Override
-    public IAccount findByLogin(String login) {
+    public Account findByLogin(String login) {
         return accountRepository.findByLogin(login);     
     }
     
-     private IAccount encodePassword(IAccount account) {
+     private Account encodePassword(Account account) {
         try {      
-            IAccount securedAccount = cloneAccount(account);
+            Account securedAccount = cloneAccount(account);
             securedAccount.setPassword(encoder.encode(account.getPassword()));
             return securedAccount;
         } catch (Exception e) {
@@ -82,7 +81,7 @@ public class AccountService implements IAccountService {
         }
     }
 
-    private IAccount cloneAccount(IAccount account) {
+    private Account cloneAccount(Account account) {
         Account clone = new Account(account.getLogin(), null, account.getEmail());
         clone.setFirstName(account.getFirstName());
         clone.setLastName(account.getLastName());

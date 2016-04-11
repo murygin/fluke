@@ -15,6 +15,8 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Account;
+
 /**
  * Service to manage user accounts.
  * 
@@ -32,7 +34,7 @@ public interface IAccountService {
      * @param rawAccount An user account with clear text password
      * @return Account after inserted to database
      */
-    IAccount createAccount(IAccount rawAccount);
+    Account createAccount(Account rawAccount);
     
     /**
      * Saves an acount in the data store.
@@ -41,14 +43,14 @@ public interface IAccountService {
      * @param account An user account
      * @return Account after saving 
      */
-    IAccount save(IAccount account);
+    Account save(Account account);
     
     /**
      * Deletes an user account
      * 
      * @param account An user account
      */
-    void delete(IAccount account);
+    void delete(Account account);
 
     /**
      * Finds an user account by data store id.
@@ -56,7 +58,7 @@ public interface IAccountService {
      * @param accountId The database id of an user account
      * @return A user account or null if no account with id exists
      */
-    IAccount findOne(Long accountId);
+    Account findOne(Long accountId);
     
     /**
      * Finds an user account by login name.
@@ -65,6 +67,6 @@ public interface IAccountService {
      * @param login The login of an user account
      * @return A user account or null if no account with login exists
      */
-    IAccount findByLogin(String login);
+    Account findByLogin(String login);
 
 }

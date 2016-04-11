@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.interfaces;
 
+import de.sernet.fluke.model.Community;
 import java.util.List;
 
 /**
@@ -23,10 +24,10 @@ import java.util.List;
  */
 public interface ICommunityService {
     
-    ICommunity save(ICommunity community);
+    Community save(Community community);
     
-    ICommunity findByName(String name);
+    Community findByName(String name);
     
-    List<ICommunity> findAll();
+    List<Community> findAll();
     
 }

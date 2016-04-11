@@ -23,13 +23,11 @@ import java.util.*;
 
 import javax.persistence.*;
 
-import de.sernet.fluke.interfaces.ICommunity;
-
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-public class Community implements ICommunity {
+public class Community {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,24 +47,20 @@ public class Community implements ICommunity {
         registeredPlayers = new ArrayList<>();
     }
     
-    @Override
     public long getId() {
         return this.id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public List<Player> getRegisteredPlayers() {
         List<Player> result = new ArrayList<>(registeredPlayers.size());
         result.addAll(registeredPlayers);
         return result;
     }
 
-    @Override
     public void registerPlayer(Player newPlayer) {
         registeredPlayers.add((Player)newPlayer);
     }
@@ -119,17 +113,14 @@ public class Community implements ICommunity {
         return true;
     }
 
-    @Override
     public String getName() {
         return name; 
     }
     
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public Set<Player> getPlayer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

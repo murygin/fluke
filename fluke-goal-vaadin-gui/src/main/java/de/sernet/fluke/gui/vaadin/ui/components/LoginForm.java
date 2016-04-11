@@ -28,7 +28,7 @@ import com.vaadin.ui.*;
 import de.sernet.fluke.client.rest.AccountRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.interfaces.IAccount;
+import de.sernet.fluke.model.Account;
 
 /**
  *
@@ -86,10 +86,10 @@ public class LoginForm extends FormLayout {
             
             initRestClientsWithCredentials();
             
-            IAccount account = realAccountService.findByLogin(username.getValue());
+            Account account = realAccountService.findByLogin(username.getValue());
 
             VaadinSession session = getUI().getSession();
-            session.setAttribute(IAccount.class, account);
+            session.setAttribute(Account.class, account);
             callback.run();
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {

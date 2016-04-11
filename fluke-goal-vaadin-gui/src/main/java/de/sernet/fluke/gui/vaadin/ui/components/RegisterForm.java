@@ -25,8 +25,8 @@ import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.AccountBuilder;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.model.Account;
 
 
 /**
@@ -82,7 +82,7 @@ public class RegisterForm extends FormLayout {
                 });
     }
     public void register(Button.ClickEvent event) {
-        IAccount account = new AccountBuilder()
+        Account account = new AccountBuilder()
                 .setLogin(login.getValue())
                 .setPassword(password.getValue())
                 .setEmail(email.getValue())

@@ -21,8 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
+import de.sernet.fluke.model.Account;
 
 /**
  *
@@ -50,29 +50,29 @@ public class AccountRestClient extends AbstractSecureRestClient implements IAcco
     }
 
     @Override
-    public IAccount createAccount(IAccount rawAccount) {
-        HttpEntity<IAccount> request = new HttpEntity<>(rawAccount);
+    public Account createAccount(Account rawAccount) {
+        HttpEntity<Account> request = new HttpEntity<>(rawAccount);
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append("create");
         String url = sb.toString();
-        ResponseEntity<? extends IAccount> responseEntity = getUnsecureRestHandler().postForEntity(url,
+        ResponseEntity<? extends Account> responseEntity = getUnsecureRestHandler().postForEntity(url,
                 request,
                 rawAccount.getClass());
         return responseEntity.getBody();
     }
 
     @Override
-    public IAccount save(IAccount account) {
+    public Account save(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void delete(IAccount account) {
+    public void delete(Account account) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public IAccount findOne(Long accountId) {
+    public Account findOne(Long accountId) {
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append(accountId);
         String url = sb.toString();
@@ -80,7 +80,7 @@ public class AccountRestClient extends AbstractSecureRestClient implements IAcco
     }
 
     @Override
-    public IAccount findByLogin(String login) {
+    public Account findByLogin(String login) {
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append(login);
         String url = sb.toString();

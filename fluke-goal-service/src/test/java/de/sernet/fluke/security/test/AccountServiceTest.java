@@ -24,7 +24,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.model.Account;
 import de.sernet.fluke.security.PasswordEncoderFactory;
@@ -68,10 +67,10 @@ public class AccountServiceTest {
         final String login = UUID.randomUUID().toString().substring(0,8);
         final String password = UUID.randomUUID().toString().substring(0,10);
         final String email = login + "@sernet.de";
-        IAccount rawAccount = new Account(login, password, email);
+        Account rawAccount = new Account(login, password, email);
         accountService.createAccount(rawAccount);
 
-        IAccount foundAccount = accountService.findByLogin(login);
+        Account foundAccount = accountService.findByLogin(login);
         Assert.assertNotNull("Account with login: " + login + " not found.", foundAccount);
         Assert.assertEquals(login, foundAccount.getLogin());
         Assert.assertEquals(email, foundAccount.getEmail());      
@@ -87,7 +86,7 @@ public class AccountServiceTest {
         final String login = "test";
         final String password = "test";
         final String email = "test";
-        IAccount testAccount = new Account(login, password, email);
+        Account testAccount = new Account(login, password, email);
         accountService.createAccount(testAccount);
     }
 }

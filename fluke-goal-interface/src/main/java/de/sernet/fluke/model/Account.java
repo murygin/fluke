@@ -17,14 +17,13 @@ package de.sernet.fluke.model;
 
 import javax.persistence.*;
 
-import de.sernet.fluke.interfaces.IAccount;
 
 /**
  *
  * @author Daniel Murygin
  */
 @Entity
-public class Account implements IAccount {
+public class Account {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -55,62 +54,50 @@ public class Account implements IAccount {
         this.email = email;
     }
     
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public String getLogin() {
         return login;
     }
 
-    @Override
     public void setLogin(String login) {
         this.login = login;
     }
 
-    @Override
     public String getPassword() {
         return password;
     }
 
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
 
-    @Override
     public void setEmail(String email) {
         this.email = email;
     }
 
-    @Override
     public String getFirstName() {
         return firstName;
     }
 
-    @Override
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    @Override
     public String getLastName() {
         return lastName;
     }
 
-    @Override
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }

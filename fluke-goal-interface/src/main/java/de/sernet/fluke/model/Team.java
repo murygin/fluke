@@ -261,6 +261,23 @@ public class Team  {
         }
         return true;
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<").append(getPlayerAbbr(getOffensivePlayer())).append(", ");
+        sb.append(getPlayerAbbr(getDefensivePlayer())).append(">");
+        return sb.toString();
+    }
+
+    private String getPlayerAbbr(Player player) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(player.getFirstName().charAt(0));
+        if (player.getLastName() != null && player.getLastName().length() != 0) {
+            sb.append(player.getLastName().charAt(0));
+        }
+        return sb.toString();
+    }
 
 
 }

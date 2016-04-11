@@ -21,7 +21,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import de.sernet.fluke.interfaces.IAccount;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.model.Account;
 
@@ -36,8 +35,8 @@ public class AccountRestService {
     @Autowired
     IAccountService accountService;
     
-    public ResponseEntity<IAccount> save(IAccount account){
-        IAccount savedAccount = accountService.save(account);
+    public ResponseEntity<Account> save(Account account){
+        Account savedAccount = accountService.save(account);
         return new ResponseEntity<>(savedAccount, HttpStatus.CREATED);
     }
 
@@ -47,16 +46,16 @@ public class AccountRestService {
      * @see de.sernet.fluke.rest.IPlayerService#findOne(java.lang.Long)
      */
     @RequestMapping(path = "/{login}", method = RequestMethod.GET)
-    public ResponseEntity<IAccount> findByLogin(@PathVariable String login) {
-        IAccount account = accountService.findByLogin(login);
+    public ResponseEntity<Account> findByLogin(@PathVariable String login) {
+        Account account = accountService.findByLogin(login);
         HttpStatus status = (account != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         return new ResponseEntity<>(account, status);
     }
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public ResponseEntity<IAccount> create(@RequestBody Account rawAccount) {
-        IAccount secureAccount = accountService.createAccount(rawAccount);
-        ResponseEntity<IAccount> response = new ResponseEntity<>(secureAccount, HttpStatus.CREATED);
+    public ResponseEntity<Account> create(@RequestBody Account rawAccount) {
+        Account secureAccount = accountService.createAccount(rawAccount);
+        ResponseEntity<Account> response = new ResponseEntity<>(secureAccount, HttpStatus.CREATED);
         return response;
     }
 }
