@@ -31,7 +31,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import de.sernet.fluke.interfaces.ITeam;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -40,7 +39,14 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames = {"offensivePlayerId" , "defensicePlayerId"})})
-public class Team implements ITeam {
+public class Team  {
+    
+    public static final String WONGAMES = "wonGames";
+    public static final String LOSTGAMES = "lostGames";
+    public static final String SCOREDOFFENSIVEGOALS = "scoredOffensiveGoals";
+    public static final String SCOREDDEFENSIVEGOALS = "scoredDefensiveGoals";
+    public static final String SCOREDTOTALGOALS = "scoredTotalGoals";
+    public static final String CONCEDEDGOALS = "concededGoals";
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,29 +63,29 @@ public class Team implements ITeam {
     private Player defensivePlayer;
     
     /* how many games the player won over all */
-    @Column( name = ITeam.WONGAMES, columnDefinition="bigint default 0")
+    @Column( name = Team.WONGAMES, columnDefinition="bigint default 0")
     private long wonGames;
     
     /* how many games the player lost over all */
-    @Column( name = ITeam.LOSTGAMES, columnDefinition="bigint default 0")
+    @Column( name = Team.LOSTGAMES, columnDefinition="bigint default 0")
     private long lostGames;
     
     /* how many offensive goals does the player have scored over all */
-    @Column ( name = ITeam.SCOREDOFFENSIVEGOALS, columnDefinition="bigint default 0")
+    @Column ( name = Team.SCOREDOFFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredOffensiveGoals;
     
     /* how many defensive goals does the player have scored over all */
-    @Column ( name = ITeam.SCOREDDEFENSIVEGOALS, columnDefinition="bigint default 0")
+    @Column ( name = Team.SCOREDDEFENSIVEGOALS, columnDefinition="bigint default 0")
     private long scoredDefensiveGoals;
     
     /* how many goals (sum of defensive and offensive) does the 
      * player have scored over all */
-    @Column ( name = ITeam.SCOREDTOTALGOALS, columnDefinition="bigint default 0")
+    @Column ( name = Team.SCOREDTOTALGOALS, columnDefinition="bigint default 0")
     private long scoredTotalGoals;
     
     /* how often was the player not able to save an attempt to score a goal
      * in his role as the goalkeeper */
-    @Column ( name = ITeam.CONCEDEDGOALS,  columnDefinition="bigint default 0")
+    @Column ( name = Team.CONCEDEDGOALS,  columnDefinition="bigint default 0")
     private long concededGoals;
 
     public Team() {}
@@ -89,158 +95,97 @@ public class Team implements ITeam {
         setOffensivePlayer(offensivePlayer);
     }
     
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
 
-    @Override
     public Player getOffensivePlayer() {
         return offensivePlayer;
     }
     
-    @Override
     public void setOffensivePlayer(Player offensivePlayer) {
         this.offensivePlayer  = (Player)offensivePlayer;
     }
 
-    @Override
     public Player getDefensivePlayer() {
         return defensivePlayer;
     }
 
-    @Override
     public void setDefensivePlayer(Player defensivePlayer) {
         this.defensivePlayer = (Player)defensivePlayer;
     }
 
-    /**
-     * @return the wonGames
-     */
-    @Override
     public long getWonGames() {
         return wonGames;
     }
 
-    /**
-     * @param wonGames the wonGames to set
-     */
-    @Override
     public void setWonGames(long wonGames) {
         this.wonGames = wonGames;
     }
     
-    @Override
     public void increaseWonGames(short wonGames){
         this.wonGames += wonGames;
     }
 
-    /**
-     * @return the lostGames
-     */
-    @Override
     public long getLostGames() {
         return lostGames;
     }
 
-    /**
-     * @param lostGames the lostGames to set
-     */
-    @Override
     public void setLostGames(long lostGames) {
         this.lostGames = lostGames;
     }
     
-    @Override
     public void increaseLostGames(short lostGames){
         this.lostGames += lostGames;
     }
-
-    /**
-     * @return the scoredOffensiveGoals
-     */
-    @Override
+    
     public long getScoredOffensiveGoals() {
         return scoredOffensiveGoals;
     }
 
-    /**
-     * @param scoredOffensiveGoals the scoredOffensiveGoals to set
-     */
-    @Override
     public void setScoredOffensiveGoals(long scoredOffensiveGoals) {
         this.scoredOffensiveGoals = scoredOffensiveGoals;
     }
     
-    @Override
     public void increaseScoredOffensiveGoals(short scoredOffensiveGoals){
         this.scoredOffensiveGoals += scoredOffensiveGoals;
     }
 
-    /**
-     * @return the scoredDefensiveGoals
-     */
-    @Override
     public long getScoredDefensiveGoals() {
         return scoredDefensiveGoals;
     }
 
-    /**
-     * @param scoredDefensiveGoals the scoredDefensiveGoals to set
-     */
-    @Override
     public void setScoredDefensiveGoals(long scoredDefensiveGoals) {
         this.scoredDefensiveGoals = scoredDefensiveGoals;
     }
     
-    @Override
     public void increaseScoredDefensiveGoals(short scoredDefensiveGoals){
         this.scoredDefensiveGoals += scoredDefensiveGoals;
     }
 
-    /**
-     * @return the scoredTotalGoals
-     */
-    @Override
     public long getScoredTotalGoals() {
         return scoredTotalGoals;
     }
 
-    /**
-     * @param scoredTotalGoals the scoredTotalGoals to set
-     */
-    @Override
     public void setScoredTotalGoals(long scoredTotalGoals) {
         this.scoredTotalGoals = scoredTotalGoals;
     }
     
-    @Override
     public void increaseScoredTotalGoals(short scoredTotalGoals){
         this.scoredTotalGoals += scoredTotalGoals;
     }
-
-    /**
-     * @return the concededGoals
-     */
-    @Override
     public long getConcededGoals() {
         return concededGoals;
     }
 
-    /**
-     * @param concededGoals the concededGoals to set
-     */
-    @Override
     public void setConcededGoals(long concededGoals) {
         this.concededGoals = concededGoals;
     }
     
-    @Override
     public void increaseConcededGoals(short concededGoals){
         this.concededGoals += concededGoals;
     }

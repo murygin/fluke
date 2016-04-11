@@ -38,7 +38,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import de.sernet.fluke.interfaces.IGameResult;
-import de.sernet.fluke.interfaces.ITeam;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -72,7 +71,7 @@ public class Game {
     
     public Game(){}
     
-    public Game(ITeam redTeam, ITeam blueTeam){
+    public Game(Team redTeam, Team blueTeam){
         this.redTeam = (Team)redTeam;
         this.blueTeam = (Team)blueTeam;
         this.gameDate = LocalDateTime.now();
@@ -87,20 +86,20 @@ public class Game {
     }
 
     @JsonDeserialize(as = Team.class)
-    public ITeam getBlueTeam() {
+    public Team getBlueTeam() {
         return blueTeam;
     }
 
     @JsonDeserialize(as = Team.class)
-    public ITeam getRedTeam() {
+    public Team getRedTeam() {
         return redTeam;
     }
 
-    public void setBlueTeam(ITeam blueTeam) {
+    public void setBlueTeam(Team blueTeam) {
         this.blueTeam = (Team)blueTeam;
     }
 
-    public void setRedTeam(ITeam redTeam) {
+    public void setRedTeam(Team redTeam) {
         this.redTeam = (Team)redTeam;
     }
 

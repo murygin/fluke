@@ -23,8 +23,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
+import de.sernet.fluke.model.Team;
 
 /**
  *
@@ -41,8 +41,8 @@ public class TeamRestService {
      * @see de.sernet.fluke.rest.PlayerService#save(de.sernet.fluke.persistence.Player)
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<ITeam> save(@RequestBody ITeam team) {
-        ITeam savedTeam = teamService.save(team);
+    public ResponseEntity<Team> save(@RequestBody Team team) {
+        Team savedTeam = teamService.save(team);
         return new ResponseEntity<>(savedTeam, HttpStatus.CREATED);
     }
 
@@ -50,18 +50,18 @@ public class TeamRestService {
      * @see de.sernet.fluke.rest.PlayerService#findOne(java.lang.Long)
      */
     @RequestMapping(path = "/{teamId}", method = RequestMethod.GET)
-    public ResponseEntity<ITeam> findById(@PathVariable Long teamId) {
-        ITeam team = teamService.findById(teamId);
+    public ResponseEntity<Team> findById(@PathVariable Long teamId) {
+        Team team = teamService.findById(teamId);
         HttpStatus status = (team != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         return new ResponseEntity<>(team, status);
     }
     
     @RequestMapping(method = RequestMethod.GET)
-    public List<ITeam> findAll() {
-        List<ITeam> teams = Arrays.asList(teamService.findAll());
+    public List<Team> findAll() {
+        List<Team> teams = Arrays.asList(teamService.findAll());
         HttpStatus status = (teams != null && !teams.isEmpty())
                 ? HttpStatus.OK : HttpStatus.NOT_FOUND;
-        ResponseEntity<List<ITeam>> response = new ResponseEntity<>(teams, status);
+        ResponseEntity<List<Team>> response = new ResponseEntity<>(teams, status);
         return response.getBody();
     }
 }

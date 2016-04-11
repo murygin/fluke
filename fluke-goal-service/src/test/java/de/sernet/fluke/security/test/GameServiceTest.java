@@ -27,7 +27,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * limitations under the License.
  */
 import de.sernet.fluke.interfaces.*;
-import de.sernet.fluke.persistence.*;
 import de.sernet.fluke.service.ServiceApplication;
 
 /**
@@ -82,9 +81,9 @@ public class GameServiceTest {
         mr.setFirstName("Moritz");
         mr = playerService.save(mr);
         
-        ITeam blue = new Team((Player)sh, (Player)bw);
+        Team blue = new Team((Player)sh, (Player)bw);
         blue = teamService.save(blue);
-        ITeam red = new Team((Player)dm, (Player)mr);
+        Team red = new Team((Player)dm, (Player)mr);
         red = teamService.save(red);
         
         Game game = new Game();

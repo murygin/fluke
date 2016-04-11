@@ -23,8 +23,8 @@ import org.springframework.stereotype.Service;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.interfaces.IGameService;
 import de.sernet.fluke.interfaces.IStatisticService;
-import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -54,7 +54,7 @@ public class StatisticService implements IStatisticService {
      * @see de.sernet.fluke.interfaces.IStatisticService#getTeamRanking()
      */
     @Override
-    public LinkedList<ITeam> getTeamRanking() {
+    public LinkedList<Team> getTeamRanking() {
         // TODO Auto-generated method stub
         return null;
     }

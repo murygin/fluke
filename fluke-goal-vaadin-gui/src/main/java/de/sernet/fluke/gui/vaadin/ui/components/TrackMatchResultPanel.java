@@ -24,6 +24,7 @@ import de.sernet.fluke.gui.vaadin.ui.tabs.TrackMatchResultsTab;
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 
@@ -164,7 +165,7 @@ public class TrackMatchResultPanel extends Panel {
         return sb.toString();
     }
     
-    private String getTeamLabel(ITeam team){
+    private String getTeamLabel(Team team){
         StringBuilder sb = new StringBuilder();
         sb.append("<").append(getPlayerAbbr(team.getOffensivePlayer())).append(", ");
         sb.append(getPlayerAbbr(team.getDefensivePlayer())).append(">");

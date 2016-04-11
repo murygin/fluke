@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.service.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +27,8 @@ public class GameResultServiceTest {
     @Autowired
     TeamService teamService;
     
-    private ITeam teamRed;
-    private ITeam teamBlue;
+    private Team teamRed;
+    private Team teamBlue;
     
     private Player teamRedOffense;
     private Player teamRedDefense;

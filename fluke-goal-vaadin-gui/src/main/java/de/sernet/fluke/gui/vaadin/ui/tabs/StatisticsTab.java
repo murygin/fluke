@@ -17,8 +17,8 @@ import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.client.rest.TeamRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
-import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 
 public class StatisticsTab extends FormLayout implements IFlukeUITab {
     
@@ -65,8 +65,8 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
         playerGrid.setWidthUndefined();
 
         teamGrid = new Grid();
-        teamGrid.setColumns("offensivePlayer", "defensivePlayer", ITeam.WONGAMES, ITeam.LOSTGAMES, ITeam.SCOREDTOTALGOALS, ITeam.CONCEDEDGOALS, ITeam.SCOREDOFFENSIVEGOALS, ITeam.SCOREDDEFENSIVEGOALS);
-        teamGrid.setSortOrder(Sort.by(ITeam.WONGAMES, SortDirection.DESCENDING).then(ITeam.LOSTGAMES, SortDirection.ASCENDING).then(ITeam.SCOREDTOTALGOALS, SortDirection.DESCENDING).build());
+        teamGrid.setColumns("offensivePlayer", "defensivePlayer", Team.WONGAMES, Team.LOSTGAMES, Team.SCOREDTOTALGOALS, Team.CONCEDEDGOALS, Team.SCOREDOFFENSIVEGOALS, Team.SCOREDDEFENSIVEGOALS);
+        teamGrid.setSortOrder(Sort.by(Team.WONGAMES, SortDirection.DESCENDING).then(Team.LOSTGAMES, SortDirection.ASCENDING).then(Team.SCOREDTOTALGOALS, SortDirection.DESCENDING).build());
         teamGrid.setVisible(false);
         
         mainLayout = new VerticalLayout();
@@ -96,12 +96,12 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
     
     
     private void updateTeamList(){
-        List<ITeam> teams = Arrays.asList(teamService.findAll());
+        List<Team> teams = Arrays.asList(teamService.findAll());
         if(teams == null || teams.isEmpty()){
             Note.info("No teams found");
         } else {
             teamGrid.setContainerDataSource(
-                    new BeanItemContainer<>(ITeam.class, teams));
+                    new BeanItemContainer<>(Team.class, teams));
         }
     }
     

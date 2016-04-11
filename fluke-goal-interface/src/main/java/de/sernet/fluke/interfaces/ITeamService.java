@@ -16,6 +16,7 @@
 package de.sernet.fluke.interfaces;
 
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 
 /**
  *
@@ -23,16 +24,16 @@ import de.sernet.fluke.model.Player;
  */
 public interface ITeamService {
     
-    ITeam save(ITeam team);
+    Team save(Team team);
 
-    ITeam findOne(long teamId);
+    Team findOne(long teamId);
     
-    ITeam findById(long id);
+    Team findById(long id);
     
-    ITeam findByPlayers(Player defensivePlayer, Player offensivePlayer);
+    Team findByPlayers(Player defensivePlayer, Player offensivePlayer);
     
-    ITeam findOrCreate(Player defensivePlayer, Player offensivePlayer);
+    Team findOrCreate(Player defensivePlayer, Player offensivePlayer);
     
-    ITeam[] findAll();
+    Team[] findAll();
     
 }

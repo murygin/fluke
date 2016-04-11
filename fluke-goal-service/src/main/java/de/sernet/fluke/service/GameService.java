@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.sernet.fluke.interfaces.IGameService;
-import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 import de.sernet.fluke.persistence.GameRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +37,8 @@ public class GameService implements IGameService {
 
     @Override
     public Game create(Player redOffensive, Player redDefensive, Player blueOffensive, Player blueDefensive) { 
-        ITeam red = teamService.findOrCreate(redDefensive, redOffensive);
-        ITeam blue = teamService.findOrCreate(blueDefensive, blueOffensive);
+        Team red = teamService.findOrCreate(redDefensive, redOffensive);
+        Team blue = teamService.findOrCreate(blueDefensive, blueOffensive);
         Game game = new Game(red, blue);
         return gameRepository.save(game);
     }

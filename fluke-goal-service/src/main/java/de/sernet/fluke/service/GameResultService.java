@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
 import de.sernet.fluke.interfaces.IGameService;
+import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.GameResult;
 import de.sernet.fluke.persistence.GameResultRepository;
@@ -18,7 +19,7 @@ public class GameResultService implements IGameResultService {
     PlayerService playerService;
     
     @Autowired
-    TeamService teamService;
+    ITeamService teamService;
     
     @Autowired
     IGameService gameService;

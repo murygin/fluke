@@ -20,9 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 
-import de.sernet.fluke.interfaces.ITeam;
 import de.sernet.fluke.interfaces.ITeamService;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.model.Team;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
@@ -43,7 +43,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#save(de.sernet.fluke.interfaces.ITeam)
      */
     @Override
-    public ITeam save(ITeam team) {
+    public Team save(Team team) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -51,7 +51,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#findOne(long)
      */
     @Override
-    public ITeam findOne(long teamId) {
+    public Team findOne(long teamId) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -59,7 +59,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#findById(long)
      */
     @Override
-    public ITeam findById(long id) {
+    public Team findById(long id) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -67,7 +67,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#findByPlayers(de.sernet.fluke.interfaces.Player, de.sernet.fluke.interfaces.Player)
      */
     @Override
-    public ITeam findByPlayers(Player defensivePlayer, Player offensivePlayer) {
+    public Team findByPlayers(Player defensivePlayer, Player offensivePlayer) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -75,7 +75,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#findOrCreate(de.sernet.fluke.interfaces.Player, de.sernet.fluke.interfaces.Player)
      */
     @Override
-    public ITeam findOrCreate(Player defensivePlayer, Player offensivePlayer) {
+    public Team findOrCreate(Player defensivePlayer, Player offensivePlayer) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -83,7 +83,7 @@ public class TeamRestClient extends AbstractSecureRestClient implements ITeamSer
      * @see de.sernet.fluke.interfaces.ITeamService#findAll()
      */
     @Override
-    public ITeam[] findAll() {
+    public Team[] findAll() {
         String uri = getBaseUrl();
         ResponseEntity<Team[]> responseEntity = getRestHandler().getForEntity(uri,
                 Team[].class);
