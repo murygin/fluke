@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import de.sernet.fluke.interfaces.IGameResult;
 import de.sernet.fluke.interfaces.IGameResultService;
+import de.sernet.fluke.model.GameResult;
 
 @RestController
 @RequestMapping("/service/gameResult")
@@ -16,22 +16,22 @@ public class GameResultRestService {
     IGameResultService gameResultService;
     
     @RequestMapping(path = "/{gameResultId}", method = RequestMethod.POST)
-    public ResponseEntity<IGameResult> save(@RequestBody IGameResult iGameResult) {
-        IGameResult savedGameResult = gameResultService.save(iGameResult);
-        ResponseEntity<IGameResult> response = new ResponseEntity<>(savedGameResult, HttpStatus.CREATED);
+    public ResponseEntity<GameResult> save(@RequestBody GameResult iGameResult) {
+        GameResult savedGameResult = gameResultService.save(iGameResult);
+        ResponseEntity<GameResult> response = new ResponseEntity<>(savedGameResult, HttpStatus.CREATED);
         return response;
     }
 
     @RequestMapping(path = "/trackGameResult", method = RequestMethod.POST)
-    public ResponseEntity<IGameResult> trackGameResult(@RequestBody GoalsOfAGameCollection goals){
-        IGameResult gameResult = null;
+    public ResponseEntity<GameResult> trackGameResult(@RequestBody GoalsOfAGameCollection goals){
+        GameResult gameResult = null;
         if(goals.getBlueScoredDefensiveGoals() != null && goals.getBlueScoredOffensiveGoals() != null 
                 && goals.getRedScoredDefensiveGoals() != null && goals.getRedScoredOffensiveGoals() != null){
             gameResult = gameResultService.trackGameResult(goals.getGameId(), goals.getRedScoredOffensiveGoals(), goals.getRedScoredDefensiveGoals(), goals.getBlueScoredOffensiveGoals(), goals.getBlueScoredDefensiveGoals());
         } else if(goals.getBlueTeamGoals() != null && goals.getRedTeamGoals() != null){
             gameResult = gameResultService.trackGameResult(goals.getGameId(), goals.getRedTeamGoals(), goals.getBlueTeamGoals());
         }
-        ResponseEntity<IGameResult> response = new ResponseEntity<>(gameResult, HttpStatus.OK);
+        ResponseEntity<GameResult> response = new ResponseEntity<>(gameResult, HttpStatus.OK);
         return response;        
     }
 

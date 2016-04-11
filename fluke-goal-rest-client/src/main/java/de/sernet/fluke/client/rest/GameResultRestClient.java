@@ -22,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
+import de.sernet.fluke.model.GameResult;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 /**
@@ -56,12 +57,12 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
      * @see de.sernet.fluke.interfaces.IGameResultService#trackGameResult(de.sernet.fluke.interfaces.IGame, short, short)
      */
     @Override
-    public IGameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam) {
+    public GameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 
     @Override
-    public IGameResult trackGameResult(GoalsOfAGameCollection goals) {
+    public GameResult trackGameResult(GoalsOfAGameCollection goals) {
         HttpEntity<GoalsOfAGameCollection> request = new HttpEntity<>(goals);
         StringBuilder sb = new StringBuilder(getBaseUrl());
         sb.append("trackGameResult");
@@ -69,7 +70,7 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
         if (LOG.isInfoEnabled()) {
             LOG.info("Tracking Result, URL: " + url);
         }
-        ResponseEntity<? extends IGameResult> responseEntity = getRestHandler().postForEntity(url, request, GameResult.class);
+        ResponseEntity<? extends GameResult> responseEntity = getRestHandler().postForEntity(url, request, GameResult.class);
         return responseEntity.getBody();
 
     }
@@ -78,13 +79,13 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
      * @see de.sernet.fluke.interfaces.IGameResultService#save(de.sernet.fluke.interfaces.IGameResult)
      */
     @Override
-    public IGameResult save(IGameResult gameResult) {
-        HttpEntity<IGameResult> request = new HttpEntity<>(gameResult);
+    public GameResult save(GameResult gameResult) {
+        HttpEntity<GameResult> request = new HttpEntity<>(gameResult);
         String url = getBaseUrl();
         if (LOG.isInfoEnabled()) {
             LOG.info("Save, URL: " + url);
         }
-        ResponseEntity<? extends IGameResult> responseEntity = getRestHandler().postForEntity(url, request, gameResult.getClass());
+        ResponseEntity<? extends GameResult> responseEntity = getRestHandler().postForEntity(url, request, gameResult.getClass());
         return responseEntity.getBody();
     }
 
@@ -105,17 +106,17 @@ public class GameResultRestClient extends AbstractSecureRestClient implements IG
     }
 
     @Override
-    public IGameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam) {
+    public GameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam) {
         return trackGameResult(new GoalsOfAGameCollection(gameId, goalsRedTeam, goalsBlueTeam));
     }
 
     @Override
-    public IGameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+    public GameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
         return trackGameResult(new GoalsOfAGameCollection(gameId, blueOffensiveGoals, blueDefensiveGoals, redOffensiveGoals, redDefensiveGoals));
     }
 
     @Override
-    public IGameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
+    public GameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals, short blueOffensiveGoals, short blueDefensiveGoals) {
         throw new UnsupportedOperationException(NOT_IMPLEMENTED_MSG);
     }
 

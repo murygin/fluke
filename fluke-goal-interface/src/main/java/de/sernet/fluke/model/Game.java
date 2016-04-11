@@ -37,8 +37,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import de.sernet.fluke.interfaces.IGameResult;
-
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
@@ -111,11 +109,11 @@ public class Game {
         this.gameDate = gameDate;
     }
 
-    public void setResult(IGameResult gameResult) {
+    public void setResult(GameResult gameResult) {
         this.result = (GameResult)gameResult;
     }
 
-    public IGameResult getResult() {
+    public GameResult getResult() {
         return this.result;
     }
 

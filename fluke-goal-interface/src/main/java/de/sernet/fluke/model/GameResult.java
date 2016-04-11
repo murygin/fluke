@@ -25,13 +25,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import de.sernet.fluke.interfaces.IGameResult;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
 @Entity
-public class GameResult implements IGameResult {
+public class GameResult {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -77,7 +76,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#setId(long)
      */
-    @Override
     public void setId(long id) {
         this.id = id;
     }
@@ -85,7 +83,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#getId()
      */
-    @Override
     public long getId() {
         return this.id;
     }
@@ -94,7 +91,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#getBlueTeamGoals()
      */
-    @Override
     public short getBlueTeamGoals() {
         return blueTeamGoals;
     }
@@ -102,7 +98,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#getRedTeamGoals()
      */
-    @Override
     public short getRedTeamGoals() {
         return redTeamGoals;
     }
@@ -110,7 +105,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#setBlueTeamGoals()
      */
-    @Override
     public void setBlueTeamGoals(short blueTeamGoals) {
         this.blueTeamGoals = blueTeamGoals;
     }
@@ -118,7 +112,6 @@ public class GameResult implements IGameResult {
     /* (non-Javadoc)
      * @see de.sernet.fluke.interfaces.IGameResult#setRedTeamGoals()
      */
-    @Override
     public void setRedTeamGoals(short redTeamGoals) {
         this.redTeamGoals = redTeamGoals;
     }
@@ -126,7 +119,6 @@ public class GameResult implements IGameResult {
     /**
      * @return the redScoredOffensiveGoals
      */
-    @Override
     public short getRedScoredOffensiveGoals() {
         return redScoredOffensiveGoals;
     }
@@ -134,7 +126,6 @@ public class GameResult implements IGameResult {
     /**
      * @param redScoredOffensiveGoals the redScoredOffensiveGoals to set
      */
-    @Override
     public void setRedScoredOffensiveGoals(short redScoredOffensiveGoals) {
         this.redScoredOffensiveGoals = redScoredOffensiveGoals;
     }
@@ -142,7 +133,6 @@ public class GameResult implements IGameResult {
     /**
      * @return the redScoredDefensiveGoals
      */
-    @Override
     public short getRedScoredDefensiveGoals() {
         return redScoredDefensiveGoals;
     }
@@ -150,7 +140,6 @@ public class GameResult implements IGameResult {
     /**
      * @param redScoredDefensiveGoals the redScoredDefensiveGoals to set
      */
-    @Override
     public void setRedScoredDefensiveGoals(short redScoredDefensiveGoals) {
         this.redScoredDefensiveGoals = redScoredDefensiveGoals;
     }
@@ -158,7 +147,6 @@ public class GameResult implements IGameResult {
     /**
      * @return the blueScoredOffensiveGoals
      */
-    @Override
     public short getBlueScoredOffensiveGoals() {
         return blueScoredOffensiveGoals;
     }
@@ -166,7 +154,6 @@ public class GameResult implements IGameResult {
     /**
      * @param blueScoredOffensiveGoals the blueScoredOffensiveGoals to set
      */
-    @Override
     public void setBlueScoredOffensiveGoals(short blueScoredOffensiveGoals) {
         this.blueScoredOffensiveGoals = blueScoredOffensiveGoals;
     }
@@ -174,7 +161,6 @@ public class GameResult implements IGameResult {
     /**
      * @return the blueScoredDefensiveGoals
      */
-    @Override
     public short getBlueScoredDefensiveGoals() {
         return blueScoredDefensiveGoals;
     }
@@ -182,7 +168,6 @@ public class GameResult implements IGameResult {
     /**
      * @param blueScoredDefensiveGoals the blueScoredDefensiveGoals to set
      */
-    @Override
     public void setBlueScoredDefensiveGoals(short blueScoredDefensiveGoals) {
         this.blueScoredDefensiveGoals = blueScoredDefensiveGoals;
     }

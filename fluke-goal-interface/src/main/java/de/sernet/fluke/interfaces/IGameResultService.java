@@ -1,22 +1,23 @@
 package de.sernet.fluke.interfaces;
 
 import de.sernet.fluke.model.Game;
+import de.sernet.fluke.model.GameResult;
 import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 public interface IGameResultService {
     
-    IGameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam);
-    
-    IGameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals,
+    GameResult trackGameResult(Game game, short goalsRedTeam, short goalsBlueTeam);
+   
+    GameResult trackGameResult(Game game, short redOffensiveGoals, short redDefensiveGoals,
             short blueOffensiveGoals, short blueDefensiveGoals);
     
-    IGameResult save(IGameResult gameResult);
+    GameResult save(GameResult gameResult);
 
-    IGameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam);
+    GameResult trackGameResult(long gameId, short goalsRedTeam, short goalsBlueTeam);
     
-    IGameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals,
+    GameResult trackGameResult(long gameId, short redOffensiveGoals, short redDefensiveGoals,
             short blueOffensiveGoals, short blueDefensiveGoals);
 
-    IGameResult trackGameResult(GoalsOfAGameCollection goals);
+    GameResult trackGameResult(GoalsOfAGameCollection goals);
 
 }
