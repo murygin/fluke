@@ -3,6 +3,8 @@ fluke goal / Glückstor
 
 An application to track your table soccer score.
 
+Online at https://fluke.cfapps.io/
+
 Build and run
 -------------
 
@@ -64,6 +66,6 @@ curl -u NAME:PASSWORD http://localhost:8080/service/player/1
 Database
 --------
 
-Entity–relationship model of the fuke database:
+Entity–relationship model of the fluke database:
 
 ![ERM of the the fuke database](fluke-goal-persistence/fluke-database-erm.png)
