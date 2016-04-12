@@ -37,13 +37,11 @@ another port for the Vaadin GUI:
 ```bash
 java -Dserver.port=8090 -jar fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-0.1.0-SNAPSHOT.jar
 ```
-
-*Test the Vaadin GUI:*
-
 * Open a browser and go to: http://localhost:8090/
 * Click _Register_ to create an account.
 
-*Test REST service:*
+Test REST service
+-----------------
 
 Use the account created with the vaadin GUI for _NAME_ and _PASSWORD_.
 
@@ -63,7 +61,8 @@ Get a single player by id:
 curl -u NAME:PASSWORD http://localhost:8080/service/player/1
 ```
 
-*Database*
+Database
+--------
 
 Entity–relationship model of the fuke database:
 
