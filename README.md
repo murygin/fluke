@@ -7,10 +7,10 @@ Build and run
 -------------
 
 *Prerequisite:*
-* Maven
-* Java 8
-* A running MySQL / MariaDB server
-* An empty database _fluke_
+* Install Maven 3.x.
+* Install Java 8.
+* Install and start a MySQL or MariaDB server.
+* Create an empty database _fluke_.
 
 *Clone project:*
 ```bash
@@ -30,19 +30,6 @@ mvn package [-DskipTests]
 java -jar fluke-goal-rest/target/fluke-goal-rest-0.1.0-SNAPSHOT.jar
 ```
 
-*Test REST service:*
-
-Add a player:
-```bash
-curl -i -X POST -H "Content-Type:application/json" \
--d '{  "firstName" : "Frodo",  "lastName" : "Baggins" }' http://localhost:8080/service/player
-```
-
-Get a player:
-```bash
-curl http://localhost:8080/service/player/1
-```
-
 *Start Vaadin GUI:*
 
 Since the REST service is running on port 8080 by default you have to set
@@ -53,4 +40,31 @@ java -Dserver.port=8090 -jar fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-
 
 *Test the Vaadin GUI:*
 
-Open a browser and got to: http://localhost:8090/
+* Open a browser and go to: http://localhost:8090/
+* Click _Register_ to create an account.
+
+*Test REST service:*
+
+Use the account created with the vaadin GUI for _NAME_ and _PASSWORD_.
+
+Add a player:
+```bash
+curl -u NAME:PASSWORD -d '{  "firstName" : "Frodo",  "lastName" : "Baggins" }' \
+-i -X POST -H "Content-Type:application/json" \
+ http://localhost:8080/service/player
+```
+Get all player:
+```bash
+curl -u NAME:PASSWORD http://localhost:8080/service/player
+```
+
+Get a single player by id:
+```bash
+curl -u NAME:PASSWORD http://localhost:8080/service/player/1
+```
+
+*Database*
+
+Entity–relationship model of the fuke database:
+
+![ERM of the the fuke database](fluke-goal-persistence/fluke-database-erm.png)
