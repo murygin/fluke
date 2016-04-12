@@ -61,7 +61,7 @@ public class FlukeUI extends UI {
     @Autowired
     private TeamRestClient teamRestClient;
 
-    private static final String ROOT_WIDTH = "1200px";
+    private static final String ROOT_WIDTH = "900px";
 
     @Override
     protected void init(VaadinRequest request) {
@@ -81,6 +81,7 @@ public class FlukeUI extends UI {
 
         mainContent = new HorizontalLayout();
         mainContent.setWidth(ROOT_WIDTH);
+        mainContent.setHeightUndefined();
         mainContent.setSpacing(true);
 
         mainContent.addComponent(loginToApplication);
@@ -149,7 +150,7 @@ public class FlukeUI extends UI {
         applicationMenu.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
         applicationMenu.addComponent(new StatisticsTab());
 
-        applicationMenu.setWidth("100%");
+        applicationMenu.setSizeFull();
         applicationMenu.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 
             private static final long serialVersionUID = 1L;

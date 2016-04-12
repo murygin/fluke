@@ -1,22 +1,22 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  * Copyright (c) 2016 Ruth Motza.
  *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License
- * as published by the Free Software Foundation, either version 3
- * of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU Lesser General Public License for more details.
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version. This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program.
- * If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * Contributors:
- *     Ruth Motza <rm[at]sernet[dot]de> - initial API and implementation
- ******************************************************************************/
+ * Contributors: Ruth Motza <rm[at]sernet[dot]de> - initial API and
+ * implementation
+ * ****************************************************************************
+ */
 package de.sernet.fluke.gui.vaadin.ui.tabs;
 
 import java.util.*;
@@ -32,35 +32,54 @@ import de.sernet.fluke.model.Player;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public abstract class AbstractPlayerTab extends FormLayout implements IFlukeUITab {
+public abstract class AbstractPlayerTab extends VerticalLayout implements IFlukeUITab {
 
     private static final long serialVersionUID = 1L;
 
     protected final PlayerRestClient playerService;
 
+    private final HorizontalLayout crudMenu;
+
     public AbstractPlayerTab() {
+
+        super();
+
         playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
-        initContent();
+
         setSpacing(true);
+        setWidth(100, Unit.PERCENTAGE);
+
+        crudMenu = new HorizontalLayout();
+        crudMenu.setHeight("80px");
+        crudMenu.setSpacing(true);
+
+        initContent();
+
+        addComponent(crudMenu);
         addComponent(getMainComponent());
-        setSizeFull();
-        setComponentAlignment(getMainComponent(),
-                Alignment.MIDDLE_CENTER);
     }
 
     protected abstract Component getMainComponent();
+
     protected abstract void initContent();
+
     public abstract String getTypeID();
+
     public abstract String getLabel();
+
+    public final void addCrudButton(Button button) {
+        crudMenu.addComponent(button);
+        crudMenu.setComponentAlignment(button, Alignment.MIDDLE_CENTER);
+    }
 
     protected void updatePlayerList() {
 
         List<Player> players = new ArrayList<>();
         Player[] findAll = playerService.findAll();
-        if(findAll == null){
+        if (findAll == null) {
 
             Note.info("No players found");
-        }else {
+        } else {
             players.addAll(Arrays.asList(findAll));
         }
         getGrid().setContainerDataSource(

@@ -21,10 +21,12 @@ import java.util.Collection;
 import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Grid.SelectionMode;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.FlukePlayerForm;
@@ -41,7 +43,6 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     private static final long serialVersionUID = 1L;
 
     private Grid grid;
-    private HorizontalLayout mainLayout;
     private FlukePlayerForm playerForm;
     private Window playerWindow;
 
@@ -59,6 +60,9 @@ public class ManagePlayersTab extends AbstractPlayerTab {
     protected void initContent() {
 
         grid = new Grid();
+        
+        grid.setSizeFull();
+        
         grid.setColumns("id", Player.FIRSTNAME, Player.LASTNAME);
         grid.setSelectionMode(SelectionMode.MULTI);
         grid.addItemClickListener(new ItemClickListener() {
@@ -71,25 +75,34 @@ public class ManagePlayersTab extends AbstractPlayerTab {
                     return;
                 editPlayer(event);
             }
-        });
-        mainLayout = new HorizontalLayout();
-        mainLayout.setWidthUndefined();
-        mainLayout.setSpacing(true);
+        });        
 
 
         Button createButton = new Button("Add player", this::createPlayer);
-
+        createButton.setIcon(FontAwesome.PLUS);
+        createButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        createButton.setDescription("add");
+        
         Button editButton = new Button("Edit player", this::editPlayer);
-
-        Button deleteButton = new Button("Delete player");
+        editButton.setIcon(FontAwesome.EDIT);
+        editButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        editButton.setDescription("edit");
+        
+        Button deleteButton = new Button("Delete player");        
+        deleteButton.setIcon(FontAwesome.REMOVE);
+        deleteButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        deleteButton.setDescription("delete");
+        
         deleteButton.addClickListener(this::clickSubmit);
+        
+        addCrudButton(createButton);
+        addCrudButton(editButton);
+        addCrudButton(deleteButton);
+        
         playerWindow = new Window();
         playerWindow.setContent(playerForm);
-
-        FormLayout buttonLayout = new FormLayout(createButton, editButton, deleteButton);
-
         playerForm = new FlukePlayerForm();
-        mainLayout.addComponents(grid, buttonLayout);
+        
 
         updatePlayerList();
     }
@@ -196,7 +209,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
      */
     @Override
     protected Component getMainComponent() {
-        return mainLayout;
+        return grid;
     }
 
     /*
