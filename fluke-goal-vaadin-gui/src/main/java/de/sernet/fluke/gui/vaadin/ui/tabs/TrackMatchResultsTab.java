@@ -35,7 +35,7 @@ import de.sernet.fluke.model.Game;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public class TrackMatchResultsTab extends AbstractPlayerTab implements IFlukeUITab {
+public class TrackMatchResultsTab extends AbstractFlukeTab implements IFlukeUITab {
 
     public static final String TYPE_ID = "trackResultsView";
     public static final String LABEL = "Track Results";

@@ -21,7 +21,7 @@ import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.model.Team;
 
-public class StatisticsTab extends AbstractPlayerTab implements IFlukeUITab {
+public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
     
     public static final String TYPE_ID = "statisticsView";
     public static final String LABEL = "Statistics";

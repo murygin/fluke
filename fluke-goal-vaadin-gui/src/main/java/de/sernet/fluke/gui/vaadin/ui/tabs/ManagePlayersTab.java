@@ -35,7 +35,7 @@ import de.sernet.fluke.model.Player;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public class ManagePlayersTab extends AbstractPlayerTab {
+public class ManagePlayersTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "managePlayersView";
     public static final String LABEL = "Manage Players";
@@ -129,6 +129,7 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         }
             player = (Player) item;
         }
+        
         playerForm.setName(player.getFirstName(), player.getLastName());
         playerForm.getSubmit().addClickListener(new ClickListener() {
 

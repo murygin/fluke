@@ -32,7 +32,7 @@ import de.sernet.fluke.model.Player;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public abstract class AbstractPlayerTab extends VerticalLayout implements IFlukeUITab {
+public abstract class AbstractFlukeTab extends VerticalLayout implements IFlukeUITab {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public abstract class AbstractPlayerTab extends VerticalLayout implements IFluke
 
     private final HorizontalLayout crudMenu;
 
-    public AbstractPlayerTab() {
+    public AbstractFlukeTab() {
 
         super();
 

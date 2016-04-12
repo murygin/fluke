@@ -33,7 +33,7 @@ import de.sernet.fluke.model.Player;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public class CreateMatchTab extends AbstractPlayerTab {
+public class CreateMatchTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "createMatchView";
     public static final String LABEL = "Create Match";
