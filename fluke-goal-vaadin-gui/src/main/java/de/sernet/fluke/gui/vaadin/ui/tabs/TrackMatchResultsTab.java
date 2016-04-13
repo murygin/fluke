@@ -39,13 +39,14 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
     public static final String LABEL = "Track Results";
 
     private static final long serialVersionUID = 1L;
-
-    private HorizontalLayout mainLayout;
+    
     private Set<Game> untrackedGames;
     private IGameResultService gameResultService;
-    private Grid grid;
-
     private IGameService gameService;
+
+    private Window resultWindow;
+    private Grid grid;
+    private HorizontalLayout mainLayout; 
 
     public TrackMatchResultsTab(GameRestClient gameRestClient, GameResultRestClient gameResultService) {
         this.untrackedGames = new HashSet<>();
@@ -60,9 +61,7 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
      * @see de.sernet.fluke.gui.vaadin.ui.views.AbstractPlayerView#initContent()
      */
     protected void createContent() {
-
         mainLayout = new HorizontalLayout();
-
         mainLayout.setSizeFull();
 
         grid = new Grid();
@@ -71,11 +70,9 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
         grid.setContainerDataSource(
                 new BeanItemContainer<>(Game.class, untrackedGames));
 
-
         Button editButton = new Button("Edit Result", this::editResult);
         mainLayout.addComponents(grid, editButton);
         grid.addItemClickListener(new ItemClickListener() {
-
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -86,12 +83,9 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
             }
         });
         addComponent(mainLayout);
-
     }
 
     private void editResult(Event event) {
-
-
         Game game;
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
@@ -103,14 +97,13 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
 
         TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
 
-        Window resultWindow = new Window("Edit result");
+        resultWindow = new Window("Edit result");
         VerticalLayout windowLayout = new VerticalLayout(matchPanel);
         windowLayout.setMargin(true);
         windowLayout.setSpacing(true);
         resultWindow.setContent(windowLayout);
         resultWindow.center();
         getUI().addWindow(resultWindow);
-
     }
 
     @Override
@@ -120,9 +113,20 @@ public class TrackMatchResultsTab extends FormLayout implements IFlukeUITab {
         this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
         createContent();
     }
+    
+    public void afterResultSave() {
+        closeResultWindow();
+        refreshContent();
+    }
 
     public void refreshContent(){
         doOnEnter();
+    }
+    
+    public void closeResultWindow() {
+        if(resultWindow!=null && resultWindow.isClosable()) {
+            resultWindow.close();
+        }
     }
 
 }

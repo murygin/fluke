@@ -125,8 +125,8 @@ public class ManagePlayersTab extends AbstractPlayerTab {
         }
 
         Object item = new ArrayList<>(grid.getSelectedRows()).get(0);
-        if (item instanceof Player) {
-            Note.error("something went wrong");
+        if (!(item instanceof Player)) {
+            Note.error("Selected item is not a player");
             return;
         }
             player = (Player) item;
