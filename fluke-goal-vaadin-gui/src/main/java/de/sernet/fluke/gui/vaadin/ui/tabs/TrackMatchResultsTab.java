@@ -28,6 +28,7 @@ import com.vaadin.ui.themes.ValoTheme;
 import de.sernet.fluke.client.rest.GameRestClient;
 
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
+import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
@@ -35,7 +36,7 @@ import de.sernet.fluke.model.Game;
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
-public class TrackMatchResultsTab extends AbstractFlukeTab implements IFlukeUITab {
+public class TrackMatchResultsTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "trackResultsView";
     public static final String LABEL = "Track Results";
@@ -68,18 +69,22 @@ public class TrackMatchResultsTab extends AbstractFlukeTab implements IFlukeUITa
     protected void createContent() {
         grid.setContainerDataSource(
                 new BeanItemContainer<>(Game.class, untrackedGames));
-
     }
 
     private void editResult(Event event) {
 
-        Game game;
+        Game game = null;
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
             Property<Long> item = itemEvent.getItem().getItemProperty("id");
             game = gameService.findById(item.getValue());
         } else {
             game = (Game) grid.getSelectedRow();
+        }
+
+        if(game == null) {
+            Note.warning("No game selected");
+            return;
         }
 
         TrackMatchResultPanel matchPanel = new TrackMatchResultPanel(game, gameResultService, this);
@@ -95,7 +100,7 @@ public class TrackMatchResultsTab extends AbstractFlukeTab implements IFlukeUITa
 
     @Override
     public void doOnEnter() {
-
+        doEnter();
     }
 
     public void afterResultSave() {
@@ -163,7 +168,9 @@ public class TrackMatchResultsTab extends AbstractFlukeTab implements IFlukeUITa
 
     @Override
     protected void doEnter() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.untrackedGames.clear();
+        this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
+        createContent();
     }
 
 }

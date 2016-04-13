@@ -151,11 +151,10 @@ public class ManagePlayersTab extends AbstractFlukeTab {
     }
 
     public void openPlayerWindow(String caption) {
-        
+
         playerWindow = new Window();
         playerWindow.setContent(playerForm);
-        playerForm = new FlukePlayerForm();
-        
+
         playerWindow.setContent(playerForm);
         playerWindow.setCaption(caption);
         playerWindow.center();
@@ -164,10 +163,9 @@ public class ManagePlayersTab extends AbstractFlukeTab {
 
     private void createPlayer(ClickEvent event) {
 
+        playerForm = new FlukePlayerForm();
         playerForm.setName("", "");
         playerForm.getSubmit().addClickListener(new ClickListener() {
-
-            private static final long serialVersionUID = 1L;
 
             @Override
             public void buttonClick(ClickEvent event) {
