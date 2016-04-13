@@ -127,7 +127,7 @@ public class FlukeUI extends UI {
     public static String printStackTrace(Exception ex) {
         return Stream.of(ex.getStackTrace()).collect(
                 StringBuilder::new,
-                StringBuilder::append,
+                (builder, s) -> {builder.append(s).append("\n");},
                 StringBuilder::append)
                 .toString();
     }
