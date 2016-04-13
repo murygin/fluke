@@ -34,7 +34,11 @@ import de.sernet.fluke.rest.GoalsOfAGameCollection;
 public class TrackMatchResultPanel extends Panel {
     
     private static final long serialVersionUID = 20160407105117L;
+    private static final String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
+    private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
 
+    private TrackMatchResultsTab parent;
+    
     private Label gameLabel;
     
     private ComboBox redTeamGoalsCombo;
@@ -47,19 +51,12 @@ public class TrackMatchResultPanel extends Panel {
     
     private Button showDetailedTrackingButton;
     private Button submitGameResultButton;
-    
-    private static final String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
-    
+  
     private IGameResultService gameResultService;
-    
-    private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
-    
+
     private Game game;
     
-    private TrackMatchResultsTab parent;
-    
     public TrackMatchResultPanel(Game game, IGameResultService service, TrackMatchResultsTab parent){
-        
         this.gameResultService = service;
         this.game = game;
         this.parent = parent;
@@ -67,8 +64,7 @@ public class TrackMatchResultPanel extends Panel {
         final FormLayout layout = new FormLayout();
         layout.setMargin(true);
         
-        createContent(game, layout);
-        
+        createContent(game, layout);     
     }
 
     private void createContent(Game game, final FormLayout form) {
@@ -140,7 +136,9 @@ public class TrackMatchResultPanel extends Panel {
                         Short.valueOf((String)blueTeamGoalsCombo.getValue()));
             }
             gameResultService.trackGameResult(goals);
+            parent.closeResultWindow();
             parent.refreshContent();
+            Note.info("Result saved");
         }
     }
         
@@ -180,6 +178,4 @@ public class TrackMatchResultPanel extends Panel {
         }
         return sb.toString();
     }
-
-
 }

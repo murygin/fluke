@@ -21,17 +21,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.tabs.*;
-
 
 @Title("Fluke")
 @SpringUI
@@ -55,30 +60,73 @@ public class FlukeUI extends UI {
 
     @Autowired
     private TeamRestClient teamRestClient;
-    
+
+    private static final String ROOT_WIDTH = "900px";
+
     @Override
     protected void init(VaadinRequest request) {
 
-        TabSheet tabSheet = new TabSheet();
-        tabSheet.setWidth("400px");
+        loginToApplication = new TabSheet();
+        loginToApplication.setWidth(ROOT_WIDTH);
 
-        tabSheet.addComponent(new LoginForm(this::createUI));
-        tabSheet.addComponent(new RegisterForm(getAccountService()));
+        loginToApplication.addComponent(new LoginForm(this::createUI));
+        loginToApplication.addComponent(new RegisterForm(getAccountService()));
 
+        root = new VerticalLayout();
+//        root.setSizeFull();
+        root.setMargin(true);
 
-        VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
+        Component header = buildHeader();
+        root.addComponent(header);
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setWidthUndefined();
-        horizontalLayout.setSpacing(true);
+        mainContent = new HorizontalLayout();
+        mainContent.setWidth(ROOT_WIDTH);
+        mainContent.setHeightUndefined();
+        mainContent.setSpacing(true);
 
-        horizontalLayout.addComponent(tabSheet);
+        mainContent.addComponent(loginToApplication);
 
-        layout.addComponent(horizontalLayout);
-        layout.setComponentAlignment(horizontalLayout, Alignment.TOP_CENTER);
+        root.addComponent(mainContent);
+        root.setComponentAlignment(mainContent, Alignment.TOP_CENTER);
+        root.setComponentAlignment(header, Alignment.TOP_CENTER);
 
-        setContent(layout);
+        setContent(root);
+    }
+    private HorizontalLayout mainContent;
+    private TabSheet loginToApplication;
+    private VerticalLayout root;
+
+    private Component buildHeader() {
+
+        HorizontalLayout header = new HorizontalLayout();
+        header.setWidth(ROOT_WIDTH);
+        header.setHeight("60px");
+
+        Label title = new Label("fluke");
+        title.addStyleName(ValoTheme.LABEL_H1);
+        title.addStyleName(ValoTheme.LABEL_NO_MARGIN);
+        title.setWidth("100%");
+
+        header.addComponent(title);
+
+        Component logout = buildLogoutButton();
+        header.addComponent(logout);
+        header.setComponentAlignment(logout, Alignment.TOP_RIGHT);
+
+        return header;
+    }
+
+    private Component buildLogoutButton() {
+        Button logout = new Button();
+        logout.setIcon(FontAwesome.SIGN_OUT);
+        logout.addStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        logout.setDescription("Logout");
+        logout.addClickListener(event -> {
+            VaadinSession.getCurrent().close();
+            Page.getCurrent().reload();
+        });
+
+        return logout;
     }
 
     public static String printStackTrace(Exception ex) {
@@ -95,22 +143,22 @@ public class FlukeUI extends UI {
 
     public void createUI() {
 
-        TabSheet tabSheet = new TabSheet();
+        TabSheet applicationMenu = new TabSheet();
 
-        tabSheet.addComponent(new ManagePlayersTab());
-        tabSheet.addComponent(new CreateMatchTab());
-        tabSheet.addComponent(new TrackMatchResultsTab(gameRestClient, gameResultRestClient));
-        tabSheet.addComponent(new StatisticsTab());
+        applicationMenu.addComponent(new ManagePlayersTab());
+        applicationMenu.addComponent(new CreateMatchTab());
+        applicationMenu.addComponent(new TrackMatchResultsTab());
+        applicationMenu.addComponent(new StatisticsTab());
 
-        tabSheet.setSizeFull();
-        tabSheet.addSelectedTabChangeListener(new SelectedTabChangeListener() {
+        applicationMenu.setSizeFull();
+        applicationMenu.addSelectedTabChangeListener(new SelectedTabChangeListener() {
 
             private static final long serialVersionUID = 1L;
 
             @Override
             public void selectedTabChange(SelectedTabChangeEvent event) {
                 Component component = event.getComponent();
-                    TabSheet tabSheet = (TabSheet) component;
+                TabSheet tabSheet = (TabSheet) component;
                 component = tabSheet.getSelectedTab();
                 if (component instanceof IFlukeUITab) {
                     IFlukeUITab currentTab = (IFlukeUITab) component;
@@ -119,19 +167,9 @@ public class FlukeUI extends UI {
             }
 
         });
-        VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
-
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setWidthUndefined();
-        horizontalLayout.setSpacing(true);
-
-        horizontalLayout.addComponent(tabSheet);
-
-        layout.addComponent(horizontalLayout);
-        layout.setComponentAlignment(horizontalLayout, Alignment.TOP_CENTER);
-
-        setContent(layout);
+        
+        mainContent.removeComponent(loginToApplication);
+        mainContent.addComponent(applicationMenu);
     }
 
     /**
@@ -140,8 +178,8 @@ public class FlukeUI extends UI {
     public GameRestClient getGameRestClient() {
         return gameRestClient;
     }
-    
-    public TeamRestClient getTeamRestClient(){
+
+    public TeamRestClient getTeamRestClient() {
         return teamRestClient;
     }
 

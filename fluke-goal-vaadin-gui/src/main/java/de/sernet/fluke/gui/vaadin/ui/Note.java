@@ -16,11 +16,15 @@
 package de.sernet.fluke.gui.vaadin.ui;
 
 import com.vaadin.ui.Notification;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
 public abstract class Note {
+    
+    Logger logger = LoggerFactory.getLogger(Note.class);
 
     public static void warning(String caption) {
 
@@ -35,7 +39,6 @@ public abstract class Note {
 
     public static void error(String caption) {
         Notification.show(caption, Notification.Type.ERROR_MESSAGE);
-
     }
 
 }

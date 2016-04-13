@@ -37,6 +37,8 @@ public class FlukePlayerForm extends Panel {
     public FlukePlayerForm() {
         final FormLayout form = new FormLayout();
         form.setMargin(true);
+        form.setSizeUndefined();
+        
         firstName = new TextField("Vorname");
         form.addComponent(firstName);
         lastName = new TextField("Nachname");
@@ -55,10 +57,9 @@ public class FlukePlayerForm extends Panel {
                         submit.click();
                     }
                 });
+        
         form.addComponent(submit);
-
         setContent(form);
-
     }
 
     public Button getSubmit() {

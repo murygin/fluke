@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.sernet.fluke.gui.vaadin.ui.tabs;
 
+import com.vaadin.server.FontAwesome;
 import java.util.*;
 
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid.SelectionMode;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.sernet.fluke.client.rest.GameRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
@@ -32,16 +33,15 @@ import de.sernet.fluke.model.Player;
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
-public class CreateMatchTab extends AbstractPlayerTab {
+public class CreateMatchTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "createMatchView";
     public static final String LABEL = "Create Match";
 
     private static final long serialVersionUID = 1L;
 
-    private GameRestClient gameService;
+    private final GameRestClient gameService;
     private Grid grid;
-    private HorizontalLayout mainLayout;
     protected Label result;
     private CreateMatchManualForm matchPanel;
     private Window manualMatchWindow;
@@ -64,24 +64,27 @@ public class CreateMatchTab extends AbstractPlayerTab {
         grid = new Grid();
         grid.setColumns("id", "firstName", "lastName");
         grid.setSelectionMode(SelectionMode.MULTI);
+        grid.setWidth(100, Unit.PERCENTAGE);
 
         result = new Label();
 
-        mainLayout = new HorizontalLayout();
-        mainLayout.setWidthUndefined();
-        mainLayout.setSpacing(true);
-        mainLayout.addComponent(grid);
-
-        Button createAutomaticallyButton = new Button("Create Match automatically",
-                this::createMatchAutomatically);
-
-        Button createManuallyButton = new Button("Create Match manually",
+        Button createManuallyButton = new Button("Create match manually",
                 this::createMatchManually);
+        createManuallyButton.setIcon(FontAwesome.PLUS);
+        createManuallyButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        createManuallyButton.setDescription("Create match manually");
+
+        Button createAutomaticallyButton = new Button("",
+                this::createMatchAutomatically);
+        createAutomaticallyButton.setIcon(FontAwesome.RANDOM);
+        createAutomaticallyButton.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        createAutomaticallyButton.setDescription("Create match automatically");
+
+        addCrudButton(createAutomaticallyButton);
+        addCrudButton(createManuallyButton);
 
         result.setContentMode(ContentMode.HTML);
 
-        FormLayout layout = new FormLayout(createAutomaticallyButton, createManuallyButton);
-        mainLayout.addComponent(layout);
     }
 
     private void createMatchAutomatically(ClickEvent event) {
@@ -147,13 +150,11 @@ public class CreateMatchTab extends AbstractPlayerTab {
         teams.append("defensive ");
         teams.append(playersToCreateMatch.get(3).toString());
 
-
         Note.info("match created");
         return teams.toString();
     }
 
     private void createMatchManually(ClickEvent event) {
-
 
         ArrayList<Player> selectedPlayers = new ArrayList<>();
         if (grid.getSelectedRows().size() < 1) {
@@ -177,7 +178,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
         manualMatchWindow.setContent(windowLayout);
         manualMatchWindow.center();
         getUI().addWindow(manualMatchWindow);
-        
+
     }
 
     private void saveMatch(ClickEvent event) {
@@ -214,7 +215,7 @@ public class CreateMatchTab extends AbstractPlayerTab {
      */
     @Override
     protected Component getMainComponent() {
-        return mainLayout;
+        return grid;
     }
 
     /*

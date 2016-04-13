@@ -5,13 +5,14 @@ import java.util.List;
 
 import com.vaadin.data.sort.Sort;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.client.rest.TeamRestClient;
@@ -20,7 +21,7 @@ import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.model.Team;
 
-public class StatisticsTab extends FormLayout implements IFlukeUITab {
+public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
     
     public static final String TYPE_ID = "statisticsView";
     public static final String LABEL = "Statistics";
@@ -29,8 +30,9 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
     
     private Grid playerGrid;
     private Grid teamGrid;
+    private VerticalLayout tabRootLayout;
+
     private Button switchStatistic;
-    private VerticalLayout mainLayout;
     
     private final PlayerRestClient playerService;
     private final TeamRestClient teamService;
@@ -40,14 +42,22 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
         setCaption(LABEL);
         playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
         teamService = ((FlukeUI) UI.getCurrent()).getTeamRestClient();
-        initContent();
+
     }
     
     protected void initContent() {
         
-        switchStatistic = new Button("Switch Player/Team stats", this::switchStatistic);
+        tabRootLayout = new VerticalLayout();
+        tabRootLayout.setSizeFull();
+
+        switchStatistic = new Button("", this::switchStatistic);
+        switchStatistic.setIcon(FontAwesome.EXCHANGE);
+        switchStatistic.setStyleName(ValoTheme.BUTTON_ICON_ONLY);
+        switchStatistic.setDescription("Switch Player/Team stats");
         
         playerGrid = new Grid();
+        playerGrid.setSizeFull();
+
         playerGrid.setColumns(
                 Player.FIRSTNAME,
                 Player.LASTNAME,
@@ -62,22 +72,18 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
                 .then(Player.SCOREDTOTALGOALS, SortDirection.DESCENDING)
                 .then(Player.LOSTGAMES, SortDirection.ASCENDING)
                 .build());
-        playerGrid.setWidthUndefined();
+
 
         teamGrid = new Grid();
+        teamGrid.setSizeFull();
         teamGrid.setColumns("offensivePlayer", "defensivePlayer", Team.WONGAMES, Team.LOSTGAMES, Team.SCOREDTOTALGOALS, Team.CONCEDEDGOALS, Team.SCOREDOFFENSIVEGOALS, Team.SCOREDDEFENSIVEGOALS);
         teamGrid.setSortOrder(Sort.by(Team.WONGAMES, SortDirection.DESCENDING).then(Team.LOSTGAMES, SortDirection.ASCENDING).then(Team.SCOREDTOTALGOALS, SortDirection.DESCENDING).build());
         teamGrid.setVisible(false);
         
-        mainLayout = new VerticalLayout();
-        mainLayout.setWidthUndefined();
-        mainLayout.setSpacing(true);
+        tabRootLayout.addComponent(playerGrid);
+        tabRootLayout.addComponent(teamGrid);
         
-        mainLayout.addComponent(switchStatistic);
-        mainLayout.addComponent(playerGrid);
-        mainLayout.addComponent(teamGrid);
-        
-        addComponent(mainLayout);
+        addCrudButton(switchStatistic);
         
     }
     
@@ -105,7 +111,7 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
         }
     }
     
-    private void updatePlayerList() {
+    protected void updatePlayerList() {
 
         List<Player> players = Arrays.asList(playerService.findAll());
         if(players == null || players.isEmpty()){
@@ -119,7 +125,7 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
 
     
     protected Component getMainComponent() {
-        return mainLayout;
+        return tabRootLayout;
     }
 
     public String getTypeID() {
@@ -133,5 +139,15 @@ public class StatisticsTab extends FormLayout implements IFlukeUITab {
     @Override
     public void doOnEnter() {
        updateLists();
+    }
+
+    @Override
+    protected Grid getGrid() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    protected void doEnter() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
