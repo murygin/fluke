@@ -98,9 +98,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
         addCrudButton(editButton);
         addCrudButton(deleteButton);
         
-        playerWindow = new Window();
-        playerWindow.setContent(playerForm);
-        playerForm = new FlukePlayerForm();
+        
 
         updatePlayerList();
     }
@@ -153,6 +151,11 @@ public class ManagePlayersTab extends AbstractFlukeTab {
     }
 
     public void openPlayerWindow(String caption) {
+        
+        playerWindow = new Window();
+        playerWindow.setContent(playerForm);
+        playerForm = new FlukePlayerForm();
+        
         playerWindow.setContent(playerForm);
         playerWindow.setCaption(caption);
         playerWindow.center();
