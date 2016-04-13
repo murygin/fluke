@@ -2,3 +2,4 @@
 /fluke-goal-vaadin-gui/fluke-persistence-test.log
 /fluke-vaadin-gui.log
 /fluke-goal-rest/fluke-rest.log
+/fluke-goal-vaadin-gui/fluke-persistence-test.*.log
