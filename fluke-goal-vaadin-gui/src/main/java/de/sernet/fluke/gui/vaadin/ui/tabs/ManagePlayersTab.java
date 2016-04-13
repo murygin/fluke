@@ -250,7 +250,6 @@ public class ManagePlayersTab extends AbstractFlukeTab {
      */
     @Override
     protected void doEnter() {
-        playerForm.setVisible(false);
     }
 
 }
