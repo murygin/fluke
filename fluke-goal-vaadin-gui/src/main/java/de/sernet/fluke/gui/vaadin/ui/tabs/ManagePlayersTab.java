@@ -128,6 +128,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
             player = (Player) item;
         }
         
+        playerForm = new FlukePlayerForm();
         playerForm.setName(player.getFirstName(), player.getLastName());
         playerForm.getSubmit().addClickListener(new ClickListener() {
 
