@@ -24,6 +24,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.model.Game;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
+import org.junit.Before;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.test.web.client.match.MockRestRequestMatchers;
+import org.springframework.test.web.client.response.MockRestResponseCreators;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -34,17 +44,60 @@ import de.sernet.fluke.model.Game;
 public class GameRestClientTest {
     
     @Autowired
-    GameRestClient restClient;
+    GameRestClient gameRestClient;
+    
+    @Value("${rest-server.url:http://localhost:8080}")
+    private String serverUrl;
+    
+    private RestTemplate restTemplate;
+    
+    MockRestServiceServer mockServer;
+    private ResourceBundle resourceBundle;
+    
+    @Before
+    public void setUp() {
+        restTemplate = new RestTemplate();
+        gameRestClient.setRestHandler(restTemplate);
+        mockServer = MockRestServiceServer.createServer(restTemplate);
+        this.resourceBundle = PropertyResourceBundle.getBundle("GameRestClientTest");
+    }
     
     @Test
-    public void test() {
-        Game newGame = restClient.create(
-                Long.valueOf(1), 
-                Long.valueOf(2), 
-                Long.valueOf(3), 
-                Long.valueOf(4)
+    public void testCreate() {
+        int redOffensiveId = 1;
+        int redDefensiveId = 2;
+        int blueOffensiveId = 3;
+        int blueDefensiveId = 4;
+        
+        String responseBody = this.resourceBundle.getString("testCreateResult");
+        
+        mockServer.expect(MockRestRequestMatchers.requestTo(createCreateUrl()))
+                .andExpect(MockRestRequestMatchers.method(HttpMethod.POST))
+                .andExpect(MockRestRequestMatchers.jsonPath("$.redOffensiveId").value(redOffensiveId))
+                .andExpect(MockRestRequestMatchers.jsonPath("$.redDefensiveId").value(redDefensiveId))
+                .andExpect(MockRestRequestMatchers.jsonPath("$.blueOffensiveId").value(blueOffensiveId))
+                .andExpect(MockRestRequestMatchers.jsonPath("$.blueDefensiveId").value(blueDefensiveId))
+                .andRespond(MockRestResponseCreators.withSuccess(responseBody, MediaType.APPLICATION_JSON));
+        
+        
+        Game newGame = gameRestClient.create(
+                Long.valueOf(redOffensiveId), 
+                Long.valueOf(redDefensiveId), 
+                Long.valueOf(blueOffensiveId), 
+                Long.valueOf(blueDefensiveId)
         );
+        
+        mockServer.verify();
+        
         Assert.assertNotNull(newGame);
+        Assert.assertEquals(blueDefensiveId, newGame.getBlueTeam().getDefensivePlayer().getId());
+        Assert.assertEquals(blueOffensiveId, newGame.getBlueTeam().getOffensivePlayer().getId());
+        Assert.assertEquals(redDefensiveId, newGame.getRedTeam().getDefensivePlayer().getId());
+        Assert.assertEquals(redOffensiveId, newGame.getRedTeam().getOffensivePlayer().getId());
+    }
+
+    private String createCreateUrl() {
+        return gameRestClient.getCreateUrl();
     }
     
 }

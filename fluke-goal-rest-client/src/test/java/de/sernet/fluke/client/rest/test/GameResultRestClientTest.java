@@ -30,6 +30,7 @@ import de.sernet.fluke.rest.GoalsOfAGameCollection;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@Ignore
 public class GameResultRestClientTest {
     
     @Autowired 

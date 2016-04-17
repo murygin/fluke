@@ -1,4 +1,4 @@
-package de.sernet.fluke.security.test;
+package de.sernet.fluke.serivice.test;
 
 import de.sernet.fluke.model.Team;
 import de.sernet.fluke.model.Game;

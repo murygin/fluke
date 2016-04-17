@@ -27,11 +27,13 @@ import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.rest.PlayerSelection;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Daniel Murygin
  */
+@Service
 public class GameRestClient extends AbstractSecureRestClient implements IGameService {
 
     private static final Logger LOG = LoggerFactory.getLogger(GameRestClient.class);
@@ -41,6 +43,7 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
     private String path;
 
     public GameRestClient() {
+        super();
         path = PATH_DEFAULT;
     }
 
@@ -54,14 +57,19 @@ public class GameRestClient extends AbstractSecureRestClient implements IGameSer
     public Game create(long redOffensiveId, long redDefensiveId, long blueOffensiveId, long blueDefensiveId) {
         PlayerSelection playerSelection = new PlayerSelection(redOffensiveId, redDefensiveId, blueOffensiveId, blueDefensiveId);
         HttpEntity<PlayerSelection> request = new HttpEntity<>(playerSelection);
-        StringBuilder sb = new StringBuilder(getBaseUrl());
-        sb.append("create");
-        String url = sb.toString();
+        String url = getCreateUrl();
         if (LOG.isInfoEnabled()) {
             LOG.info("create, URL: " + url);
         }
         ResponseEntity<Game> responseEntity = getRestHandler().postForEntity(url, request, Game.class);
         return responseEntity.getBody();
+    }
+
+    public String getCreateUrl() {
+        StringBuilder sb = new StringBuilder(getBaseUrl());
+        sb.append("create");
+        String url = sb.toString();
+        return url;
     }
 
     @Override
