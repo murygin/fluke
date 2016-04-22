@@ -28,10 +28,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.sernet.fluke.persistence.PersistenceApplication;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.persistence.PlayerRepository;
+import java.util.UUID;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 /**
  *
@@ -42,26 +44,69 @@ import org.junit.Before;
 @SpringApplicationConfiguration(PersistenceApplication.class)
 public class PlayerRepositoryTest {
 
+    private static final int NUMBER_OF_PLAYERS = 100;
+    
     @Autowired
-    PlayerRepository playerRepository;
+    private PlayerRepository playerRepository;
+    
+    private Player daniel;
     
     @Before
     public void init() {
-       
+        daniel= new Player();
+        daniel.setFirstName("Daniel");
+        daniel.setLastName("Murygin");
+        daniel.setConcededGoals(2);     
+        daniel.setScoredDefensiveGoals(8);
+        daniel.setScoredOffensiveGoals(16);
+        daniel.setScoredTotalGoals(24);
+        daniel.setWonGames(4);
+        daniel.setLostGames(1);
+        daniel = playerRepository.save(daniel);
+        for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+            playerRepository.save(createRandomPlayer());
+        }
     }
     
     @Test
-    public void test() {
+    public void testFindOne() { 
+        Player playerResult = playerRepository.findOne(daniel.getId());
+        assertNotNull(playerResult);
+        check(playerResult, daniel);
+    }
+    
+    @Test
+    public void testFindAll() { 
+        Iterable<Player> result = playerRepository.findAll();
+        assertNotNull(result);
+        assertTrue(result.iterator().hasNext());
+        boolean found = false;
+        for (Player player : result) {
+            if(player.getId()==daniel.getId()) {
+                check(player, daniel);
+                found = true;
+            }
+        }
+        assertTrue(found);    
+    }
+    
+    private void check(Player player, Player playerExpected) {
+        assertEquals(playerExpected.getId(),player.getId());
+        assertEquals(playerExpected.getFirstName(),player.getFirstName());
+        assertEquals(playerExpected.getLastName(),player.getLastName());
+        assertEquals(playerExpected.getConcededGoals(),player.getConcededGoals());
+        assertEquals(playerExpected.getLostGames(),player.getLostGames());
+        assertEquals(playerExpected.getScoredDefensiveGoals(),player.getScoredDefensiveGoals());
+        assertEquals(playerExpected.getScoredOffensiveGoals(),player.getScoredOffensiveGoals());
+        assertEquals(playerExpected.getScoredTotalGoals(),player.getScoredTotalGoals());
+        assertEquals(playerExpected.getWonGames(),player.getWonGames());
+    }
+    
+    private Player createRandomPlayer() {
         Player player = new Player();
-        player.setFirstName("Daniel");
-        player.setLastName("Murygin");
-        player = playerRepository.save(player);
-        
-        Player playerResult = playerRepository.findOne(player.getId());
-        assertNotNull(player);
-        assertEquals(player.getId(),playerResult.getId());
-        assertEquals(player.getFirstName(),playerResult.getFirstName());
-        assertEquals(player.getLastName(),playerResult.getLastName());
+        player.setFirstName(UUID.randomUUID().toString());
+        player.setLastName(UUID.randomUUID().toString());
+        return player;
     }
 
 }

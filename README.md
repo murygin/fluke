@@ -63,6 +63,13 @@ Get a single player by id:
 curl -u NAME:PASSWORD http://localhost:8080/service/player/1
 ```
 
+Add a game:
+```bash
+curl -u NAME:PASSWORD \
+-d '{  "redOffensiveId" : "1",  "redDefensiveId" : "2", "blueOffensiveId" : "3", "blueDefensiveId" : "4"}' \
+-i -X POST -H "Content-Type:application/json"  http://localhost:8080/service/game/create
+```
+
 Database
 --------
 

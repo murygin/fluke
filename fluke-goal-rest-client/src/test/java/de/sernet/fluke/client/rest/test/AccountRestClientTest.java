@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.model.Account;
+import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -32,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@Ignore
 public class AccountRestClientTest {
 
     @Autowired

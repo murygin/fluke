@@ -17,6 +17,7 @@ package de.sernet.fluke.client.rest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestOperations;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -31,14 +32,17 @@ public abstract class AbstractSecureRestClient {
 
     public AbstractSecureRestClient() {
         super();
+        restOperations = new RestTemplate();
     }
 
     private AbstractSecureRestClient(String serverUrl) {
         super();
         this.serverUrl = serverUrl;
+        restOperations = new RestTemplate();
     }
 
     public AbstractSecureRestClient(String username, String password) {
+        super();
         restOperations = new RestClient(username, password);
     }
 
@@ -78,6 +82,10 @@ public abstract class AbstractSecureRestClient {
     
     protected RestOperations getRestHandler() {
         return restOperations;
+    }
+    
+    public void setRestHandler(RestOperations restHandler) {
+        this.restOperations = restHandler;
     }
 
     public abstract String getPath();
