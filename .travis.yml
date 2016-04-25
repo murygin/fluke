@@ -1,2 +1,16 @@
 language: java
 jdk: oraclejdk8
+before_install:
+- openssl aes-256-cbc -K $encrypted_6e96b4c0a9f9_key -iv $encrypted_6e96b4c0a9f9_iv
+  -in application.properties.enc -out fluke-goal-rest/src/main/resources/application.properties
+  -d
+deploy:
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  username: daniel.murygin@gmail.com
+  password:
+    secure: V+ebaSlDRHY1vhZwwr/8+s7Fpv7+t9Wbs8tiprScUATVqMeaMTBCxbCi3+3oq5wXiTyLPvzO1AtyipsPeG4DlZWM+hjzzFQLq6D97tbpnDm8RFWtO2PpRmloakGw2ANIJHRkNmQp7maEPyIap6jnbcxSSA9Lxw2BFx81L3rhvHYdNOPfzsMLrsCyFz5SRg+l9GL0q64STqgEQh04Y1L6zlsg6DOVR0RrL3Ahcxz0QS/Xy66s1Zquht/atuawlE/OA0GgX2WlmC96T0+8Icli2OVnmap81VgFQ31W+I6qw2RKs1uwpKl2DmpYtWqmMff0N1YLbv6y81yhPOyl4wEK69DOVCGGpdu847tDtn7vCTLc/Vr2TUepsoCxrivYZcelhb17S6KlRx5yC/3PANN2QtmRhYSIu2HFxCshp1bZCVshe3tGrT7Xd922QIPY/3zFujI+ncgTG3WRWDKITpN9ZOym+g2N/lKcgQD6hea+99A4YwfJSJRXIqtwFOoOlydKO03XqiEkiRd2rJNV5hX2bSukDqjBNxb5WcMOolLHnUKjix+S4DNCaa3MiG5u08gRw3xXwEW9HD1A/ufjpgvljuseUqFvz038pggloxpjBBMpRhkJeNueMsp9W1JBSeLEk4MuYUyI43Vmk0OKYzxSrye7yUGUDWw6QUo5yFGuLtc=
+  organization: murygin
+  space: development
+  on:
+    repo: murygin/fluke
