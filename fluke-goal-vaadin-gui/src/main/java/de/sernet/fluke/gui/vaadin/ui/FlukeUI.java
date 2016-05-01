@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,6 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.tabs.*;
@@ -37,7 +37,7 @@ import org.springframework.beans.factory.ObjectFactory;
 @Title("Fluke")
 @SpringUI
 @Theme("valo")
-// @PreserveOnRefresh
+@PreserveOnRefresh
 public class FlukeUI extends UI {
 
     private static final long serialVersionUID = 1L;
