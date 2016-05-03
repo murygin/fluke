@@ -15,9 +15,9 @@
  */
 package de.sernet.fluke.gui.vaadin.ui.tabs;
 
-import com.vaadin.server.FontAwesome;
 import java.util.*;
 
+import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
@@ -84,7 +84,6 @@ public class CreateMatchTab extends AbstractFlukeTab {
         addCrudButton(createManuallyButton);
 
         result.setContentMode(ContentMode.HTML);
-
     }
 
     private void createMatchAutomatically(ClickEvent event) {
@@ -116,13 +115,13 @@ public class CreateMatchTab extends AbstractFlukeTab {
 
         ArrayList<Player> playersToCreateMatch = new ArrayList<>(players);
         if (playersToCreateMatch.size() < 4) {
-            Note.warning("no match possible,<br>there have to be at least 4 players!");
+            Note.warning("No match possible,\nthere have to be at least 4 players!");
             return "";
         }
         Collections.shuffle(playersToCreateMatch);
         StringBuilder teams = new StringBuilder();
         if (playersToCreateMatch.size() > 4) {
-            Note.warning("only 4 players allowed, rest will be removed!");
+            Note.warning("Only 4 players allowed, rest will be removed!");
             teams.append("Not Playing");
             teams.append(" [ ");
             while (playersToCreateMatch.size() > 4) {

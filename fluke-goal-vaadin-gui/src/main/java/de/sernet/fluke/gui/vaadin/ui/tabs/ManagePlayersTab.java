@@ -97,10 +97,6 @@ public class ManagePlayersTab extends AbstractFlukeTab {
         addCrudButton(createButton);
         addCrudButton(editButton);
         addCrudButton(deleteButton);
-        
-        
-
-        updatePlayerList();
     }
 
     public void editPlayer(Event event) {
@@ -167,6 +163,8 @@ public class ManagePlayersTab extends AbstractFlukeTab {
         playerForm = new FlukePlayerForm();
         playerForm.setName("", "");
         playerForm.getSubmit().addClickListener(new ClickListener() {
+
+            private static final long serialVersionUID = 1L;
 
             @Override
             public void buttonClick(ClickEvent event) {
@@ -250,6 +248,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
      */
     @Override
     protected void doEnter() {
+        // nothing to do
     }
 
 }

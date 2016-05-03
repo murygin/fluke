@@ -21,14 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Page;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinSession;
+import com.vaadin.server.*;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.themes.ValoTheme;
@@ -62,6 +57,9 @@ public class FlukeUI extends UI {
     private TeamRestClient teamRestClient;
 
     private static final String ROOT_WIDTH = "900px";
+    private HorizontalLayout mainContent;
+    private TabSheet loginToApplication;
+    private VerticalLayout root;
 
     @Override
     protected void init(VaadinRequest request) {
@@ -92,9 +90,6 @@ public class FlukeUI extends UI {
 
         setContent(root);
     }
-    private HorizontalLayout mainContent;
-    private TabSheet loginToApplication;
-    private VerticalLayout root;
 
     private Component buildHeader() {
 
@@ -146,7 +141,8 @@ public class FlukeUI extends UI {
         TabSheet applicationMenu = new TabSheet();
 
         applicationMenu.addComponent(new ManagePlayersTab());
-        applicationMenu.addComponent(new CreateMatchTab());
+        CreateMatchTab initComponent = new CreateMatchTab();
+        applicationMenu.addComponent(initComponent);
         applicationMenu.addComponent(new TrackMatchResultsTab());
         applicationMenu.addComponent(new StatisticsTab());
 
@@ -167,14 +163,12 @@ public class FlukeUI extends UI {
             }
 
         });
+        applicationMenu.setSelectedTab(initComponent);
         
         mainContent.removeComponent(loginToApplication);
         mainContent.addComponent(applicationMenu);
     }
 
-    /**
-     * @return the gameRestClient
-     */
     public GameRestClient getGameRestClient() {
         return gameRestClient;
     }
@@ -183,16 +177,10 @@ public class FlukeUI extends UI {
         return teamRestClient;
     }
 
-    /**
-     * @return the gameResultRestClient
-     */
     public GameResultRestClient getGameResultRestClient() {
         return gameResultRestClient;
     }
 
-    /**
-     * @return the playerRestClient
-     */
     public PlayerRestClient getPlayerRestClient() {
         return playerRestClient;
     }
