@@ -28,11 +28,11 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.SelectedTabChangeListener;
 import com.vaadin.ui.themes.ValoTheme;
 
-import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.tabs.*;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 @Title("Fluke")
 @SpringUI
@@ -60,8 +60,11 @@ public class FlukeUI extends UI {
     @Autowired
     private ObjectFactory<StatisticsTab> statisticsTabObjectFactory;
 
+    @Value("${git-sha1}")
+    private String gitSha1;
+
     private static final String ROOT_WIDTH = "900px";
-    private HorizontalLayout mainContent;
+    private VerticalLayout mainContent;
     private TabSheet loginToApplication;
     private VerticalLayout root;
 
@@ -83,16 +86,31 @@ public class FlukeUI extends UI {
         Component header = buildHeader();
         root.addComponent(header);
 
-        mainContent = new HorizontalLayout();
+        mainContent = new VerticalLayout();
         mainContent.setWidth(ROOT_WIDTH);
         mainContent.setHeightUndefined();
         mainContent.setSpacing(true);
 
         mainContent.addComponent(loginToApplication);
 
+        HorizontalLayout footerLayout = new HorizontalLayout();
+        footerLayout.setWidth(ROOT_WIDTH);
+        footerLayout.setHeight(50, Unit.PIXELS);
+
+        Label buildNumber = new Label("git sha1: " + gitSha1.substring(0, 7));
+        buildNumber.setSizeUndefined();
+        buildNumber.setStyleName(ValoTheme.LABEL_TINY);
+        footerLayout.addComponent(buildNumber);
+        footerLayout.setComponentAlignment(buildNumber, Alignment.BOTTOM_RIGHT);
+        footerLayout.setSpacing(true);
+        footerLayout.setWidth(ROOT_WIDTH);
+
         root.addComponent(mainContent);
-        root.setComponentAlignment(mainContent, Alignment.TOP_CENTER);
+        root.addComponent(footerLayout);
         root.setComponentAlignment(header, Alignment.TOP_CENTER);
+        root.setComponentAlignment(mainContent, Alignment.TOP_CENTER);
+        root.addComponent(footerLayout);
+        root.setComponentAlignment(footerLayout, Alignment.BOTTOM_CENTER);
 
         setContent(root);
     }
@@ -172,8 +190,7 @@ public class FlukeUI extends UI {
             }
 
         });
-        applicationMenu.setSelectedTab(initComponent);
-        
+
         mainContent.removeComponent(loginToApplication);
         mainContent.addComponent(applicationMenu);
     }
