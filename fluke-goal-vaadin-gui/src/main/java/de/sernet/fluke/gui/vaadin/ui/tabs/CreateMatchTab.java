@@ -19,6 +19,7 @@ import java.util.*;
 
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Grid.SelectionMode;
@@ -29,10 +30,14 @@ import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
 import de.sernet.fluke.model.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
+@Service
+@VaadinSessionScope
 public class CreateMatchTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "createMatchView";
@@ -40,7 +45,9 @@ public class CreateMatchTab extends AbstractFlukeTab {
 
     private static final long serialVersionUID = 1L;
 
-    private final GameRestClient gameService;
+    @Autowired
+    private GameRestClient gameService;
+
     private Grid grid;
     protected Label result;
     private CreateMatchManualForm matchPanel;
@@ -49,7 +56,6 @@ public class CreateMatchTab extends AbstractFlukeTab {
 
     public CreateMatchTab() {
         super();
-        gameService = ((FlukeUI) UI.getCurrent()).getGameRestClient();
         setCaption("Create Match");
     }
 
@@ -157,7 +163,7 @@ public class CreateMatchTab extends AbstractFlukeTab {
 
         ArrayList<Player> selectedPlayers = new ArrayList<>();
         if (grid.getSelectedRows().size() < 1) {
-            selectedPlayers.addAll(Arrays.asList(playerService.findAll()));
+            selectedPlayers.addAll(Arrays.asList(getPlayerService().findAll()));
         } else {
             ArrayList<Object> selectedObjects = new ArrayList<>(grid.getSelectedRows());
             for (Object object : selectedObjects) {

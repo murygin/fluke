@@ -32,6 +32,7 @@ import de.sernet.fluke.client.rest.*;
 import de.sernet.fluke.gui.vaadin.ui.components.LoginForm;
 import de.sernet.fluke.gui.vaadin.ui.components.RegisterForm;
 import de.sernet.fluke.gui.vaadin.ui.tabs.*;
+import org.springframework.beans.factory.ObjectFactory;
 
 @Title("Fluke")
 @SpringUI
@@ -42,19 +43,22 @@ public class FlukeUI extends UI {
     private static final long serialVersionUID = 1L;
 
     @Autowired
-    private AccountRestClient accountService;
+    private ObjectFactory<LoginForm> loginFormObjectFactory;
 
     @Autowired
-    private GameRestClient gameRestClient;
+    private ObjectFactory<RegisterForm> registerFormObjectFactory;
 
     @Autowired
-    private GameResultRestClient gameResultRestClient;
+    private ObjectFactory<ManagePlayersTab> managePlayersTabFactory;
 
     @Autowired
-    private PlayerRestClient playerRestClient;
+    private ObjectFactory<CreateMatchTab> createMatchTabObjectFactory;
 
     @Autowired
-    private TeamRestClient teamRestClient;
+    private ObjectFactory<TrackMatchResultsTab> trackResultsTabObjectFactory;
+
+    @Autowired
+    private ObjectFactory<StatisticsTab> statisticsTabObjectFactory;
 
     private static final String ROOT_WIDTH = "900px";
     private HorizontalLayout mainContent;
@@ -67,8 +71,10 @@ public class FlukeUI extends UI {
         loginToApplication = new TabSheet();
         loginToApplication.setWidth(ROOT_WIDTH);
 
-        loginToApplication.addComponent(new LoginForm(this::createUI));
-        loginToApplication.addComponent(new RegisterForm(getAccountService()));
+        LoginForm loginForm = loginFormObjectFactory.getObject();
+        loginForm.setCallback(this::createUI);
+        loginToApplication.addComponent(loginForm);
+        loginToApplication.addComponent(registerFormObjectFactory.getObject());
 
         root = new VerticalLayout();
 //        root.setSizeFull();
@@ -132,19 +138,22 @@ public class FlukeUI extends UI {
                 .toString();
     }
 
-    public AccountRestClient getAccountService() {
-        return accountService;
-    }
-
     public void createUI() {
 
         TabSheet applicationMenu = new TabSheet();
 
-        applicationMenu.addComponent(new ManagePlayersTab());
-        CreateMatchTab initComponent = new CreateMatchTab();
+        ManagePlayersTab managePlayersTab = managePlayersTabFactory.getObject();
+        applicationMenu.addComponent(managePlayersTab);
+
+        CreateMatchTab initComponent = createMatchTabObjectFactory.getObject();
         applicationMenu.addComponent(initComponent);
-        applicationMenu.addComponent(new TrackMatchResultsTab());
-        applicationMenu.addComponent(new StatisticsTab());
+
+        TrackMatchResultsTab trackResultsTab =
+                trackResultsTabObjectFactory.getObject();
+        applicationMenu.addComponent(trackResultsTab);
+
+        StatisticsTab statisticsTab = statisticsTabObjectFactory.getObject();
+        applicationMenu.addComponent(statisticsTab);
 
         applicationMenu.setSizeFull();
         applicationMenu.addSelectedTabChangeListener(new SelectedTabChangeListener() {
@@ -167,21 +176,5 @@ public class FlukeUI extends UI {
         
         mainContent.removeComponent(loginToApplication);
         mainContent.addComponent(applicationMenu);
-    }
-
-    public GameRestClient getGameRestClient() {
-        return gameRestClient;
-    }
-
-    public TeamRestClient getTeamRestClient() {
-        return teamRestClient;
-    }
-
-    public GameResultRestClient getGameResultRestClient() {
-        return gameResultRestClient;
-    }
-
-    public PlayerRestClient getPlayerRestClient() {
-        return playerRestClient;
     }
 }

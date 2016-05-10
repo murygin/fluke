@@ -22,6 +22,7 @@ import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.themes.ValoTheme;
@@ -32,10 +33,14 @@ import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
  */
+@Service
+@VaadinSessionScope
 public class TrackMatchResultsTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "trackResultsView";
@@ -44,8 +49,12 @@ public class TrackMatchResultsTab extends AbstractFlukeTab {
     private static final long serialVersionUID = 1L;
 
     private final Set<Game> untrackedGames;
-    private final IGameResultService gameResultService;
-    private final GameRestClient gameService;
+
+    @Autowired
+    private IGameResultService gameResultService;
+
+    @Autowired
+    private GameRestClient gameService;
 
     private Grid grid;
     private Window resultWindow;
@@ -54,11 +63,7 @@ public class TrackMatchResultsTab extends AbstractFlukeTab {
 
         setCaption(LABEL);
 
-        this.gameService = ((FlukeUI) UI.getCurrent()).getGameRestClient();
-        this.gameResultService = ((FlukeUI) UI.getCurrent()).getGameResultRestClient();
-
         this.untrackedGames = new HashSet<>();
-        this.untrackedGames.addAll(Arrays.asList(gameService.findAllUntrackedGames()));
 
         createContent();
     }

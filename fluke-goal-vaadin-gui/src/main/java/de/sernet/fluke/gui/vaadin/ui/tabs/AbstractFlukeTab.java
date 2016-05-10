@@ -22,29 +22,33 @@ package de.sernet.fluke.gui.vaadin.ui.tabs;
 import java.util.*;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
+@Service
+@VaadinSessionScope
 public abstract class AbstractFlukeTab extends VerticalLayout implements IFlukeUITab {
 
     private static final long serialVersionUID = 1L;
 
-    protected final PlayerRestClient playerService;
+    @Autowired
+    private PlayerRestClient playerService;
 
     private final HorizontalLayout crudMenu;
 
     public AbstractFlukeTab() {
 
         super();
-
-        playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
 
         setSpacing(true);
         setWidth(100, Unit.PERCENTAGE);
@@ -101,5 +105,9 @@ public abstract class AbstractFlukeTab extends VerticalLayout implements IFlukeU
     public void doOnEnter() {
         updatePlayerList();
         doEnter();
+    }
+
+    public PlayerRestClient getPlayerService(){
+        return playerService;
     }
 }

@@ -7,20 +7,23 @@ import com.vaadin.data.sort.Sort;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.data.sort.SortDirection;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import de.sernet.fluke.client.rest.PlayerRestClient;
 import de.sernet.fluke.client.rest.TeamRestClient;
-import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Player;
 import de.sernet.fluke.model.Team;
+import org.springframework.beans.factory.annotation.Autowire;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@VaadinSessionScope
+@Service
 public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
     
     public static final String TYPE_ID = "statisticsView";
@@ -33,16 +36,13 @@ public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
     private VerticalLayout tabRootLayout;
 
     private Button switchStatistic;
-    
-    private final PlayerRestClient playerService;
-    private final TeamRestClient teamService;
+
+    @Autowired
+    private TeamRestClient teamService;
     
     public StatisticsTab(){
         super();
         setCaption(LABEL);
-        playerService = ((FlukeUI) UI.getCurrent()).getPlayerRestClient();
-        teamService = ((FlukeUI) UI.getCurrent()).getTeamRestClient();
-
     }
     
     protected void initContent() {
@@ -113,7 +113,7 @@ public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
     
     protected void updatePlayerList() {
 
-        List<Player> players = Arrays.asList(playerService.findAll());
+        List<Player> players = Arrays.asList(getPlayerService().findAll());
         if(players == null || players.isEmpty()){
             Note.info("No players found");
         }else {

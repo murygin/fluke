@@ -23,18 +23,42 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.AccountRestClient;
+import de.sernet.fluke.client.rest.GameRestClient;
+import de.sernet.fluke.client.rest.GameResultRestClient;
+import de.sernet.fluke.client.rest.PlayerRestClient;
+import de.sernet.fluke.client.rest.TeamRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
+@Service
+@VaadinSessionScope
 public class LoginForm extends FormLayout {
+
+    @Autowired
+    private GameRestClient gameRestClient;
+
+    @Autowired
+    private GameResultRestClient gameResultRestClient;
+
+    @Autowired
+    private PlayerRestClient playerRestClient;
+
+    @Autowired
+    private TeamRestClient teamRestClient;
+
+    @Autowired
+    private AccountRestClient accountRestClient;
 
     private static final long serialVersionUID = 1L;
 
@@ -46,13 +70,11 @@ public class LoginForm extends FormLayout {
 
     private final Label invalidPassword = new Label("Invalid username or password");
 
-    private AccountRestClient realAccountService;
-
-    private final Runnable callback;
+    private Runnable callback;
 
     private final Button loginBtn;
 
-    public LoginForm(Runnable callback) {
+    public LoginForm() {
 
 //        setWidth("1200px");
 
@@ -80,7 +102,6 @@ public class LoginForm extends FormLayout {
                 });
 
         invalidPassword.setVisible(false);
-        this.callback = callback;
     }
 
     private void login(Event event) {
@@ -89,11 +110,11 @@ public class LoginForm extends FormLayout {
             
             initRestClientsWithCredentials();
             
-            Account account = realAccountService.findByLogin(username.getValue());
+            Account account = accountRestClient.findByLogin(username.getValue());
 
             VaadinSession session = getUI().getSession();
             session.setAttribute(Account.class, account);
-            callback.run();
+            getCallback().run();
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode() == HttpStatus.UNAUTHORIZED) {
                 invalidPassword.setVisible(true);
@@ -115,22 +136,28 @@ public class LoginForm extends FormLayout {
 
     private void initRestClientsWithCredentials() {
         
-        FlukeUI flukeUI = (FlukeUI) UI.getCurrent();
-        realAccountService = flukeUI.getAccountService();
-        realAccountService.initRestOperations(username.getValue(),
+        accountRestClient.initRestOperations(username.getValue(),
                 password.getValue());
         
-        flukeUI.getPlayerRestClient().initRestOperations(
-                username.getValue(), password.getValue());
+        playerRestClient.initRestOperations(username.getValue(),
+                password.getValue());
         
-        flukeUI.getGameRestClient().initRestOperations(
-                username.getValue(), password.getValue());
+        gameRestClient.initRestOperations(username.getValue(),
+                password.getValue());
         
-        flukeUI.getGameResultRestClient().initRestOperations(
-                username.getValue(), password.getValue());
+        gameResultRestClient.initRestOperations(username.getValue(),
+                password.getValue());
         
-        flukeUI.getTeamRestClient().initRestOperations(
-                username.getValue(), password.getValue());
+        teamRestClient.initRestOperations(username.getValue(),
+                password.getValue());
         
         }
+
+    public Runnable getCallback() {
+        return callback;
+    }
+
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
+    }
 }
