@@ -22,6 +22,7 @@ import com.vaadin.data.Property;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -31,10 +32,13 @@ import com.vaadin.ui.themes.ValoTheme;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.FlukePlayerForm;
 import de.sernet.fluke.model.Player;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Ruth Motza <rm[at]sernet[dot]de>
  */
+@Service
+@VaadinSessionScope
 public class ManagePlayersTab extends AbstractFlukeTab {
 
     public static final String TYPE_ID = "managePlayersView";
@@ -106,7 +110,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
         if (event instanceof ItemClickEvent) {
             ItemClickEvent itemEvent = (ItemClickEvent) event;
             Property<Long> item = itemEvent.getItem().getItemProperty("id");
-            player = playerService.findOne(item.getValue());
+            player = getPlayerService().findOne(item.getValue());
         } else {
         if (grid.getSelectedRows().size() < 1) {
             Note.warning("Please select a player");
@@ -135,7 +139,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
 
                 player.setFirstName(playerForm.getFirstName());
                 player.setLastName(playerForm.getLastName());
-                playerService.save(player);
+                getPlayerService().save(player);
                 event.getButton().removeClickListener(this);
                 updatePlayerList();
                 playerWindow.close();
@@ -172,7 +176,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
                 Player player = new Player();
                 player.setFirstName(playerForm.getFirstName());
                 player.setLastName(playerForm.getLastName());
-                playerService.save(player);
+                getPlayerService().save(player);
                 Note.info("Player created");
                 updatePlayerList();
                 event.getButton().removeClickListener(this);
@@ -195,7 +199,7 @@ public class ManagePlayersTab extends AbstractFlukeTab {
                 selectedPlayers.add((Player) object);
             }
         }
-        selectedPlayers.forEach(player -> playerService.delete(player.getId()));
+        selectedPlayers.forEach(player -> getPlayerService().delete(player.getId()));
         updatePlayerList();
     }
 

@@ -21,18 +21,22 @@ import org.slf4j.LoggerFactory;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.spring.annotation.VaadinSessionScope;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.client.rest.AccountBuilder;
-import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.interfaces.IAccountService;
 import de.sernet.fluke.model.Account;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 /**
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
+@Service
+@VaadinSessionScope
 public class RegisterForm extends FormLayout {
 
     private static final long serialVersionUID = 1L;
@@ -53,11 +57,10 @@ public class RegisterForm extends FormLayout {
 
     private final Button register = new Button("register", this::register);
 
-    private final IAccountService accountService;
+    @Autowired
+    private IAccountService accountService;
 
-    public RegisterForm(IAccountService accountService) {
-
-        this.accountService = ((FlukeUI) UI.getCurrent()).getAccountService();
+    public RegisterForm() {
 
         setCaption("register");
 
