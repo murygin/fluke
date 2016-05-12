@@ -15,6 +15,7 @@
  */
 package de.sernet.fluke.gui.vaadin.ui;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ import org.springframework.beans.factory.annotation.Value;
 @Title("Fluke")
 @SpringUI
 @Theme("valo")
-// @PreserveOnRefresh
+@PreserveOnRefresh
 public class FlukeUI extends UI {
 
     private static final long serialVersionUID = 1L;
