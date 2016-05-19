@@ -34,6 +34,7 @@ import de.sernet.fluke.gui.vaadin.ui.components.TrackMatchResultPanel;
 import de.sernet.fluke.interfaces.*;
 import de.sernet.fluke.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -54,6 +55,7 @@ public class TrackMatchResultsTab extends AbstractFlukeTab {
     private IGameResultService gameResultService;
 
     @Autowired
+    @Qualifier("vaadinGameRestClient")
     private GameRestClient gameService;
 
     private Grid grid;

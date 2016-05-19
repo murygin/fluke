@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Benjamin Weißenfels <bw@sernet.de>
  */
-@Service
+@Service(value = "vaadinGameRestClient")
 @VaadinSessionScope
 public class VaadinGameRestClient extends GameRestClient {
 

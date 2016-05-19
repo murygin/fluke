@@ -31,6 +31,7 @@ import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
 import de.sernet.fluke.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,6 +47,7 @@ public class CreateMatchTab extends AbstractFlukeTab {
     private static final long serialVersionUID = 1L;
 
     @Autowired
+    @Qualifier("vaadinGameRestClient")
     private GameRestClient gameService;
 
     private Grid grid;

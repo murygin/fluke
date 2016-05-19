@@ -35,6 +35,7 @@ import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -46,6 +47,7 @@ import org.springframework.stereotype.Service;
 public class LoginForm extends FormLayout {
 
     @Autowired
+    @Qualifier("vaadinGameRestClient")
     private GameRestClient gameRestClient;
 
     @Autowired
