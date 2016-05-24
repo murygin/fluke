@@ -30,6 +30,7 @@ import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
 import de.sernet.fluke.model.Player;
+import java.security.SecureRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -126,7 +127,8 @@ public class CreateMatchTab extends AbstractFlukeTab {
             Note.warning("No match possible,\nthere have to be at least 4 players!");
             return "";
         }
-        Collections.shuffle(playersToCreateMatch);
+
+        Collections.shuffle(playersToCreateMatch, new SecureRandom());
         StringBuilder teams = new StringBuilder();
         if (playersToCreateMatch.size() > 4) {
             Note.warning("Only 4 players allowed, rest will be removed!");
