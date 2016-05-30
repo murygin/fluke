@@ -10,7 +10,7 @@ deploy:
   username: dm@sernet.de
   password:
     secure: "TMvAuZVgqvKUYHrj/8R8r/L3FPKGWuXmnk9aJ8ZOvWSmP71Uud5htYHrXrk1uECyV/iwMrIQmc8YxfAkVeOr9c6ccHcIKAL9IWcfQEWSCeIRZWaW9OKT+HaU1HulL6dW+Jn3Xm2eRXxIbyHcG3sN20qr8ZTCBqLz6nVUS/QEpWNCOVnw91puD7EYaBQ1yk5sRG2kGF3EK0VZHYa49tLsX+nXBc+wyQ2BrZv0e0q+JUqmzwCeKy3IDclqpd/jQxBUWJqtRBM0Ff6hPM9daGJmL+Q9zVfGwVuZX1uIllTf0BRGVU/CO1+AETuLNDvm3sGSKuX35HwJWzc40/SoY9NVne35clOEB1HjtxmA3O3lRgC0WsQok/35Y+V5yVSjNhz3E5IAYNiC4Gn4uaC02l4Hk5QRMhyBdxneb+td4JJzeqd1jsfomsQWtb8bMosLUUmj12QJ+DlvFDDfQzqhwVrzGlprNGIigW24vKROo8kIr0231KLgiGmK2zBePalpw/CZfjBESGK86IhyCxAs60pXNAlptDvMjgx8dLcjLRL42DUeH0uyP+xAXEr8pCTd7AdTGWKsB0kKtVGv5cAGaqWM8jBIgTTyUIV43ZmEX9g7ZOb5ORZW9cUhS+668YbP1K0vQpSA4wXJLfFNK/eKB+YbRnhLQDiX4EZbAEHLo9MZ77s="
-organization: murygin
+  organization: sernet
   space: development
   on:
     repo: murygin/fluke
