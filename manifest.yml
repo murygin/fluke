@@ -1,6 +1,6 @@
 ---
 applications:
-- name: flukegoalapi
+- name: flukeapi
   path: fluke-goal-rest/target/fluke-goal-rest-0.1.0-SNAPSHOT.jar
-- name: flukegoal
+- name: fluke
   path: fluke-goal-vaadin-gui/target/fluke-goal-vaadin-gui-0.1.0-SNAPSHOT.jar
