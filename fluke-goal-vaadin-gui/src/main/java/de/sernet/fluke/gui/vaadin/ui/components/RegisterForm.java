@@ -62,7 +62,7 @@ public class RegisterForm extends FormLayout {
 
     public RegisterForm() {
 
-        setCaption("register");
+        setCaption("Register");
 
         addComponent(login);
         addComponent(getFirstName);

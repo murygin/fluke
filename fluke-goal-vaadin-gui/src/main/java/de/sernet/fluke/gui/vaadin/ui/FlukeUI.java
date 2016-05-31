@@ -98,7 +98,7 @@ public class FlukeUI extends UI {
         footerLayout.setWidth(ROOT_WIDTH);
         footerLayout.setHeight(50, Unit.PIXELS);
 
-        Label buildNumber = new Label("git sha1: " + gitSha1.substring(0, 7));
+        Label buildNumber = new Label("Git sha1: " + gitSha1.substring(0, 7));
         buildNumber.setSizeUndefined();
         buildNumber.setStyleName(ValoTheme.LABEL_TINY);
         footerLayout.addComponent(buildNumber);

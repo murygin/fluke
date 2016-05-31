@@ -80,7 +80,7 @@ public class LoginForm extends FormLayout {
 
 //        setWidth("1200px");
 
-        setCaption("login");
+        setCaption("Login");
         setSpacing(true);
         username.focus();
         addComponent(username);
