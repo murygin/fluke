@@ -35,7 +35,6 @@ public class TrackMatchResultPanel extends Panel {
     
     private static final long serialVersionUID = 20160407105117L;
     private static final String EVEN_RESULT_WARNING = "Games can not be tracked with an even result";
-    private static String[] goalCountArray = new String[]{"0", "1", "2", "3", "4", "5", "6"};
 
     private TrackMatchResultsTab parent;
     
@@ -74,37 +73,28 @@ public class TrackMatchResultPanel extends Panel {
         gameLabel = new Label(getGameLabel(game));
         form.addComponent(gameLabel);
         
-        redTeamGoalsCombo = getGoalComboBox("Red Team Goals", false);
+        redTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Red Team Goals", false);
         form.addComponent(redTeamGoalsCombo);
         
-        blueTeamGoalsCombo = getGoalComboBox("Blue Team Goals", false);
+        blueTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Blue Team Goals", false);
         form.addComponent(blueTeamGoalsCombo);
         
-        redOffensiveTeamGoalsCombo = getGoalComboBox("Red Team Offensive Goals", true);
+        redOffensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Red Team Offensive Goals", true);
         form.addComponent(redOffensiveTeamGoalsCombo);
         
-        redDefensiveTeamGoalsCombo = getGoalComboBox("Red Team Defensive Goals", true);
+        redDefensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Red Team Defensive Goals", true);
         form.addComponent(redDefensiveTeamGoalsCombo);
 
-        blueOffensiveTeamGoalsCombo = getGoalComboBox("Blue Team Offensive Goals", true);
+        blueOffensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Blue Team Offensive Goals", true);
         form.addComponent(blueOffensiveTeamGoalsCombo);
         
-        blueDefensiveTeamGoalsCombo = getGoalComboBox("Blue Team Defensive Goals", true);
+        blueDefensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Blue Team Defensive Goals", true);
         form.addComponent(blueDefensiveTeamGoalsCombo);
         
         submitGameResultButton = new Button("Submit Results", this::trackResult);
         form.addComponent(submitGameResultButton);
         
         setContent(form);
-    }
-    
-    private ComboBox getGoalComboBox(String caption, boolean visible){
-        ComboBox combo = new ComboBox(caption, Arrays.asList(goalCountArray));
-        combo.setVisible(visible);
-        combo.setMultiSelect(false);
-        combo.setNullSelectionAllowed(false);
-        combo.setNullSelectionItemId(0);
-        return combo;
     }
     
     private void trackResult(Button.ClickEvent event){

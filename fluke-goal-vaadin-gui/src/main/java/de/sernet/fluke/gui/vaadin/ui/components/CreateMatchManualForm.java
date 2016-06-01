@@ -33,6 +33,11 @@ public class CreateMatchManualForm extends Panel {
     private ComboBox blueOffensiveTeamPlayer;
     private ComboBox blueDefensiveTeamPlayer;
     
+    private ComboBox redOffensiveTeamGoalsCombo;
+    private ComboBox redDefensiveTeamGoalsCombo;
+    private ComboBox blueOffensiveTeamGoalsCombo;
+    private ComboBox blueDefensiveTeamGoalsCombo;
+    
     private Button submitMatchButton;
     
     
@@ -40,28 +45,44 @@ public class CreateMatchManualForm extends Panel {
 
     public CreateMatchManualForm(Collection<Player> content) {
         
-        final FormLayout layout = new FormLayout();
+        final GridLayout layout = new GridLayout(2, 5);
         layout.setMargin(true);
+        layout.setSpacing(true);
         this.comboContent = content;
         createContent(layout);
         
     }
 
-    private void createContent(final FormLayout form) {
+    private void createContent(final GridLayout form) {
         
-        redOffensiveTeamPlayer = getPlayerComboBox("Red Team Offensive Player");
+        Label description = new Label("Please select 4 Players. Optionally, you can set the number of goals for each player. If you dont set the goals a game but no game result is created.");
+        form.addComponent(description, 0, 0, 1, 0);
+        
+        redOffensiveTeamPlayer = GuiElementFactory.getPlayerComboBox("Red Team Offensive Player", comboContent);
         form.addComponent(redOffensiveTeamPlayer);
         
-        redDefensiveTeamPlayer = getPlayerComboBox("Red Team Defensive Player");
+        redOffensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Goals", true);
+        form.addComponent(redOffensiveTeamGoalsCombo);
+        
+        redDefensiveTeamPlayer = GuiElementFactory.getPlayerComboBox("Red Team Defensive Player", comboContent);
         form.addComponent(redDefensiveTeamPlayer);
+        
+        redDefensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Goals", true);
+        form.addComponent(redDefensiveTeamGoalsCombo);
 
-        blueOffensiveTeamPlayer = getPlayerComboBox("Blue Team Offensive Player");
+        blueOffensiveTeamPlayer = GuiElementFactory.getPlayerComboBox("Blue Team Offensive Player", comboContent);
         form.addComponent(blueOffensiveTeamPlayer);
         
-        blueDefensiveTeamPlayer = getPlayerComboBox("Blue Team Defensive Player");
+        blueOffensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Goals", true);
+        form.addComponent(blueOffensiveTeamGoalsCombo);
+        
+        blueDefensiveTeamPlayer = GuiElementFactory.getPlayerComboBox("Blue Team Defensive Player", comboContent);
         form.addComponent(blueDefensiveTeamPlayer);
         
-        submitMatchButton = new Button("Submit Results");
+        blueDefensiveTeamGoalsCombo = GuiElementFactory.getGoalComboBox("Goals", true);
+        form.addComponent(blueDefensiveTeamGoalsCombo);
+        
+        submitMatchButton = new Button("Create Game");
         form.addComponent(submitMatchButton);
         
         setContent(form);
@@ -70,16 +91,6 @@ public class CreateMatchManualForm extends Panel {
     public Button getSubmitButton() {
         return submitMatchButton;
     }
-
-    private ComboBox getPlayerComboBox(String caption) {
-        ComboBox combo = new ComboBox(caption, comboContent);
-        combo.setVisible(true);
-        combo.setMultiSelect(false);
-        combo.setNullSelectionAllowed(false);
-        combo.setNullSelectionItemId(0);
-        return combo;
-    }
-
 
     /**
      * returns the ids of the combo boxes: ids[0] = redDefensiveTeamPlayer,
