@@ -26,10 +26,14 @@ import com.vaadin.ui.Grid.SelectionMode;
 import com.vaadin.ui.themes.ValoTheme;
 
 import de.sernet.fluke.client.rest.GameRestClient;
+import de.sernet.fluke.client.rest.GameResultRestClient;
 import de.sernet.fluke.gui.vaadin.ui.FlukeUI;
 import de.sernet.fluke.gui.vaadin.ui.Note;
 import de.sernet.fluke.gui.vaadin.ui.components.CreateMatchManualForm;
+import de.sernet.fluke.interfaces.IGameResultService;
+import de.sernet.fluke.model.Game;
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.rest.GoalsOfAGameCollection;
 import java.security.SecureRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -50,6 +54,9 @@ public class CreateMatchTab extends AbstractFlukeTab {
     @Autowired
     @Qualifier("vaadinGameRestClient")
     private GameRestClient gameService;
+    
+    @Autowired
+    private IGameResultService gameResultService;
 
     private Grid grid;
     protected Label result;
@@ -191,17 +198,31 @@ public class CreateMatchTab extends AbstractFlukeTab {
     }
 
     private void saveMatch(ClickEvent event) {
-
-        long[] ids = matchPanel.getGame();
-        if (onlyUniqueIds(ids)) {
-
-            gameService.create(ids[1], ids[0], ids[3], ids[2]);
+        long[] playerIds = matchPanel.getPlayerIds();
+        if (onlyUniqueIds(playerIds)) {
+            Game game = gameService.create(playerIds[1], playerIds[0], playerIds[3], playerIds[2]);
+            boolean resultSaved = saveResult(game);
             manualMatchWindow.close();
-            Note.info("Match created");
+            if(resultSaved) {
+                Note.info("A new match with a result was created.");
+            } else {
+                Note.info("A new match was created. Go to 'Track Results' to set the result.");
+            }
+            
         } else {
             Note.warning("The Players chosen are not unique");
         }
-
+    }
+    
+    private boolean saveResult(Game game) {
+        boolean resultCreated = false;
+        GoalsOfAGameCollection goals = matchPanel.getGoals();
+        if(goals.isValidPlayerCollection()) {
+            goals.setGameId(game.getId());
+            gameResultService.trackGameResult(goals);
+            resultCreated = true;
+        }
+        return resultCreated;
     }
 
     /**

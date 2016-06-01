@@ -20,9 +20,13 @@ import java.util.Collection;
 import com.vaadin.ui.*;
 
 import de.sernet.fluke.model.Player;
+import de.sernet.fluke.rest.GoalsOfAGameCollection;
 
 /**
+ * This class creates a form to create a game and optionally a game result.
+ * 
  * @author Sebastian Hagedorn <sh[at]sernet[dot]de>
+ * @author Daniel Murygin <dm[at]sernet[dot]de>
  */
 public class CreateMatchManualForm extends Panel {
     
@@ -43,14 +47,12 @@ public class CreateMatchManualForm extends Panel {
     
     private Collection<Player> comboContent;
 
-    public CreateMatchManualForm(Collection<Player> content) {
-        
+    public CreateMatchManualForm(Collection<Player> content) {      
         final GridLayout layout = new GridLayout(2, 5);
         layout.setMargin(true);
         layout.setSpacing(true);
         this.comboContent = content;
         createContent(layout);
-        
     }
 
     private void createContent(final GridLayout form) {
@@ -93,18 +95,42 @@ public class CreateMatchManualForm extends Panel {
     }
 
     /**
-     * returns the ids of the combo boxes: ids[0] = redDefensiveTeamPlayer,
-     * ids[1] = redOffensiveTeamPlayer, ids[2] = blueDefensiveTeamPlayer, ids[3]
-     * = blueOffensiveTeamPlayer
+     * long[0] = redDefensiveTeamPlayer,
+     * long[1] = redOffensiveTeamPlayer, 
+     * long[2] = blueDefensiveTeamPlayer, 
+     * long[3] = blueOffensiveTeamPlayer
      * 
-     * @return
+     * @return The ids of the players which were selected for a new game
      */
-    public long[] getGame() {
+    public long[] getPlayerIds() {
         long[] ids = new long[4];
         ids[0] = ((Player) redDefensiveTeamPlayer.getValue()).getId();
         ids[1] = ((Player) redOffensiveTeamPlayer.getValue()).getId();
         ids[2] = ((Player) blueDefensiveTeamPlayer.getValue()).getId();
         ids[3] = ((Player) blueOffensiveTeamPlayer.getValue()).getId();
         return ids;
+    }
+
+    public GoalsOfAGameCollection getGoals() {
+        GoalsOfAGameCollection goals = new GoalsOfAGameCollection();
+        goals.setBlueScoredDefensiveGoals(convertObjectToShort(blueDefensiveTeamGoalsCombo.getValue()));
+        goals.setBlueScoredOffensiveGoals(convertObjectToShort(blueOffensiveTeamGoalsCombo.getValue()));
+        goals.setRedScoredDefensiveGoals(convertObjectToShort(redDefensiveTeamGoalsCombo.getValue()));
+        goals.setRedScoredOffensiveGoals(convertObjectToShort(redOffensiveTeamGoalsCombo.getValue()));
+        return goals;
+    }
+
+    /**
+     * Returns null if value is null.
+     * 
+     * @throws NumberFormatException If values is not a number
+     * @return The value converted to a short
+     */
+    private Short convertObjectToShort(Object value) throws NumberFormatException {
+        Short result = null;
+        if(value!=null) {
+            result = Short.valueOf((String) value);
+        }
+        return result;
     }
 }

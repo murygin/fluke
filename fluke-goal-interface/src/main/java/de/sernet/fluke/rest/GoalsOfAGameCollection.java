@@ -23,6 +23,8 @@ package de.sernet.fluke.rest;
  */
 public class GoalsOfAGameCollection {
     
+    public static final short MAX_GOALS = 6;
+    
     private Long gameId;
     
     private Short redTeamGoals;
@@ -52,6 +54,29 @@ public class GoalsOfAGameCollection {
         this.blueScoredDefensiveGoals = Short.valueOf(blueScoredDefensiveGoals);
         this.blueScoredOffensiveGoals = Short.valueOf(blueScoredOffensiveGoals);
         
+    }
+    
+    public boolean isValidPlayerCollection() {
+        boolean allNotNull = 
+                redScoredOffensiveGoals!=null &&
+                redScoredDefensiveGoals!=null &&
+                blueScoredOffensiveGoals!=null && 
+                blueScoredDefensiveGoals!=null;
+        boolean allNumbersValid =
+                isNumberOfGoalsValid(redScoredOffensiveGoals) &&
+                isNumberOfGoalsValid(redScoredDefensiveGoals) &&
+                isNumberOfGoalsValid(blueScoredOffensiveGoals) &&
+                isNumberOfGoalsValid(blueScoredDefensiveGoals);
+         return allNotNull && allNumbersValid;
+    }
+    
+    
+
+    private boolean isNumberOfGoalsValid(Short numberOfGoals) {
+        if(numberOfGoals==null) {
+            return false;
+        }
+        return numberOfGoals >= 0 && numberOfGoals <= MAX_GOALS;
     }
 
     /**
