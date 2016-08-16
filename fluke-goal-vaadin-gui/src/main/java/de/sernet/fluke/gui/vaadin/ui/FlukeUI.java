@@ -163,7 +163,7 @@ public class FlukeUI extends UI {
 
         ManagePlayersTab managePlayersTab = managePlayersTabFactory.getObject();
         applicationMenu.addComponent(managePlayersTab);
-        managePlayersTab.do OnEnter();
+        managePlayersTab.doOnEnter();
 
         CreateMatchTab initComponent = createMatchTabObjectFactory.getObject();
         applicationMenu.addComponent(initComponent);
