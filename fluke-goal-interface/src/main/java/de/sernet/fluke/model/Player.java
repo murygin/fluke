@@ -13,6 +13,9 @@ public class Player {
     public static final String LASTNAME = "lastName";
     public static final String WONGAMES = "wonGames";
     public static final String LOSTGAMES = "lostGames";
+    public static final String WONKPI = "wonKPI";
+    public static final String WONLOSTRATIO = "wonLostRatio";
+    public static final String WONPERCENT = "wonPercent";
     public static final String SCOREDOFFENSIVEGOALS = "scoredOffensiveGoals";
     public static final String SCOREDDEFENSIVEGOALS = "scoredDefensiveGoals";
     public static final String SCOREDTOTALGOALS = "scoredTotalGoals";
@@ -101,7 +104,34 @@ public class Player {
     public void setLostGames(long lostGames) {
         this.lostGames = lostGames;
     }
-
+    
+    public double getWonLostRatio() {
+        double ratio = 0;
+        if(getWonGames()>0 && getLostGames()==0) {
+            ratio = getWonGames();
+        } else if(getWonGames()==0 && getLostGames()>0) {
+            ratio = 0;
+        } else if(getWonGames()>0 && getLostGames()>0){
+            ratio = (getWonGames()*1.0) / (getLostGames()*1.0);
+        }
+        return MathUtil.round(ratio, 2);
+    }
+    
+    public double getWonKPI() {
+        double kpi = getWonLostRatio() * (getWonGames() + getLostGames());
+        return MathUtil.round(kpi, 2);
+    }
+    
+    public double getWonPercent() {
+        double percent = 0;
+        long numberOfGames = getWonGames() + getLostGames();
+        if(numberOfGames == 0 || getWonGames() == 0) {
+            return percent;
+        }
+        percent = (getWonGames()*1.0) / numberOfGames * 100.0;
+        return MathUtil.round(percent, 2);
+    }
+    
     public long getScoredOffensiveGoals() {
         return scoredOffensiveGoals;
     }

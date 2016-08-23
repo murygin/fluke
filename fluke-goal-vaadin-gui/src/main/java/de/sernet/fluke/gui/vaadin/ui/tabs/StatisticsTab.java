@@ -66,7 +66,10 @@ public class StatisticsTab extends AbstractFlukeTab implements IFlukeUITab {
                 Player.SCOREDTOTALGOALS,
                 Player.SCOREDOFFENSIVEGOALS,
                 Player.SCOREDDEFENSIVEGOALS,
-                Player.CONCEDEDGOALS);
+                Player.CONCEDEDGOALS,
+                Player.WONKPI,
+                Player.WONLOSTRATIO,
+                Player.WONPERCENT);
         
         playerGrid.setSortOrder(Sort.by(Player.WONGAMES, SortDirection.DESCENDING)
                 .then(Player.SCOREDTOTALGOALS, SortDirection.DESCENDING)

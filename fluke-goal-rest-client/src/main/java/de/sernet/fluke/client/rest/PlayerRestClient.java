@@ -90,10 +90,15 @@ public class PlayerRestClient extends AbstractSecureRestClient implements IPlaye
 
     @Override
     public Player[] findAll() {
-        String uri = getBaseUrl();
-        ResponseEntity<Player[]> responseEntity = getRestHandler().getForEntity(uri,
-                Player[].class);
-        return responseEntity.getBody();
+        try {
+            String uri = getBaseUrl();
+            ResponseEntity<Player[]> responseEntity = getRestHandler().getForEntity(uri,
+                    Player[].class);
+            return responseEntity.getBody();
+        } catch( Exception e ) {
+            LOG.error("Error while loading players", e);
+            throw e;
+        }
     }
 
     @Override
