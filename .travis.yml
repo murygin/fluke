@@ -5,6 +5,7 @@ before_install:
   -in application.properties.enc -out fluke-goal-rest/src/main/resources/application.properties
   -d
 deploy:
+  edge: true
   provider: cloudfoundry
   api: https://api.run.pivotal.io
   username: dm@sernet.de
