@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-  <name>fluke-goal-rest</name>
-  <comment>Spring Boot Starter Parent. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
-  <projects>
-    <project>fluke-goal-service</project>
-    <project>fluke-goal-persistence</project>
-    <project>fluke-goal-interface</project>
-  </projects>
-  <buildSpec>
-    <buildCommand>
-      <name>org.eclipse.jdt.core.javabuilder</name>
-    </buildCommand>
-  </buildSpec>
-  <natures>
-    <nature>org.eclipse.jdt.core.javanature</nature>
-  </natures>
+	<name>fluke-goal-rest</name>
+	<comment>Spring Boot Starter Parent. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+	<projects>
+		<project>fluke-goal-service</project>
+		<project>fluke-goal-persistence</project>
+		<project>fluke-goal-interface</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.sonarlint.eclipse.core.sonarlintBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
 </projectDescription>
