@@ -15,3 +15,4 @@ deploy:
   space: development
   on:
     repo: murygin/fluke
+    branch: master
