@@ -43,7 +43,7 @@ public class RegisterForm extends FormLayout {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegisterForm.class);
 
-    private final TextField login = new TextField("login name");
+    private final TextField login = new TextField("Login name");
 
     private final TextField getFirstName = new TextField("first name");
 
