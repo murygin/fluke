@@ -1,0 +1,16 @@
+2016-09-19 09:57:25 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Starting FlukeGoalVaadinGuiApplicationTests on 762deff55879 with PID 718 (/projects/fluke/fluke-goal-vaadin-gui/target/test-classes started by user in /projects/fluke/fluke-goal-vaadin-gui)
+2016-09-19 09:57:25 [main] DEBUG d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Running with Spring Boot v1.3.3.RELEASE, Spring v4.2.5.RELEASE
+2016-09-19 09:57:25 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - No active profile set, falling back to default profiles: default
+2016-09-19 09:57:27 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Started FlukeGoalVaadinGuiApplicationTests in 2.894 seconds (JVM running for 3.745)
+2016-09-19 11:19:47 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Starting FlukeGoalVaadinGuiApplicationTests on b43ef6b6e2d0 with PID 461 (/projects/fluke/fluke-goal-vaadin-gui/target/test-classes started by user in /projects/fluke/fluke-goal-vaadin-gui)
+2016-09-19 11:19:47 [main] DEBUG d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Running with Spring Boot v1.3.3.RELEASE, Spring v4.2.5.RELEASE
+2016-09-19 11:19:47 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - No active profile set, falling back to default profiles: default
+2016-09-19 11:19:50 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Started FlukeGoalVaadinGuiApplicationTests in 3.319 seconds (JVM running for 4.243)
+2016-09-19 11:21:47 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Starting FlukeGoalVaadinGuiApplicationTests on b43ef6b6e2d0 with PID 694 (/projects/fluke/fluke-goal-vaadin-gui/target/test-classes started by user in /projects/fluke/fluke-goal-vaadin-gui)
+2016-09-19 11:21:47 [main] DEBUG d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Running with Spring Boot v1.3.3.RELEASE, Spring v4.2.5.RELEASE
+2016-09-19 11:21:47 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - No active profile set, falling back to default profiles: default
+2016-09-19 11:21:50 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Started FlukeGoalVaadinGuiApplicationTests in 2.78 seconds (JVM running for 3.544)
+2016-09-19 11:28:27 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Starting FlukeGoalVaadinGuiApplicationTests on b43ef6b6e2d0 with PID 1239 (/projects/fluke/fluke-goal-vaadin-gui/target/test-classes started by user in /projects/fluke/fluke-goal-vaadin-gui)
+2016-09-19 11:28:27 [main] DEBUG d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Running with Spring Boot v1.3.3.RELEASE, Spring v4.2.5.RELEASE
+2016-09-19 11:28:27 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - No active profile set, falling back to default profiles: default
+2016-09-19 11:28:29 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Started FlukeGoalVaadinGuiApplicationTests in 2.785 seconds (JVM running for 3.528)
