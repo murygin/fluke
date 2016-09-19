@@ -1,0 +1,4 @@
+2016-09-16 09:37:33 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Starting FlukeGoalVaadinGuiApplicationTests on ba19819d9220 with PID 694 (/projects/fluke/fluke-goal-vaadin-gui/target/test-classes started by user in /projects/fluke/fluke-goal-vaadin-gui)
+2016-09-16 09:37:33 [main] DEBUG d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Running with Spring Boot v1.3.3.RELEASE, Spring v4.2.5.RELEASE
+2016-09-16 09:37:33 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - No active profile set, falling back to default profiles: default
+2016-09-16 09:37:35 [main] INFO  d.s.f.g.v.t.FlukeGoalVaadinGuiApplicationTests - Started FlukeGoalVaadinGuiApplicationTests in 2.801 seconds (JVM running for 3.593)

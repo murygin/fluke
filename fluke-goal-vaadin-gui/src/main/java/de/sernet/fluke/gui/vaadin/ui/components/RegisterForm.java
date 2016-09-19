@@ -55,7 +55,7 @@ public class RegisterForm extends FormLayout {
 
     private final TextField email = new TextField("email");
 
-    private final Button register = new Button("register", this::register);
+    private final Button register = new Button("Register", this::register);
 
     @Autowired
     private IAccountService accountService;
