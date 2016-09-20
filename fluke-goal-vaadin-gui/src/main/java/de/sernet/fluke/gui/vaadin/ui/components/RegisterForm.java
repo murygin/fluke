@@ -43,11 +43,11 @@ public class RegisterForm extends FormLayout {
 
     private static final Logger LOG = LoggerFactory.getLogger(RegisterForm.class);
 
-    private final TextField login = new TextField("Login name");
+    private final TextField login = new TextField("login name");
 
     private final TextField getFirstName = new TextField("first name");
 
-    private final TextField getLastName = new TextField("last name");
+    private final TextField getLastName = new TextField("Last name");
 
     private final PasswordField password = new PasswordField("password");
 
@@ -55,7 +55,7 @@ public class RegisterForm extends FormLayout {
 
     private final TextField email = new TextField("email");
 
-    private final Button register = new Button("Register", this::register);
+    private final Button register = new Button("register", this::register);
 
     @Autowired
     private IAccountService accountService;
@@ -111,10 +111,5 @@ public class RegisterForm extends FormLayout {
         retypedPassword.setValue("");
         email.setValue("");
         login.focus();
-        // Page.getCurrent().setLocation(
-        // VaadinServlet
-        // .getCurrent()
-        // .getServletContext()
-        // .getContextPath() + "");
     }
 }
